@@ -1,7 +1,7 @@
 # Ingenieria del Software II - Template
 
-![GHA Status](https://github.com/uca-is2/2024-nave/actions/workflows/GHA.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/uca-is2/2024-nave/badge.svg?branch=master)](https://coveralls.io/github/uca-is2/2024-nave?branch=master)
+![GHA Status](https://github.com/uca-argentina/2024-nave/actions/workflows/GHA.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/uca-argentina/2024-nave/badge.svg?branch=master)](https://coveralls.io/github/uca-argentina/2024-nave?branch=master)
 
 ## Metacello
 
