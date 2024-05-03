@@ -1,11 +1,11 @@
 Class {
-	#name : #TestShip,
+	#name : #ShipTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #asserting }
-TestShip >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessage [
+ShipTest >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessage [
 	self
 		should: anErrorBlock
 		raise: exceptionClass
@@ -14,14 +14,14 @@ TestShip >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessa
 ]
 
 { #category : #tests }
-TestShip >> testCanCreateAShipWithName [
+ShipTest >> testCanCreateAShipWithName [
 	| aShip |
 	aShip := Ship withName: 'valen'. 
 	self assert: aShip isNotNil 
 ]
 
 { #category : #tests }
-TestShip >> testWhenSendNilNameThrowsError [
+ShipTest >> testWhenSendNilNameThrowsError [
 	| aNilName|
 	aNilName := nil.
 	self should: [Ship withName: aNilName] raise: Error withMessage: 'cant create a ship with nil name'
