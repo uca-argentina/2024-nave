@@ -25,6 +25,33 @@ CellTest >> testIfCellHasShipThenIsOccupiedShouldReturnTrue [
 ]
 
 { #category : #tests }
+CellTest >> testIfCellHasTwoShipsAndRemoveShipFromCellThenIsOccupiedShouldReturnTrue [
+	| aCell aShip anotherShip |
+	aCell := Cell new.
+	aShip := Ship withName: 'test-ship'.
+	anotherShip := Ship withName: 'test-ship-2'.
+	aCell accepts: aShip.
+	aCell accepts: anotherShip.
+	aCell remove: aShip.
+	self assert: aCell isOccupied
+	
+	
+]
+
+{ #category : #tests }
+CellTest >> testIfCellHasTwoShipsThenIsOccupiedShouldReturnTrue [
+	| aCell aShip anotherShip |
+	aCell := Cell new.
+	aShip := Ship withName: 'test-ship'.
+	anotherShip := Ship withName: 'test-ship-2'.
+	aCell accepts: aShip.
+	aCell accepts: anotherShip.
+	self assert: aCell isOccupied
+	
+	
+]
+
+{ #category : #tests }
 CellTest >> testIfRemoveShipFromCellThenIsOccupiedShouldReturnFalse [
 	| aCell aShip|
 	aCell := Cell new.

@@ -2,22 +2,28 @@ Class {
 	#name : #Cell,
 	#superclass : #Object,
 	#instVars : [
-		'shipInCell'
+		'shipsInCell'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #testing }
 Cell >> accepts: aShip [ 
-	shipInCell := aShip
+	shipsInCell add: aShip.
+]
+
+{ #category : #initialization }
+Cell >> initialize [
+	super initialize.
+	shipsInCell := Set new.
 ]
 
 { #category : #testing }
 Cell >> isOccupied [
-	^shipInCell isNotNil .
+	^shipsInCell notEmpty .
 ]
 
 { #category : #removing }
 Cell >> remove: aShip [
-	shipInCell := nil
+	shipsInCell remove: aShip.
 ]
