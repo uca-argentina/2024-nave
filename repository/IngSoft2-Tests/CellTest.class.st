@@ -23,3 +23,15 @@ CellTest >> testIfCellHasShipThenIsOccupiedShouldReturnTrue [
 	
 	
 ]
+
+{ #category : #tests }
+CellTest >> testIfRemoveShipFromCellThenIsOccupiedShouldReturnFalse [
+	| aCell aShip|
+	aCell := Cell new.
+	aShip := Ship withName: 'test-ship'.
+	aCell accepts: aShip.
+	aCell remove: aShip.
+	self deny: aCell isOccupied
+	
+	
+]

@@ -16,3 +16,8 @@ Cell >> accepts: aShip [
 Cell >> isOccupied [
 	^shipInCell isNotNil .
 ]
+
+{ #category : #removing }
+Cell >> remove: aShip [
+	shipInCell := nil
+]
