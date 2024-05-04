@@ -7,6 +7,16 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'instance creation' }
+Cell class >> with: aShip [ 
+	^(self new) initializeWith: aShip.
+]
+
+{ #category : #'instance creation' }
+Cell class >> withAll: aShipCollection [ 
+	^(self new) initializeWithAll: aShipCollection .
+]
+
 { #category : #testing }
 Cell >> accepts: aShip [ 
 	shipsInCell add: aShip.
@@ -16,6 +26,16 @@ Cell >> accepts: aShip [
 Cell >> initialize [
 	super initialize.
 	shipsInCell := Set new.
+]
+
+{ #category : #initialization }
+Cell >> initializeWith: aShip [ 
+	shipsInCell add: aShip.
+]
+
+{ #category : #initialization }
+Cell >> initializeWithAll: aShipCollection [ 
+	shipsInCell addAll: aShipCollection.
 ]
 
 { #category : #testing }
