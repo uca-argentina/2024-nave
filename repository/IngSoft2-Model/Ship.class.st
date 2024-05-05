@@ -31,5 +31,5 @@ Ship >> playIn: aBoard with: aDice [
 	fromCell := aBoard whereIs: self.
 	toCell := aBoard moveFrom: fromCell times: diceResult.
 	fromCell remove: self.
-	toCell accepts: self.
+	toCell enters: self.
 ]

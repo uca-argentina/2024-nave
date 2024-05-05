@@ -46,7 +46,7 @@ CellTest >> testIfCellHasShipThenIsOccupiedShouldReturnTrue [
 	| aCell aShip|
 	aCell := Cell new.
 	aShip := Ship withName: 'test-ship'.
-	aCell accepts: aShip.
+	aCell enters: aShip.
 	self assert: aCell isOccupied
 	
 	
@@ -58,9 +58,9 @@ CellTest >> testIfCellHasTwoShipsAndRemoveShipFromCellThenIsOccupiedShouldReturn
 	aCell := Cell new.
 	aShip := Ship withName: 'test-ship'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aCell accepts: aShip.
-	aCell accepts: anotherShip.
-	aCell remove: aShip.
+	aCell enters: aShip.
+	aCell enters: anotherShip.
+	aCell leaves: aShip.
 	self assert: aCell isOccupied
 	
 	
@@ -72,8 +72,8 @@ CellTest >> testIfCellHasTwoShipsThenIsOccupiedShouldReturnTrue [
 	aCell := Cell new.
 	aShip := Ship withName: 'test-ship'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aCell accepts: aShip.
-	aCell accepts: anotherShip.
+	aCell enters: aShip.
+	aCell enters: anotherShip.
 	self assert: aCell isOccupied
 	
 	
@@ -120,8 +120,8 @@ CellTest >> testIfRemoveShipFromCellThenIsOccupiedShouldReturnFalse [
 	| aCell aShip|
 	aCell := Cell new.
 	aShip := Ship withName: 'test-ship'.
-	aCell accepts: aShip.
-	aCell remove: aShip.
+	aCell enters: aShip.
+	aCell leaves: aShip.
 	self deny: aCell isOccupied
 	
 	

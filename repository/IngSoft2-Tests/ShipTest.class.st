@@ -32,7 +32,7 @@ ShipTest >> testWhenShipThrowsDiceAndResultIsOneThenOriginCellIsNotOccupiedAndTh
 	|aBoard aCell anotherCell aShip aOneLoadedDie theDice |
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
-	aCell accepts: aShip.
+	aCell enters: aShip.
 	anotherCell := Cell new.
 	aOneLoadedDie := LoadedDie in: 1.
 	theDice := Dice with: aOneLoadedDie.  
@@ -49,7 +49,7 @@ ShipTest >> testWhenShipThrowsDiceAndResultIsTwoThenOriginCellIsNotOccupiedAndTh
 	|aBoard aCell anotherCell yetAnotherCell theDice aShip aTwoLoadedDie |
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
-	aCell accepts: aShip.
+	aCell enters: aShip.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
 	aTwoLoadedDie := LoadedDie in: 2.
