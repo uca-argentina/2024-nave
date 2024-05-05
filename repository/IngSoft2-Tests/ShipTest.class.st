@@ -38,7 +38,7 @@ ShipTest >> testWhenShipThrowsDiceAndResultIsOneThenOriginCellIsNotOccupiedAndTh
 	theDice := Dice with: aOneLoadedDie.  
 	aBoard := Board with: aCell with: anotherCell.
 	
-	aShip from: aCell playIn: aBoard with: theDice.
+	aShip playIn: aBoard with: theDice.
 	
 	self deny: aCell isOccupied.
 	self assert: anotherCell isOccupied.
@@ -56,7 +56,7 @@ ShipTest >> testWhenShipThrowsDiceAndResultIsTwoThenOriginCellIsNotOccupiedAndTh
 	theDice := Dice with: aTwoLoadedDie.  
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
 	
-	aShip from: aCell playIn: aBoard with: theDice.
+	aShip playIn: aBoard with: theDice.
 	
 	self deny: aCell isOccupied.
 	self deny: anotherCell isOccupied.

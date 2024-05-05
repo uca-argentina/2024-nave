@@ -19,16 +19,17 @@ Ship class >> withName: aName [
 	^ (self new) initializeWith: aName.
 ]
 
-{ #category : #'instance creation' }
-Ship >> from: fromCell playIn: aBoard with: aDice [ 
-	| diceResult toCell |
-	diceResult := aDice throw.
-	toCell := aBoard moveFrom: fromCell times: diceResult.
-	fromCell remove: self.
-	toCell accepts: self.
-]
-
 { #category : #initialization }
 Ship >> initializeWith: aName [ 
 	name := aName
+]
+
+{ #category : #'instance creation' }
+Ship >> playIn: aBoard with: aDice [ 
+	| diceResult fromCell toCell |
+	diceResult := aDice throw.
+	fromCell := aBoard whereIs: self.
+	toCell := aBoard moveFrom: fromCell times: diceResult.
+	fromCell remove: self.
+	toCell accepts: self.
 ]
