@@ -5,12 +5,40 @@ Class {
 }
 
 { #category : #tests }
+CellTest >> testIfCellHasAShipThenIncludesThatShipShouldReturnTrue [
+	|aCell aShip|
+	aShip := Ship withName: 'test-ship-1'.
+	aCell := Cell with: aShip.
+	
+	self assert: (aCell includes: aShip) 
+]
+
+{ #category : #tests }
+CellTest >> testIfCellHasNoShipThenIncludesAnyShipShouldReturnFalse [
+	|aCell aShip|
+	aShip := Ship withName: 'test-ship-1'.
+	aCell := Cell new.
+	
+	self deny: (aCell includes: aShip) 
+]
+
+{ #category : #tests }
 CellTest >> testIfCellHasNoShipThenIsOccupiedShouldReturnFalse [
 	| aCell |
 	aCell := Cell new.
 	self deny: aCell isOccupied
 	
 	
+]
+
+{ #category : #tests }
+CellTest >> testIfCellHasOneShipThenIncludesOtherShipShouldReturnFalse [
+	|aCell aShip anotherShip|
+	aShip := Ship withName: 'test-ship-1'.
+	anotherShip := Ship withName: 'test-ship-2'.
+	aCell := Cell with: aShip.
+	
+	self deny: (aCell includes: anotherShip) 
 ]
 
 { #category : #tests }

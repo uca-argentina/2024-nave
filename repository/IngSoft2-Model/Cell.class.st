@@ -22,6 +22,11 @@ Cell >> accepts: aShip [
 	shipsInCell add: aShip.
 ]
 
+{ #category : #testing }
+Cell >> includes: aShip [
+	^shipsInCell includes: aShip.
+]
+
 { #category : #initialization }
 Cell >> initialize [
 	super initialize.
