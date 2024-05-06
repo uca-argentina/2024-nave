@@ -5,6 +5,20 @@ Class {
 }
 
 { #category : #tests }
+GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenIsOverShouldReturnFalse [
+	| aCell anotherCell yetAnotherCell aBoard aDice aShip aGame|
+	aShip := Ship withName: 'test-ship-1'.
+	aCell := Cell new.
+	anotherCell := Cell with: aShip.
+	yetAnotherCell := Cell new.
+	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+	aDice := Dice with: (Die of: 6).
+	aGame := Game in: aBoard with: aDice playing: aShip.
+	self deny: aGame isOver.
+
+]
+
+{ #category : #tests }
 GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenIsOverShouldReturnFalse [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.

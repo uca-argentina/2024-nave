@@ -23,5 +23,5 @@ Game >> initializeWith: aBoard using: aDice playing: aShip [
 
 { #category : #testing }
 Game >> isOver [
-	^(board at: 2) isOccupied .
+	^board last isOccupied .
 ]
