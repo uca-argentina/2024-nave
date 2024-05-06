@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenIsOverShouldReturnTrue [
+GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenIsOverShouldReturnFalse [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell with: aShip.
