@@ -32,6 +32,21 @@ Game >> isOver [
 ]
 
 { #category : #'as yet unclassified' }
+Game >> nextToPlay [
+	^ships first.
+]
+
+{ #category : #'as yet unclassified' }
+Game >> playsNextTurn [
+	| shipToPlay |
+	shipToPlay := self nextToPlay.
+	shipToPlay playIn: board with: dice.
+	
+	ships removeFirst.
+	ships addLast: shipToPlay.
+]
+
+{ #category : #'as yet unclassified' }
 Game >> whereIs: aShip [ 
 	^board whereIs: aShip.
 ]

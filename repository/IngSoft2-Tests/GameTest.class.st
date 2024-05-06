@@ -94,6 +94,41 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenIsOverShouldRet
 ]
 
 { #category : #tests }
+GameTest >> testWhenGamePlayedOneTurnThenNextToPlayIsTheSecondInTheList [
+	| aCell anotherCell aBoard aDice aShip aGame anotherShip yetAnotherCell aShipCollection |
+	aShip := Ship withName: 'test-ship-1'.
+	anotherShip := Ship withName: 'test-ship-2'.
+	aCell := Cell with: aShip with: anotherShip.
+	anotherCell := Cell new.
+	yetAnotherCell := Cell new.
+	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+	aDice := Dice with: (Die of: 6).
+	aShipCollection := OrderedCollection with: aShip with: anotherShip.
+	aGame := Game in: aBoard with: aDice playing: aShipCollection.
+	aGame playsNextTurn.
+	
+	self assert: (aGame nextToPlay) equals: anotherShip.
+
+]
+
+{ #category : #tests }
+GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
+	| aCell anotherCell aBoard aDice aShip aGame anotherShip yetAnotherCell aShipCollection |
+	aShip := Ship withName: 'test-ship-1'.
+	anotherShip := Ship withName: 'test-ship-2'.
+	aCell := Cell with: aShip with: anotherShip.
+	anotherCell := Cell new.
+	yetAnotherCell := Cell new.
+	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+	aDice := Dice with: (Die of: 6).
+	aShipCollection := OrderedCollection with: aShip with: anotherShip.
+	aGame := Game in: aBoard with: aDice playing: aShipCollection.
+	
+	self assert: (aGame nextToPlay) equals: aShip.
+
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipIsInFirstCellThenWhereIsShipShouldReturnTheFirstCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
