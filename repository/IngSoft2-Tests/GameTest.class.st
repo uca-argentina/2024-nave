@@ -92,3 +92,31 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenIsOverShouldRet
 	self assert: aGame isOver.
 
 ]
+
+{ #category : #tests }
+GameTest >> testWhenShipIsInFirstCellThenWhereIsShipShouldReturnTheFirstCell [
+	| aCell anotherCell aBoard aDice aShip aGame|
+	aShip := Ship withName: 'test-ship-1'.
+	aCell := Cell with: aShip.
+	anotherCell := Cell new.
+	aBoard := Board with: aCell with: anotherCell.
+	aDice := Dice with: (Die of: 6).
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	
+	self assert: (aGame whereIs: aShip) equals: aCell.
+
+]
+
+{ #category : #tests }
+GameTest >> testWhenShipIsInLastCellThenWhereIsShipShouldReturnTheLastCell [
+	| aCell anotherCell aBoard aDice aShip aGame|
+	aShip := Ship withName: 'test-ship-1'.
+	aCell := Cell new.
+	anotherCell := Cell with: aShip.
+	aBoard := Board with: aCell with: anotherCell.
+	aDice := Dice with: (Die of: 6).
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	
+	self assert: (aGame whereIs: aShip) equals: anotherCell.
+
+]

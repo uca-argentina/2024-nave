@@ -32,6 +32,11 @@ Game >> isOver [
 ]
 
 { #category : #'as yet unclassified' }
+Game >> whereIs: aShip [ 
+	^board whereIs: aShip.
+]
+
+{ #category : #'as yet unclassified' }
 Game >> winner [
 
 	self checkIfIsOver.
