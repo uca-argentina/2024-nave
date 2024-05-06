@@ -14,6 +14,11 @@ Game class >> in: aBoard with: aDice playing: aShip [
 	^(self new) initializeWith: aBoard using: aDice playing: aShip
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> checkIfIsOver [
+	self isOver ifFalse: [ Error signal: 'game is not over yet' ]
+]
+
 { #category : #initialization }
 Game >> initializeWith: aBoard using: aDice playing: aShipCollection [ 
 	board := aBoard.
@@ -28,5 +33,7 @@ Game >> isOver [
 
 { #category : #'as yet unclassified' }
 Game >> winner [
-	^(board last) first.
+
+	self checkIfIsOver.
+	^ board last first
 ]

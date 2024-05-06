@@ -4,6 +4,28 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+GameTest >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessage [
+	self
+		should: anErrorBlock
+		raise: exceptionClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
+{ #category : #tests }
+GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
+	| aCell anotherCell aBoard aDice aShip aGame|
+	aShip := Ship withName: 'test-ship-1'.
+	aCell := Cell with: aShip.
+	anotherCell := Cell new.
+	aBoard := Board with: aCell with: anotherCell.
+	aDice := Dice with: (Die of: 6).
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	self should: [aGame winner] raise: Error withMessage: 'game is not over yet'.
+
+]
+
 { #category : #tests }
 GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenWinnerShouldReturnTheShipInTheLastCell [
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
