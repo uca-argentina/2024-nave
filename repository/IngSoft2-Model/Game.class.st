@@ -3,8 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'board',
-		'ship',
-		'dice'
+		'dice',
+		'ships'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,13 +15,18 @@ Game class >> in: aBoard with: aDice playing: aShip [
 ]
 
 { #category : #initialization }
-Game >> initializeWith: aBoard using: aDice playing: aShip [ 
+Game >> initializeWith: aBoard using: aDice playing: aShipCollection [ 
 	board := aBoard.
 	dice := aDice.
-	ship := aShip.
+	ships := aShipCollection.
 ]
 
 { #category : #testing }
 Game >> isOver [
 	^board last isOccupied .
+]
+
+{ #category : #'as yet unclassified' }
+Game >> winner [
+	^(board last) first.
 ]
