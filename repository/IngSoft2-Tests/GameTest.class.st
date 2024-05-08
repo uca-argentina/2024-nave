@@ -143,6 +143,19 @@ GameTest >> testWhenShipIsInFirstCellThenWhereIsShipShouldReturnTheFirstCell [
 ]
 
 { #category : #tests }
+GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
+	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
+	aShip := Ship withName: 'test-ship-1'.
+	anotherShip := Ship withName: 'test-ship-2'.
+	aCell := Cell with: anotherShip.
+	anotherCell := Cell with: aShip.
+	aBoard := Board with: aCell with: anotherCell.
+	aDice := Dice with: (Die of: 6).
+	aGame := Game in: aBoard with: aDice playing: #(aShip anotherShip) asSet.
+	self should: [aGame playsNextTurn] raise: Error withMessage: 'game is over!'
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipIsInLastCellThenWhereIsShipShouldReturnTheLastCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.

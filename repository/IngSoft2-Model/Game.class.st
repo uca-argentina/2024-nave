@@ -33,7 +33,8 @@ Game >> isOver [
 
 { #category : #'as yet unclassified' }
 Game >> nextToPlay [
-	^ships first.
+	self isOver ifTrue: [ Error signal: 'game is over!' ].
+   ^ships first.
 ]
 
 { #category : #'as yet unclassified' }
