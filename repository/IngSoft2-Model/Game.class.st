@@ -33,18 +33,24 @@ Game >> isOver [
 
 { #category : #'as yet unclassified' }
 Game >> nextToPlay [
-	self isOver ifTrue: [ Error signal: 'game is over!' ].
    ^ships first.
 ]
 
 { #category : #'as yet unclassified' }
 Game >> playsNextTurn [
 	| shipToPlay |
+	self verifyGameIsNotOver.
 	shipToPlay := self nextToPlay.
 	shipToPlay playIn: board with: dice.
-	
+
 	ships removeFirst.
-	ships addLast: shipToPlay.
+	ships addLast: shipToPlay
+]
+
+{ #category : #'as yet unclassified' }
+Game >> verifyGameIsNotOver [
+
+	self isOver ifTrue: [ Error signal: 'game is over!' ]
 ]
 
 { #category : #'as yet unclassified' }
