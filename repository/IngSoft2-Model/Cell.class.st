@@ -1,6 +1,7 @@
 Class {
 	#name : #Cell,
 	#superclass : #OrderedCollection,
+	#superclass : #Set,
 	#category : #'IngSoft2-Model'
 }
 
