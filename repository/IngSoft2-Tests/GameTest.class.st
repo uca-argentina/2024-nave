@@ -21,7 +21,7 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 	anotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
 	self should: [aGame winner] raise: Error withMessage: 'game is not over yet'.
 
 ]
@@ -35,7 +35,7 @@ GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenWinnerSh
 	anotherCell := Cell with: anotherShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing: #(aShip anotherShip) asSet.
+	aGame := Game in: aBoard with: aDice playing: #(aShip anotherShip) asOrderedCollection .
 	self assert: (aGame winner) equals: anotherShip.
 
 ]
@@ -48,7 +48,7 @@ GameTest >> testWhenBoardHasAShipInTheLastCellThenWinnerShouldReturnThatShip [
 	anotherCell := Cell with: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
 	self assert: (aGame winner) equals: aShip.
 
 ]
@@ -62,7 +62,7 @@ GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenIsOverShouldR
 	yetAnotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing:  #(aShip) asSet.
+	aGame := Game in: aBoard with: aDice playing:  #(aShip) asOrderedCollection.
 	self deny: aGame isOver.
 
 ]
@@ -75,7 +75,7 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenIsOverShouldRetu
 	anotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing:#(aShip) asSet.
+	aGame := Game in: aBoard with: aDice playing:#(aShip) asOrderedCollection.
 	self deny: aGame isOver.
 
 ]
@@ -88,7 +88,7 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenIsOverShouldRet
 	anotherCell := Cell with: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
 	self assert: aGame isOver.
 
 ]
@@ -136,7 +136,7 @@ GameTest >> testWhenShipIsInFirstCellThenWhereIsShipShouldReturnTheFirstCell [
 	anotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
 	
 	self assert: (aGame whereIs: aShip) equals: aCell.
 
@@ -151,7 +151,7 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 	anotherCell := Cell with: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing: #(aShip anotherShip) asSet.
+	aGame := Game in: aBoard with: aDice playing: #(aShip anotherShip) asOrderedCollection.
 	self should: [aGame playsNextTurn] raise: Error withMessage: 'game is over!'
 ]
 
@@ -163,7 +163,7 @@ GameTest >> testWhenShipIsInLastCellThenWhereIsShipShouldReturnTheLastCell [
 	anotherCell := Cell with: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice with: (Die of: 6).
-	aGame := Game in: aBoard with: aDice playing: #(aShip) asSet.
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
 	
 	self assert: (aGame whereIs: aShip) equals: anotherCell.
 
