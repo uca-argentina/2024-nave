@@ -26,7 +26,7 @@ Game >> initializeWith: aBoard using: aDice playing: aShipCollection [
 	ships := aShipCollection.
 ]
 
-{ #category : #testing }
+{ #category : #'as yet unclassified' }
 Game >> isOver [
 	^board last isOccupied .
 ]
