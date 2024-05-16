@@ -6,17 +6,19 @@ Class {
 
 { #category : #tests }
 DiceTest >> testWhenCreateDiceWithThreeLoadedDieAndSixLoadedDieItThrowsNine [
-	| aThreeLoadedDie aSixLoadedDie aDice |
+	| aThreeLoadedDie aSixLoadedDie aDice someDice |
 	aThreeLoadedDie := LoadedDie in: 3.
 	aSixLoadedDie := LoadedDie in: 6.
-	aDice := Dice with: aThreeLoadedDie with: aSixLoadedDie.
+	someDice := Set with: aThreeLoadedDie with: aSixLoadedDie.
+	aDice := Dice withAll: someDice.
 	self assert: aDice throw equals: 9.	
 ]
 
 { #category : #tests }
 DiceTest >> testWhenCreateDiceWithTwoLoadedDieThrowsTwo [
-	| aTwoLoadedDie aDice |
+	| aTwoLoadedDie aDice someDice |
 	aTwoLoadedDie  := LoadedDie in: 2.
-	aDice := Dice with: aTwoLoadedDie.
+	someDice := Set with: aTwoLoadedDie.
+	aDice := Dice withAll: someDice.
 	self assert: aDice throw equals: 2.
 ]
