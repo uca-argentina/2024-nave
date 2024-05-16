@@ -9,12 +9,12 @@ Class {
 
 { #category : #'instance creation' }
 Die class >> of: anAmountOfFaces [
-	self verifyGreaterThanTwo: anAmountOfFaces.
+	self verifyAreValid: anAmountOfFaces.
 	^ self new initializeWith: anAmountOfFaces
 ]
 
 { #category : #'instance creation' }
-Die class >> verifyGreaterThanTwo: anAmountOfFaces [
+Die class >> verifyAreValid: anAmountOfFaces [
 
 	anAmountOfFaces <= 2 ifTrue: [
 		Error signal: 'number of faces must be greater than two' ]
