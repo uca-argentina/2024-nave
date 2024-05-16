@@ -20,10 +20,10 @@ Game >> checkIfIsOver [
 ]
 
 { #category : #initialization }
-Game >> initializeWith: aBoard using: aDice playing: aShipCollection [ 
+Game >> initializeWith: aBoard using: aDice playing: someShips [ 
 	board := aBoard.
 	dice := aDice.
-	ships := aShipCollection.
+	ships := someShips.
 ]
 
 { #category : #'as yet unclassified' }
