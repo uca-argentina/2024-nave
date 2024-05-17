@@ -15,6 +15,17 @@ Game class >> in: aBoard with: aDice playing: aShip [
 ]
 
 { #category : #'as yet unclassified' }
+Game class >> with: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+
+	^ self new
+		  initializeWith: someShips
+		  using: someDice
+		  withCells: anAmountOfCells
+		  wormholeStart: aWormholeStartLocation
+		  wormholeEnd: aWormholeEndLocation
+]
+
+{ #category : #'as yet unclassified' }
 Game >> checkIfIsOver [
 	self isOver ifFalse: [ Error signal: 'game is not over yet' ]
 ]
@@ -24,6 +35,18 @@ Game >> initializeWith: aBoard using: aDice playing: someShips [
 	board := aBoard.
 	dice := aDice.
 	ships := someShips.
+]
+
+{ #category : #initialization }
+Game >> initializeWith: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+	dice := someDice.
+	board := Board
+		         length: anAmountOfCells
+		         wormholeStart: aWormholeStartLocation
+		         wormholeEnd: aWormholeEndLocation.
+	board at: 1 place: someShips.
+	ships := someShips.
+	^ self
 ]
 
 { #category : #'as yet unclassified' }

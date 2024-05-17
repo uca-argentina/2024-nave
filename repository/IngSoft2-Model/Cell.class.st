@@ -17,6 +17,11 @@ Cell >> enters: aShip [
 	ships add: aShip.
 ]
 
+{ #category : #'as yet unclassified' }
+Cell >> entersAll: someShips [
+	ships addAll: someShips.
+]
+
 { #category : #accessing }
 Cell >> firstShip [
 	^ships first.
