@@ -35,7 +35,7 @@ ShipTest >> testWhenShipThrowsDiceAndResultIsOneThenOriginCellIsNotOccupiedAndTh
 	aCell enters: aShip.
 	anotherCell := Cell new.
 	aOneLoadedDie := LoadedDie in: 1.
-	theDice := Dice with: aOneLoadedDie.  
+	theDice := Dice withAll: (Set with: aOneLoadedDie).  
 	aBoard := Board with: aCell with: anotherCell.
 	
 	aShip playIn: aBoard with: theDice.
@@ -53,7 +53,7 @@ ShipTest >> testWhenShipThrowsDiceAndResultIsTwoThenOriginCellIsNotOccupiedAndTh
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
 	aTwoLoadedDie := LoadedDie in: 2.
-	theDice := Dice with: aTwoLoadedDie.  
+	theDice := Dice withAll: (Set with: aTwoLoadedDie).  
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
 	
 	aShip playIn: aBoard with: theDice.
