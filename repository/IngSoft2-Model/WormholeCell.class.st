@@ -19,6 +19,14 @@ WormholeCell class >> newPair [
 	^ aWormholePair.
 ]
 
+{ #category : #'instance creation' }
+WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wormholeEndLocation [
+	|wormholePair|
+	wormholePair :=  self newPair.
+	someCells at: wormholeStartLocation put: (wormholePair at: 1).
+	someCells at: wormholeEndLocation put: (wormholePair at: 2).
+]
+
 { #category : #testing }
 WormholeCell >> enters: aShip [
 	wormholeEnd entersFromStart: aShip.

@@ -5,6 +5,20 @@ Class {
 }
 
 { #category : #tests }
+WormholeCellTest >> testWhenCreateAWormholePairInCellsAndAShipEntersToTheWormholeThenTheShipIsInTheOtherWormhole [
+	|cells aWormholeStartLocation aWormholeEndLocation aShip|
+	aShip := Ship withName: 'test-name-1'.
+	cells := OrderedCollection new.
+	aWormholeStartLocation := 3.
+	aWormholeEndLocation := 7.
+	1 to: 10 do: [:index | cells add: (Cell new)].
+	WormholeCell newPairIn: cells start: aWormholeStartLocation end: aWormholeEndLocation.
+	
+	(cells at: 3) enters: aShip.
+	self assert: ((cells at: 7) includes: aShip).
+]
+
+{ #category : #tests }
 WormholeCellTest >> testWhenEntersFromFirstWormHoleThenSecondWormholeShouldIncludeTheShipAndFirstWormholeShouldNot [
 	| aShip aWormholePair firstWormhole secondWormhole |
 	aShip := Ship withName: 'test-ship-1'.
