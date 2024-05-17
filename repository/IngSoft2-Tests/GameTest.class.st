@@ -28,7 +28,7 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 ]
 
 { #category : #tests }
-GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenWinnerShouldReturnTheShipInTheLastCell [
+GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenTheWinnerShouldBeTheShipInLastCell [
 
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
 	aShip := Ship withName: 'test-ship-1'.
@@ -48,7 +48,7 @@ GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenWinnerSh
 ]
 
 { #category : #tests }
-GameTest >> testWhenBoardHasAShipInTheLastCellThenWinnerShouldReturnThatShip [
+GameTest >> testWhenBoardHasAShipInTheLastCellThenTheWinnerShouldBeThatShip [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
@@ -63,7 +63,7 @@ GameTest >> testWhenBoardHasAShipInTheLastCellThenWinnerShouldReturnThatShip [
 ]
 
 { #category : #tests }
-GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenIsOverShouldReturnFalse [
+GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenShouldNotBeOver [
 
 	| aCell anotherCell yetAnotherCell aBoard aDice aShip aGame |
 	aShip := Ship withName: 'test-ship-1'.
@@ -85,7 +85,7 @@ GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenIsOverShouldR
 ]
 
 { #category : #tests }
-GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenIsOverShouldReturnFalse [
+GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenShouldNotBeOver [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
@@ -99,7 +99,7 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenIsOverShouldRetu
 ]
 
 { #category : #tests }
-GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenIsOverShouldReturnTrue [
+GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenShouldBeOver [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
@@ -151,7 +151,7 @@ GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
 ]
 
 { #category : #tests }
-GameTest >> testWhenShipIsInFirstCellThenWhereIsShipShouldReturnTheFirstCell [
+GameTest >> testWhenShipIsInFirstCellAndAskWhereIsShouldBeTheFirstCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
@@ -181,7 +181,7 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 ]
 
 { #category : #tests }
-GameTest >> testWhenShipIsInLastCellThenWhereIsShipShouldReturnTheLastCell [
+GameTest >> testWhenShipIsInLastCellThenWhereIsShouldBeTheLastCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
