@@ -62,5 +62,6 @@ Game >> whereIs: aShip [
 Game >> winner [
 
 	self checkIfIsOver.
-	^ board last first
+	
+	^ board last firstShip.
 ]

@@ -29,7 +29,8 @@ BoardTest >> testWhenShipIsInACellThenWhereIsShouldReturnTheCell [
 	|aBoard aCell anotherCell yetAnotherCell aShip|
 	aShip := Ship withName: 'ship-test-1'.
 	aCell := Cell new.
-	anotherCell := Cell with: aShip.
+	anotherCell := Cell new.
+	anotherCell enters: aShip.
 	yetAnotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
 	
@@ -42,7 +43,8 @@ BoardTest >> testWhenShipIsInACellThenWhereIsShouldReturnTheCell [
 BoardTest >> testWhenShipIsInAnotherCellThenWhereIsShouldReturnThatCell [
 	|aBoard aCell anotherCell yetAnotherCell aShip|
 	aShip := Ship withName: 'ship-test-1'.
-	aCell := Cell with: aShip.
+	aCell := Cell new.
+	aCell enters: aShip.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.

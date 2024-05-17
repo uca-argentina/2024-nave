@@ -8,18 +8,10 @@ Class {
 CellTest >> testIfCellHasAShipThenIncludesThatShipShouldReturnTrue [
 	|aCell aShip|
 	aShip := Ship withName: 'test-ship-1'.
-	aCell := Cell with: aShip.
+	aCell := Cell new.
+	aCell enters: aShip.
 	
 	self assert: (aCell includes: aShip) 
-]
-
-{ #category : #tests }
-CellTest >> testIfCellHasNoShipThenIncludesAnyShipShouldReturnFalse [
-	|aCell aShip|
-	aShip := Ship withName: 'test-ship-1'.
-	aCell := Cell new.
-	
-	self deny: (aCell includes: aShip) 
 ]
 
 { #category : #tests }
@@ -27,27 +19,6 @@ CellTest >> testIfCellHasNoShipThenIsOccupiedShouldReturnFalse [
 	| aCell |
 	aCell := Cell new.
 	self deny: aCell isOccupied
-	
-	
-]
-
-{ #category : #tests }
-CellTest >> testIfCellHasOneShipThenIncludesOtherShipShouldReturnFalse [
-	|aCell aShip anotherShip|
-	aShip := Ship withName: 'test-ship-1'.
-	anotherShip := Ship withName: 'test-ship-2'.
-	aCell := Cell with: aShip.
-	
-	self deny: (aCell includes: anotherShip) 
-]
-
-{ #category : #tests }
-CellTest >> testIfCellHasShipThenIsOccupiedShouldReturnTrue [
-	| aCell aShip|
-	aCell := Cell new.
-	aShip := Ship withName: 'test-ship'.
-	aCell enters: aShip.
-	self assert: aCell isOccupied
 	
 	
 ]
@@ -83,7 +54,8 @@ CellTest >> testIfCellHasTwoShipsThenIsOccupiedShouldReturnTrue [
 CellTest >> testIfCreateCellWithAShipThenIsOccupiedShouldReturnTrue [
 	| aCell aShip|
 	aShip := Ship withName: 'test-ship'.
-	aCell := Cell with: aShip.
+	aCell := Cell new.
+	aCell enters: aShip.
 	self assert: aCell isOccupied
 	
 	
@@ -94,7 +66,9 @@ CellTest >> testIfCreateCellWithTwoShipsThenIsOccupiedShouldReturnTrue [
 	| aCell aShip anotherShip|
 	aShip := Ship withName: 'test-ship'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aCell := Cell withAll: #(aShip anotherShip).
+	aCell := Cell new.
+	aCell enters: aShip.
+	aCell enters: anotherShip.
 	self assert: aCell isOccupied
 	
 	
@@ -106,9 +80,9 @@ CellTest >> testIfCreateCellWithTwoShipsThenRemoveOneIsOccupiedShouldReturnTrue 
 	aSetOfShips := Set new.
 	aShip := Ship withName: 'test-ship'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aSetOfShips add: aShip.
-	aSetOfShips add: anotherShip.
-	aCell := Cell withAll: aSetOfShips.
+	aCell := Cell new.
+	aCell enters: aShip.
+	aCell enters: anotherShip.
 	aCell remove: anotherShip.
 	self assert: aCell isOccupied
 	
@@ -125,4 +99,34 @@ CellTest >> testIfRemoveShipFromCellThenIsOccupiedShouldReturnFalse [
 	self deny: aCell isOccupied
 	
 	
+]
+
+{ #category : #tests }
+CellTest >> testWhenCellHasAShipThenShouldIncludeThatShip [
+	| aShip aCell |
+	aShip := Ship withName: 'test-name-1'.
+	aCell := Cell new.
+	aCell enters: aShip.
+	
+	self assert: (aCell includes: aShip)
+]
+
+{ #category : #tests }
+CellTest >> testWhenCellHasAShipThenShouldNotIncludeAnotherShip [
+	| aShip aCell anotherShip |
+	aShip := Ship withName: 'test-name-1'.
+	anotherShip := Ship withName: 'test-name-2'.
+	aCell := Cell new.
+	aCell enters: aShip.
+	
+	self deny: (aCell includes: anotherShip)
+]
+
+{ #category : #tests }
+CellTest >> testWhenCellHasNoShipThenShouldNotIncludeAShip [
+	| aShip aCell |
+	aShip := Ship withName: 'test-name-1'.
+	aCell := Cell new.
+	
+	self deny: (aCell includes: aShip)
 ]

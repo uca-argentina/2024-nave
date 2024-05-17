@@ -17,7 +17,8 @@ GameTest >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessa
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
-	aCell := Cell with: aShip.
+	aCell := Cell new.
+	aCell enters: aShip.
 	anotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
@@ -31,8 +32,10 @@ GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenWinnerSh
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
 	aShip := Ship withName: 'test-ship-1'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aCell := Cell with: aShip.
-	anotherCell := Cell with: anotherShip.
+	aCell := Cell new.
+	aCell enters: aShip.
+	anotherCell := Cell new.
+	anotherCell enters: anotherShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := Game in: aBoard with: aDice playing: #(aShip anotherShip) asOrderedCollection .
@@ -45,7 +48,8 @@ GameTest >> testWhenBoardHasAShipInTheLastCellThenWinnerShouldReturnThatShip [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
-	anotherCell := Cell with: aShip.
+	anotherCell := Cell new.
+	anotherCell enters: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
@@ -58,7 +62,8 @@ GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenIsOverShouldR
 	| aCell anotherCell yetAnotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
-	anotherCell := Cell with: aShip.
+	anotherCell := Cell new.
+	anotherCell enters: aShip.
 	yetAnotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
@@ -71,7 +76,8 @@ GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenIsOverShouldR
 GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenIsOverShouldReturnFalse [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
-	aCell := Cell with: aShip.
+	aCell := Cell new.
+	aCell enters: aShip.
 	anotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
@@ -85,7 +91,8 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenIsOverShouldRet
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
-	anotherCell := Cell with: aShip.
+	anotherCell := Cell new.
+	anotherCell enters: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
@@ -98,7 +105,8 @@ GameTest >> testWhenGamePlayedOneTurnThenNextToPlayIsTheSecondInTheList [
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip yetAnotherCell aShipCollection |
 	aShip := Ship withName: 'test-ship-1'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aCell := Cell with: aShip with: anotherShip.
+	aCell := Cell new.
+	aCell enters: aShip.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
@@ -116,7 +124,9 @@ GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip yetAnotherCell aShipCollection |
 	aShip := Ship withName: 'test-ship-1'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aCell := Cell with: aShip with: anotherShip.
+	aCell := Cell new.
+	aCell enters: aShip.
+	aCell enters: anotherShip.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
@@ -132,7 +142,8 @@ GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
 GameTest >> testWhenShipIsInFirstCellThenWhereIsShipShouldReturnTheFirstCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
-	aCell := Cell with: aShip.
+	aCell := Cell new.
+	aCell enters: aShip.
 	anotherCell := Cell new.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
@@ -147,8 +158,10 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
 	aShip := Ship withName: 'test-ship-1'.
 	anotherShip := Ship withName: 'test-ship-2'.
-	aCell := Cell with: anotherShip.
-	anotherCell := Cell with: aShip.
+	aCell := Cell new.
+	aCell enters: anotherShip.
+	anotherCell := Cell new.
+	anotherCell enters: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := Game in: aBoard with: aDice playing: #(aShip anotherShip) asOrderedCollection.
@@ -160,7 +173,8 @@ GameTest >> testWhenShipIsInLastCellThenWhereIsShipShouldReturnTheLastCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
-	anotherCell := Cell with: aShip.
+	anotherCell := Cell new.
+	anotherCell enters: aShip.
 	aBoard := Board with: aCell with: anotherCell.
 	aDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.

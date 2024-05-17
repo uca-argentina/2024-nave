@@ -1,20 +1,53 @@
 Class {
 	#name : #Cell,
-	#superclass : #OrderedCollection,
+	#superclass : #Object,
+	#instVars : [
+		'ships'
+	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #testing }
+{ #category : #'instance creation' }
+Cell class >> withAll: someShips [ 
+	^ (self new) initializeWith: someShips.
+]
+
+{ #category : #'as yet unclassified' }
 Cell >> enters: aShip [
-	self add: aShip.
+	ships add: aShip.
+]
+
+{ #category : #accessing }
+Cell >> firstShip [
+	^ships first.
 ]
 
 { #category : #testing }
+Cell >> includes: aShip [ 
+	^ships includes: aShip.
+]
+
+{ #category : #initialization }
+Cell >> initialize [
+	ships := OrderedCollection new. 
+]
+
+{ #category : #initialization }
+Cell >> initializeWith: someShips [ 
+	ships := someShips.
+]
+
+{ #category : #'as yet unclassified' }
 Cell >> isOccupied [
-	^self notEmpty.
+	^ships notEmpty.
 ]
 
-{ #category : #testing }
+{ #category : #'as yet unclassified' }
 Cell >> leaves: aShip [
-	self remove: aShip.
+	ships remove: aShip.
+]
+
+{ #category : #removing }
+Cell >> remove: aShip [ 
+	ships remove: aShip.
 ]
