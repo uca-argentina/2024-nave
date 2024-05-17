@@ -6,11 +6,12 @@ Class {
 
 { #category : #tests }
 BoardTest >> testWhenMoveFromACellOneTimeThenItReturnsTheAdyacentCell [
-	| aBoard aCell anotherCell yetAnotherCell|
+	| aBoard aCell anotherCell yetAnotherCell cells |
 	aCell := Cell new.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
-	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+	cells := OrderedCollection with: aCell with: anotherCell with: yetAnotherCell.
+	aBoard := Board with: cells.
 	self assert: (aBoard moveFrom: aCell times: 1) equals: anotherCell.
 ]
 
@@ -20,7 +21,7 @@ BoardTest >> testWhenMoveFromACellTwoTimesThenItReturnsTheCellTwoCellsTowards [
 	aCell := Cell new.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
-	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+	aBoard := Board with: (OrderedCollection with: aCell with: anotherCell with: yetAnotherCell).
 	self assert: (aBoard moveFrom: aCell times: 2) equals: yetAnotherCell.
 ]
 
@@ -32,7 +33,7 @@ BoardTest >> testWhenShipIsInACellThenWhereIsShouldReturnTheCell [
 	anotherCell := Cell new.
 	anotherCell enters: aShip.
 	yetAnotherCell := Cell new.
-	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+	aBoard := Board with: (OrderedCollection with: aCell with: anotherCell with: yetAnotherCell).
 	
 	self assert: (aBoard whereIs: aShip) equals: anotherCell.
 	
@@ -47,7 +48,7 @@ BoardTest >> testWhenShipIsInAnotherCellThenWhereIsShouldReturnThatCell [
 	aCell enters: aShip.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
-	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+		aBoard := Board with: (OrderedCollection with: aCell with: anotherCell with: yetAnotherCell).
 	
 	self assert: (aBoard whereIs: aShip) equals: aCell.
 	
@@ -60,6 +61,6 @@ BoardTest >> testWhenTryToMovesOutsideBoardThenReturnTheLastCell [
 	aCell := Cell new.
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
-	aBoard := Board with: aCell with: anotherCell with: yetAnotherCell.
+		aBoard := Board with: (OrderedCollection with: aCell with: anotherCell with: yetAnotherCell).
 	self assert: (aBoard moveFrom: aCell times: 10) equals: yetAnotherCell .
 ]

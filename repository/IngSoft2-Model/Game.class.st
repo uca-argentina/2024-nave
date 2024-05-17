@@ -28,7 +28,7 @@ Game >> initializeWith: aBoard using: aDice playing: someShips [
 
 { #category : #'as yet unclassified' }
 Game >> isOver [
-	^board last isOccupied .
+	^board isLastCellOccupied .
 ]
 
 { #category : #'as yet unclassified' }
@@ -63,5 +63,5 @@ Game >> winner [
 
 	self checkIfIsOver.
 	
-	^ board last firstShip.
+	^ board winner.
 ]
