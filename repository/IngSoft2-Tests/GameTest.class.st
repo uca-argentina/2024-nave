@@ -4,15 +4,6 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #asserting }
-GameTest >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessage [
-	self
-		should: anErrorBlock
-		raise: exceptionClass
-		withExceptionDo: [ :error |
-		self assert: error messageText equals: anErrorMessage ]
-]
-
 { #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 	| aCell anotherCell aBoard aDice aShip aGame|
