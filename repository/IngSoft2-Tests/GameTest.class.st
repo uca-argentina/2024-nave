@@ -6,16 +6,30 @@ Class {
 
 { #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
-	| aCell anotherCell aBoard aDice aShip aGame|
+	"| aCell anotherCell aBoard aDice aShip aGame|
 	aShip := Ship withName: 'test-ship-1'.
 	aCell := Cell new.
 	aCell enters: aShip.
 	anotherCell := Cell new.
 		aBoard := Board with: (OrderedCollection with: aCell with: anotherCell).
 	aDice := Dice withAll: (Set with: (Die of: 6)).
-	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
-	self should: [aGame winner] raise: Error withMessage: 'game is not over yet'.
+	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection."
 
+	| someShips aGame someDice |
+	someShips := OrderedCollection
+		             with: (Ship withName: 'test-name-1')
+		             with: (Ship withName: 'test-name-2').
+	someDice := Dice withAll: (Set with: (Die of: 6)).
+	aGame := Game
+		         with: someShips
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 3
+		         wormholeEnd: 7.
+	self
+		should: [ aGame winner ]
+		raise: Error
+		withMessage: 'game is not over yet'
 ]
 
 { #category : #tests }
