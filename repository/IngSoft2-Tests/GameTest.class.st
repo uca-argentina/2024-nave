@@ -17,8 +17,8 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 
 	| someShips aGame someDice |
 	someShips := OrderedCollection
-		             with: (Ship withName: 'test-name-1')
-		             with: (Ship withName: 'test-name-2').
+		             with: ('test-name-1')
+		             with: ('test-name-2').
 	someDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := Game
 		         with: someShips
@@ -36,8 +36,8 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenTheWinnerShouldBeTheShipInLastCell [
 
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
-	aShip := Ship withName: 'test-ship-1'.
-	anotherShip := Ship withName: 'test-ship-2'.
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
 	aCell := Cell new.
 	aCell enters: aShip.
 	anotherCell := Cell new.
@@ -55,7 +55,7 @@ GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenTheWinne
 { #category : #tests }
 GameTest >> testWhenBoardHasAShipInTheLastCellThenTheWinnerShouldBeThatShip [
 	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aCell := Cell new.
 	anotherCell := Cell new.
 	anotherCell enters: aShip.
@@ -71,7 +71,7 @@ GameTest >> testWhenBoardHasAShipInTheLastCellThenTheWinnerShouldBeThatShip [
 GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenShouldNotBeOver [
 
 	| aCell anotherCell yetAnotherCell aBoard aDice aShip aGame |
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aCell := Cell new.
 	anotherCell := Cell new.
 	anotherCell enters: aShip.
@@ -92,7 +92,7 @@ GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenShouldNotBeOv
 { #category : #tests }
 GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenShouldNotBeOver [
 	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aCell := Cell new.
 	aCell enters: aShip.
 	anotherCell := Cell new.
@@ -106,7 +106,7 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenShouldNotBeOver 
 { #category : #tests }
 GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenShouldBeOver [
 	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aCell := Cell new.
 	anotherCell := Cell new.
 	anotherCell enters: aShip.
@@ -120,8 +120,8 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenShouldBeOver [
 { #category : #tests }
 GameTest >> testWhenGamePlayedOneTurnThenNextToPlayIsTheSecondInTheList [
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip yetAnotherCell aShipCollection |
-	aShip := Ship withName: 'test-ship-1'.
-	anotherShip := Ship withName: 'test-ship-2'.
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
 	aCell := Cell new.
 	aCell enters: aShip.
 	anotherCell := Cell new.
@@ -139,8 +139,8 @@ GameTest >> testWhenGamePlayedOneTurnThenNextToPlayIsTheSecondInTheList [
 { #category : #tests }
 GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip yetAnotherCell aShipCollection |
-	aShip := Ship withName: 'test-ship-1'.
-	anotherShip := Ship withName: 'test-ship-2'.
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
 	aCell := Cell new.
 	aCell enters: aShip.
 	aCell enters: anotherShip.
@@ -158,7 +158,7 @@ GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
 { #category : #tests }
 GameTest >> testWhenShipIsInFirstCellAndAskWhereIsShouldBeTheFirstCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aCell := Cell new.
 	aCell enters: aShip.
 	anotherCell := Cell new.
@@ -173,8 +173,8 @@ GameTest >> testWhenShipIsInFirstCellAndAskWhereIsShouldBeTheFirstCell [
 { #category : #tests }
 GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
-	aShip := Ship withName: 'test-ship-1'.
-	anotherShip := Ship withName: 'test-ship-2'.
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
 	aCell := Cell new.
 	aCell enters: anotherShip.
 	anotherCell := Cell new.
@@ -188,7 +188,7 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 { #category : #tests }
 GameTest >> testWhenShipIsInLastCellThenWhereIsShouldBeTheLastCell [
 	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aCell := Cell new.
 	anotherCell := Cell new.
 	anotherCell enters: aShip.

@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 WormholeCellTest >> testWhenCreateAWormholePairInCellsAndAShipEntersToTheWormholeThenTheShipIsInTheOtherWormhole [
 	|cells aWormholeStartLocation aWormholeEndLocation aShip|
-	aShip := Ship withName: 'test-name-1'.
+	aShip := 'test-name-1'.
 	cells := OrderedCollection new.
 	aWormholeStartLocation := 3.
 	aWormholeEndLocation := 7.
@@ -21,7 +21,7 @@ WormholeCellTest >> testWhenCreateAWormholePairInCellsAndAShipEntersToTheWormhol
 { #category : #tests }
 WormholeCellTest >> testWhenEntersFromFirstWormHoleThenSecondWormholeShouldIncludeTheShipAndFirstWormholeShouldNot [
 	| aShip aWormholePair firstWormhole secondWormhole |
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aWormholePair := WormholeCell newPair.
 	firstWormhole := aWormholePair at: 1.
 	secondWormhole := aWormholePair at: 2.
@@ -35,7 +35,7 @@ WormholeCellTest >> testWhenEntersFromFirstWormHoleThenSecondWormholeShouldInclu
 { #category : #tests }
 WormholeCellTest >> testWhenEntersFromSecondWormHoleThenFirstWormholeShouldIncludeTheShipAndSecondWormholeShouldNot [
 	| aShip aWormholePair firstWormhole secondWormhole |
-	aShip := Ship withName: 'test-ship-1'.
+	aShip := 'test-ship-1'.
 	aWormholePair := WormholeCell newPair.
 	firstWormhole := aWormholePair at: 1.
 	secondWormhole := aWormholePair at: 2.

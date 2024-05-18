@@ -28,7 +28,7 @@ BoardTest >> testWhenMoveFromACellTwoTimesThenItReturnsTheCellTwoCellsTowards [
 { #category : #tests }
 BoardTest >> testWhenShipIsInACellThenWhereIsShouldReturnTheCell [
 	|aBoard aCell anotherCell yetAnotherCell aShip|
-	aShip := Ship withName: 'ship-test-1'.
+	aShip := 'ship-test-1'.
 	aCell := Cell new.
 	anotherCell := Cell new.
 	anotherCell enters: aShip.
@@ -43,7 +43,7 @@ BoardTest >> testWhenShipIsInACellThenWhereIsShouldReturnTheCell [
 { #category : #tests }
 BoardTest >> testWhenShipIsInAnotherCellThenWhereIsShouldReturnThatCell [
 	|aBoard aCell anotherCell yetAnotherCell aShip|
-	aShip := Ship withName: 'ship-test-1'.
+	aShip := 'ship-test-1'.
 	aCell := Cell new.
 	aCell enters: aShip.
 	anotherCell := Cell new.
