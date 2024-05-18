@@ -61,10 +61,11 @@ Game >> nextToPlay [
 
 { #category : #'as yet unclassified' }
 Game >> playsNextTurn [
-	| shipToPlay |
+	| shipToPlay diceResult |
 	self verifyGameIsNotOver.
+	diceResult := dice throw.	
 	shipToPlay := self nextToPlay.
-	shipToPlay playIn: board with: dice.
+	board move: shipToPlay times: diceResult.
 
 	ships removeFirst.
 	ships addLast: shipToPlay
