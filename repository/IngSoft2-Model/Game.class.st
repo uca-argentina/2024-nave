@@ -25,11 +25,6 @@ Game class >> with: someShips using: someDice withCells: anAmountOfCells wormhol
 		  wormholeEnd: aWormholeEndLocation
 ]
 
-{ #category : #'as yet unclassified' }
-Game >> checkIfIsOver [
-	self isOver ifFalse: [ Error signal: 'game is not over yet' ]
-]
-
 { #category : #initialization }
 Game >> initializeWith: aBoard using: aDice playing: someShips [ 
 	board := aBoard.
@@ -62,7 +57,7 @@ Game >> nextToPlay [
 { #category : #'as yet unclassified' }
 Game >> playsNextTurn [
 	| shipToPlay diceResult |
-	self verifyGameIsNotOver.
+	self verifyIsNotOver.
 	diceResult := dice throw.	
 	shipToPlay := self nextToPlay.
 	board move: shipToPlay times: diceResult.
@@ -72,9 +67,14 @@ Game >> playsNextTurn [
 ]
 
 { #category : #'as yet unclassified' }
-Game >> verifyGameIsNotOver [
+Game >> verifyIsNotOver [
 
 	self isOver ifTrue: [ Error signal: 'game is over!' ]
+]
+
+{ #category : #'as yet unclassified' }
+Game >> verifyIsOver [
+	self isOver ifFalse: [ Error signal: 'game is not over yet' ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -85,7 +85,7 @@ Game >> whereIs: aShip [
 { #category : #'as yet unclassified' }
 Game >> winner [
 
-	self checkIfIsOver.
+	self verifyIsOver.
 	
 	^ board winner.
 ]
