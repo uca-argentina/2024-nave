@@ -1,5 +1,5 @@
 Class {
-	#name : #Game,
+	#name : #SpaceshipGame,
 	#superclass : #Object,
 	#instVars : [
 		'board',
@@ -10,12 +10,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Game class >> in: aBoard with: aDice playing: aShip [ 
+SpaceshipGame class >> in: aBoard with: aDice playing: aShip [ 
 	^(self new) initializeWith: aBoard using: aDice playing: aShip
 ]
 
 { #category : #'as yet unclassified' }
-Game class >> with: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+SpaceshipGame class >> with: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 
 	^ self new
 		  initializeWith: someShips
@@ -26,14 +26,14 @@ Game class >> with: someShips using: someDice withCells: anAmountOfCells wormhol
 ]
 
 { #category : #initialization }
-Game >> initializeWith: aBoard using: aDice playing: someShips [ 
+SpaceshipGame >> initializeWith: aBoard using: aDice playing: someShips [ 
 	board := aBoard.
 	dice := aDice.
 	ships := someShips.
 ]
 
 { #category : #initialization }
-Game >> initializeWith: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+SpaceshipGame >> initializeWith: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 	dice := someDice.
 	board := Board
 		         length: anAmountOfCells
@@ -45,17 +45,17 @@ Game >> initializeWith: someShips using: someDice withCells: anAmountOfCells wor
 ]
 
 { #category : #'as yet unclassified' }
-Game >> isOver [
+SpaceshipGame >> isOver [
 	^board isLastCellOccupied .
 ]
 
 { #category : #'as yet unclassified' }
-Game >> nextToPlay [
+SpaceshipGame >> nextToPlay [
    ^ships first.
 ]
 
 { #category : #'as yet unclassified' }
-Game >> playsNextTurn [
+SpaceshipGame >> playsNextTurn [
 	| shipToPlay diceResult |
 	self verifyIsNotOver.
 	diceResult := dice throw.	
@@ -67,23 +67,23 @@ Game >> playsNextTurn [
 ]
 
 { #category : #'as yet unclassified' }
-Game >> verifyIsNotOver [
+SpaceshipGame >> verifyIsNotOver [
 
 	self isOver ifTrue: [ Error signal: 'game is over!' ]
 ]
 
 { #category : #'as yet unclassified' }
-Game >> verifyIsOver [
+SpaceshipGame >> verifyIsOver [
 	self isOver ifFalse: [ Error signal: 'game is not over yet' ]
 ]
 
 { #category : #'as yet unclassified' }
-Game >> whereIs: aShip [ 
+SpaceshipGame >> whereIs: aShip [ 
 	^board whereIs: aShip.
 ]
 
 { #category : #'as yet unclassified' }
-Game >> winner [
+SpaceshipGame >> winner [
 
 	self verifyIsOver.
 	
