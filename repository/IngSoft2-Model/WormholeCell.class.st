@@ -29,15 +29,15 @@ WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wor
 
 { #category : #testing }
 WormholeCell >> enters: aShip [
-	wormholeEnd entersFromStart: aShip.
-]
-
-{ #category : #'as yet unclassified' }
-WormholeCell >> entersFromStart: aShip [ 
-	super enters: aShip.
+	wormholeEnd teleport: aShip.
 ]
 
 { #category : #initialization }
 WormholeCell >> initializeWith: aWormholeCell [ 
 	wormholeEnd := aWormholeCell
+]
+
+{ #category : #'as yet unclassified' }
+WormholeCell >> teleport: aShip [ 
+	super enters: aShip.
 ]
