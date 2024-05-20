@@ -60,7 +60,7 @@ Game >> playsNextTurn [
 	self verifyIsNotOver.
 	diceResult := dice throw.	
 	shipToPlay := self nextToPlay.
-	board move: shipToPlay times: diceResult.
+	board move: shipToPlay by: diceResult.
 
 	ships removeFirst.
 	ships addLast: shipToPlay

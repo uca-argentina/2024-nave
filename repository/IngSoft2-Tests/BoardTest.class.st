@@ -12,7 +12,7 @@ BoardTest >> testWhenMoveFromACellOneTimeThenItReturnsTheAdyacentCell [
 	yetAnotherCell := Cell new.
 	cells := OrderedCollection with: aCell with: anotherCell with: yetAnotherCell.
 	aBoard := Board with: cells.
-	self assert: (aBoard moveFrom: aCell times: 1) equals: anotherCell.
+	self assert: (aBoard moveFrom: aCell by: 1) equals: anotherCell.
 ]
 
 { #category : #tests }
@@ -22,7 +22,7 @@ BoardTest >> testWhenMoveFromACellTwoTimesThenItReturnsTheCellTwoCellsTowards [
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
 	aBoard := Board with: (OrderedCollection with: aCell with: anotherCell with: yetAnotherCell).
-	self assert: (aBoard moveFrom: aCell times: 2) equals: yetAnotherCell.
+	self assert: (aBoard moveFrom: aCell by: 2) equals: yetAnotherCell.
 ]
 
 { #category : #tests }
@@ -62,5 +62,5 @@ BoardTest >> testWhenTryToMovesOutsideBoardThenReturnTheLastCell [
 	anotherCell := Cell new.
 	yetAnotherCell := Cell new.
 		aBoard := Board with: (OrderedCollection with: aCell with: anotherCell with: yetAnotherCell).
-	self assert: (aBoard moveFrom: aCell times: 10) equals: yetAnotherCell .
+	self assert: (aBoard moveFrom: aCell by: 10) equals: yetAnotherCell .
 ]

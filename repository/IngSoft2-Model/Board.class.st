@@ -49,16 +49,16 @@ Board >> isLastCellOccupied [
 ]
 
 { #category : #'as yet unclassified' }
-Board >> move: aShip times: anAmountOfTimes [ 
+Board >> move: aShip by: anAmountOfTimes [ 
 	| actualCell nextCell |
 	actualCell := self whereIs: aShip.
-	nextCell := self moveFrom: actualCell times: anAmountOfTimes.
+	nextCell := self moveFrom: actualCell by: anAmountOfTimes.
 	actualCell leaves: aShip.
 	nextCell enters: aShip.
 ]
 
 { #category : #'as yet unclassified' }
-Board >> moveFrom: aCell times: anAmountOfTimes [ 
+Board >> moveFrom: aCell by: anAmountOfTimes [ 
 	| theCellIndex |
 	theCellIndex := ((cells indexOf: aCell) + anAmountOfTimes) min: cells size.
 	^cells at: theCellIndex.
