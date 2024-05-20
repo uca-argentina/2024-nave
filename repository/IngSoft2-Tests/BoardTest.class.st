@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-BoardTest >> testWhenMoveFromACellOneTimeThenItReturnsTheAdyacentCell [
+BoardTest >> testWhenMoveFromACellOneTimeThenItGivesTheAdyacentCell [
 	| aBoard aCell anotherCell yetAnotherCell cells |
 	aCell := Cell new.
 	anotherCell := Cell new.
@@ -16,7 +16,7 @@ BoardTest >> testWhenMoveFromACellOneTimeThenItReturnsTheAdyacentCell [
 ]
 
 { #category : #tests }
-BoardTest >> testWhenMoveFromACellTwoTimesThenItReturnsTheCellTwoCellsTowards [
+BoardTest >> testWhenMoveFromACellTwoTimesThenItGivesTheCellTwoCellsTowards [
 	| aBoard aCell anotherCell yetAnotherCell|
 	aCell := Cell new.
 	anotherCell := Cell new.
@@ -26,7 +26,7 @@ BoardTest >> testWhenMoveFromACellTwoTimesThenItReturnsTheCellTwoCellsTowards [
 ]
 
 { #category : #tests }
-BoardTest >> testWhenShipIsInACellThenWhereIsShouldReturnTheCell [
+BoardTest >> testWhenShipIsInACellThenWhereIsShouldGiveTheCell [
 	|aBoard aCell anotherCell yetAnotherCell aShip|
 	aShip := 'ship-test-1'.
 	aCell := Cell new.
@@ -41,7 +41,7 @@ BoardTest >> testWhenShipIsInACellThenWhereIsShouldReturnTheCell [
 ]
 
 { #category : #tests }
-BoardTest >> testWhenShipIsInAnotherCellThenWhereIsShouldReturnThatCell [
+BoardTest >> testWhenShipIsInAnotherCellThenWhereIsShouldGiveThatCell [
 	|aBoard aCell anotherCell yetAnotherCell aShip|
 	aShip := 'ship-test-1'.
 	aCell := Cell new.
@@ -56,7 +56,7 @@ BoardTest >> testWhenShipIsInAnotherCellThenWhereIsShouldReturnThatCell [
 ]
 
 { #category : #tests }
-BoardTest >> testWhenTryToMovesOutsideBoardThenReturnTheLastCell [
+BoardTest >> testWhenTryToMovesOutsideBoardThenGivesTheLastCell [
 	| aBoard aCell anotherCell yetAnotherCell|
 	aCell := Cell new.
 	anotherCell := Cell new.
