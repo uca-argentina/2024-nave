@@ -51,8 +51,3 @@ Cell >> isOccupied [
 Cell >> leaves: aShip [
 	ships remove: aShip.
 ]
-
-{ #category : #removing }
-Cell >> remove: aShip [ 
-	ships remove: aShip.
-]

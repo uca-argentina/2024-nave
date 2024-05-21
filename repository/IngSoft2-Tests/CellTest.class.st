@@ -60,7 +60,7 @@ CellTest >> testIfCreateCellWithTwoShipsThenRemoveOneThenShouldBeOccupied [
 	aCell := Cell new.
 	aCell enters: aShip.
 	aCell enters: anotherShip.
-	aCell remove: anotherShip.
+	aCell leaves: anotherShip.
 	self assert: aCell isOccupied
 	
 	
