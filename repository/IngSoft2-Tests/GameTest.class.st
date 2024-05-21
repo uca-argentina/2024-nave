@@ -25,28 +25,15 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 ]
 
 { #category : #tests }
-GameTest >> testWhenBoardHasAShipInTheLastCellThenTheWinnerShouldBeThatShip [
-	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := 'test-ship-1'.
-	aCell := Cell new.
-	anotherCell := Cell new.
-	anotherCell enters: aShip.
-	aBoard := Board with:
-		          (OrderedCollection with: aCell with: anotherCell).
-	aDice := Dice withAll: (Set with: (Die of: 6)).
-	aGame := SpaceshipGame in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
-	self assert: (aGame winner) equals: aShip.
-
-]
-
-{ #category : #tests }
 GameTest >> testWhenBoardHaveTenCellsAndDiceThrowsTenThenTheWinnerShouldBeFirstPlayer [
 	| aShip anotherShip someShips someDice aGame |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll: (Set with: (LoadedDie sequence: #(10))).
+	someDice := Dice withAll: (Set with: (LoadedDie sequence: #(10) asOrderedCollection)).
 	aGame := SpaceshipGame with: someShips using:  someDice withCells: 10  wormholeStart: 2  wormholeEnd: 3.
+	aGame playsNextTurn.
+	self assert: aGame winner equals: aShip.
 ]
 
 { #category : #tests }
