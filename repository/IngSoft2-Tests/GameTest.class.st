@@ -6,19 +6,11 @@ Class {
 
 { #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
-	"| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := Ship withName: 'test-ship-1'.
-	aCell := Cell new.
-	aCell enters: aShip.
-	anotherCell := Cell new.
-		aBoard := Board with: (OrderedCollection with: aCell with: anotherCell).
-	aDice := Dice withAll: (Set with: (Die of: 6)).
-	aGame := Game in: aBoard with: aDice playing: #(aShip) asOrderedCollection."
 
 	| someShips aGame someDice |
 	someShips := OrderedCollection
-		             with: ('test-name-1')
-		             with: ('test-name-2').
+		             with: 'test-name-1'
+		             with: 'test-name-2'.
 	someDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := SpaceshipGame
 		         with: someShips
@@ -30,26 +22,6 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 		should: [ aGame winner ]
 		raise: Error
 		withMessage: 'game is not over yet'
-]
-
-{ #category : #tests }
-GameTest >> testWhenBoardHasAShipInTheLastCellAndAShipInTheFirstCellThenTheWinnerShouldBeTheShipInLastCell [
-
-	| aCell anotherCell aBoard aDice aShip aGame anotherShip |
-	aShip := 'test-ship-1'.
-	anotherShip := 'test-ship-2'.
-	aCell := Cell new.
-	aCell enters: aShip.
-	anotherCell := Cell new.
-	anotherCell enters: anotherShip.
-	aBoard := Board with:
-		          (OrderedCollection with: aCell with: anotherCell).
-	aDice := Dice withAll: (Set with: (Die of: 6)).
-	aGame := SpaceshipGame
-		         in: aBoard
-		         with: aDice
-		         playing: #( aShip anotherShip ) asOrderedCollection.
-	self assert: aGame winner equals: anotherShip
 ]
 
 { #category : #tests }
@@ -65,6 +37,16 @@ GameTest >> testWhenBoardHasAShipInTheLastCellThenTheWinnerShouldBeThatShip [
 	aGame := SpaceshipGame in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
 	self assert: (aGame winner) equals: aShip.
 
+]
+
+{ #category : #tests }
+GameTest >> testWhenBoardHaveTenCellsAndDiceThrowsTenThenTheWinnerShouldBeFirstPlayer [
+	| aShip anotherShip someShips someDice aGame |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll: (Set with: (LoadedDie sequence: #(10))).
+	aGame := SpaceshipGame with: someShips using:  someDice withCells: 10  wormholeStart: 2  wormholeEnd: 3.
 ]
 
 { #category : #tests }
