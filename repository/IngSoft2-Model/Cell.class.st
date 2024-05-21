@@ -32,11 +32,6 @@ Cell >> initialize [
 	ships := OrderedCollection new. 
 ]
 
-{ #category : #initialization }
-Cell >> initializeWith: someShips [ 
-	ships := someShips.
-]
-
 { #category : #'as yet unclassified' }
 Cell >> isOccupied [
 	^ships notEmpty.
