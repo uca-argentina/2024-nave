@@ -7,11 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-Cell class >> withAll: someShips [ 
-	^ (self new) initializeWith: someShips.
-]
-
 { #category : #'as yet unclassified' }
 Cell >> enters: aShip [
 	ships add: aShip.
