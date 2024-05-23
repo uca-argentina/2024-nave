@@ -32,13 +32,6 @@ SpaceshipGame >> indexOfCellWith: aShip [
 ]
 
 { #category : #initialization }
-SpaceshipGame >> initializeWith: aBoard using: aDice playing: someShips [ 
-	board := aBoard.
-	dice := aDice.
-	ships := someShips.
-]
-
-{ #category : #initialization }
 SpaceshipGame >> initializeWith: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 	dice := someDice.
 	board := Board
