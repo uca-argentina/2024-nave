@@ -10,11 +10,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SpaceshipGame class >> in: aBoard with: aDice playing: aShip [ 
-	^(self new) initializeWith: aBoard using: aDice playing: aShip
-]
-
-{ #category : #'as yet unclassified' }
 SpaceshipGame class >> with: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 
 	^ self new
