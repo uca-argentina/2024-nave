@@ -25,6 +25,12 @@ SpaceshipGame class >> with: someShips using: someDice withCells: anAmountOfCell
 		  wormholeEnd: aWormholeEndLocation
 ]
 
+{ #category : #accessing }
+SpaceshipGame >> indexOfCellWith: aShip [
+
+	^board indexOfCellWith: aShip
+]
+
 { #category : #initialization }
 SpaceshipGame >> initializeWith: aBoard using: aDice playing: someShips [ 
 	board := aBoard.

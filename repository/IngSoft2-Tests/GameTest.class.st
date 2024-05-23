@@ -25,6 +25,25 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 ]
 
 { #category : #tests }
+GameTest >> testWhenBoardHaveFiveCellsAndShipIsInTheFifthCellThenShouldBeOver [
+
+	| aShip aGame someDice someShips |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 5 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         using: someDice
+		         withCells: 5
+		         wormholeStart: 1
+		         wormholeEnd: 2.
+	aGame playsNextTurn.
+	self assert: aGame isOver
+]
+
+{ #category : #tests }
 GameTest >> testWhenBoardHaveTenCellsAndDiceThrowsTenThenTheWinnerShouldBeFirstPlayer [
 	| aShip anotherShip someShips someDice aGame |
 	aShip := 'test-ship-1'.
@@ -36,25 +55,22 @@ GameTest >> testWhenBoardHaveTenCellsAndDiceThrowsTenThenTheWinnerShouldBeFirstP
 	self assert: aGame winner equals: aShip.
 ]
 
-{ #category : #tests }
-GameTest >> testWhenBoardHaveThreeCellsAndShipIsInTheSecondCellThenShouldNotBeOver [
+{ #category : #'as yet unclassified' }
+GameTest >> testWhenBoardHaveTenCellsAndShipIsInTheSecondCellThenShouldNotBeOver [
 
-	| aCell anotherCell yetAnotherCell aBoard aDice aShip aGame |
+	| aShip aGame someShips someDice |
 	aShip := 'test-ship-1'.
-	aCell := Cell new.
-	anotherCell := Cell new.
-	anotherCell enters: aShip.
-	yetAnotherCell := Cell new.
-	aBoard := Board with:
-		          (OrderedCollection
-			           with: aCell
-			           with: anotherCell
-			           with: yetAnotherCell).
-	aDice := Dice withAll: (Set with: (Die of: 6)).
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
 	aGame := SpaceshipGame
-		         in: aBoard
-		         with: aDice
-		         playing: #( aShip ) asOrderedCollection.
+		         with: someShips
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 3
+		         wormholeEnd: 5.
+	aGame playsNextTurn.
 	self deny: aGame isOver
 ]
 
@@ -69,20 +85,6 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenShouldNotBeOver 
 	aDice := Dice withAll: (Set with: (Die of: 6)).
 	aGame := SpaceshipGame in: aBoard with: aDice playing:#(aShip) asOrderedCollection.
 	self deny: aGame isOver.
-
-]
-
-{ #category : #tests }
-GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheSecondCellThenShouldBeOver [
-	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := 'test-ship-1'.
-	aCell := Cell new.
-	anotherCell := Cell new.
-	anotherCell enters: aShip.
-	aBoard := Board with: (OrderedCollection with: aCell with: anotherCell ).
-	aDice := Dice withAll: (Set with: (Die of: 6)).
-	aGame := SpaceshipGame in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
-	self assert: aGame isOver.
 
 ]
 
@@ -125,18 +127,21 @@ GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
 ]
 
 { #category : #tests }
-GameTest >> testWhenShipIsInFirstCellAndAskWhereIsShouldBeTheFirstCell [
-	| aCell anotherCell aBoard aDice aShip aGame|
-	aShip := 'test-ship-1'.
-	aCell := Cell new.
-	aCell enters: aShip.
-	anotherCell := Cell new.
-	aBoard := Board with: (OrderedCollection with: aCell with: anotherCell).
-	aDice := Dice withAll: (Set with: (Die of: 6)).
-	aGame := SpaceshipGame in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
-	
-	self assert: (aGame whereIs: aShip) equals: aCell.
+GameTest >> testWhenShipIsInFirstCellAndAskForTheIndexOfThatCellShouldBeTheFirstCell [
 
+	| aShip aGame someShips someDice |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 3
+		         wormholeEnd: 5.
+	self assert: (aGame indexOfCellWith: aShip) equals: 1
 ]
 
 { #category : #tests }
@@ -155,16 +160,21 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 ]
 
 { #category : #tests }
-GameTest >> testWhenShipIsInLastCellThenWhereIsShouldBeTheLastCell [
-	| aCell anotherCell aBoard aDice aShip aGame|
+GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
+
+	| aShip aGame someShips someDice |
 	aShip := 'test-ship-1'.
-	aCell := Cell new.
-	anotherCell := Cell new.
-	anotherCell enters: aShip.
-	aBoard := Board with: (OrderedCollection with: aCell with: anotherCell).
-	aDice := Dice withAll: (Set with: (Die of: 6)).
-	aGame := SpaceshipGame in: aBoard with: aDice playing: #(aShip) asOrderedCollection.
-	
-	self assert: (aGame whereIs: aShip) equals: anotherCell.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 10 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 3
+		         wormholeEnd: 5.
+	aGame playsNextTurn.
+	self assert: (aGame indexOfCellWith: aShip) equals: 10
 
 ]
