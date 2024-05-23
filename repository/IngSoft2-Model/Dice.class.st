@@ -15,10 +15,12 @@ Dice class >> withAll: someDice [
 
 { #category : #initialization }
 Dice >> initializeWith: someDice [
-	dice := someDice 
+
+	dice := someDice
 ]
 
 { #category : #'as yet unclassified' }
 Dice >> throw [
-	^ (dice collect: [:eachDie | eachDie throw]) sum.
+
+	^ (dice collect: [ :eachDie | eachDie throw ]) sum
 ]

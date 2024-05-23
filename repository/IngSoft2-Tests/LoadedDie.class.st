@@ -13,15 +13,17 @@ LoadedDie class >> sequence: aSequenceOfNumbers [
 ]
 
 { #category : #initialization }
-LoadedDie >> initializeWith: aSequenceOfNumbers [ 
+LoadedDie >> initializeWith: aSequenceOfNumbers [
+
 	sequence := aSequenceOfNumbers.
-	^self
+	^ self
 ]
 
 { #category : #'as yet unclassified' }
 LoadedDie >> throw [
+
 	| dieResult |
 	dieResult := sequence removeFirst.
 	sequence addLast: dieResult.
-	^dieResult.
+	^ dieResult
 ]

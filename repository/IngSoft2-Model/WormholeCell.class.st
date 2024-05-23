@@ -9,35 +9,42 @@ Class {
 
 { #category : #'instance creation' }
 WormholeCell class >> newPair [
+
 	| firstWormhole secondWormhole aWormholePair |
 	firstWormhole := self new.
 	secondWormhole := self new.
 	firstWormhole initializeWith: secondWormhole.
 	secondWormhole initializeWith: firstWormhole.
-	
-	aWormholePair := OrderedCollection with: firstWormhole with: secondWormhole.
-	^ aWormholePair.
+
+	aWormholePair := OrderedCollection
+		                 with: firstWormhole
+		                 with: secondWormhole.
+	^ aWormholePair
 ]
 
 { #category : #'instance creation' }
 WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wormholeEndLocation [
-	|wormholePair|
-	wormholePair :=  self newPair.
+
+	| wormholePair |
+	wormholePair := self newPair.
 	someCells at: wormholeStartLocation put: (wormholePair at: 1).
-	someCells at: wormholeEndLocation put: (wormholePair at: 2).
+	someCells at: wormholeEndLocation put: (wormholePair at: 2)
 ]
 
 { #category : #testing }
 WormholeCell >> enters: aShip [
-	wormholeEnd teleport: aShip.
+
+	wormholeEnd teleport: aShip
 ]
 
 { #category : #initialization }
-WormholeCell >> initializeWith: aWormholeCell [ 
+WormholeCell >> initializeWith: aWormholeCell [
+
 	wormholeEnd := aWormholeCell
 ]
 
 { #category : #'as yet unclassified' }
-WormholeCell >> teleport: aShip [ 
-	super enters: aShip.
+WormholeCell >> teleport: aShip [
+
+	super enters: aShip
 ]

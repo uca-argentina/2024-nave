@@ -9,35 +9,42 @@ Class {
 
 { #category : #'as yet unclassified' }
 Cell >> enters: aShip [
-	ships add: aShip.
+
+	ships add: aShip
 ]
 
 { #category : #'as yet unclassified' }
 Cell >> entersAll: someShips [
-	ships addAll: someShips.
+
+	ships addAll: someShips
 ]
 
 { #category : #accessing }
 Cell >> firstShip [
-	^ships first.
+
+	^ ships first
 ]
 
 { #category : #testing }
-Cell >> includes: aShip [ 
-	^ships includes: aShip.
+Cell >> includes: aShip [
+
+	^ ships includes: aShip
 ]
 
 { #category : #initialization }
 Cell >> initialize [
-	ships := OrderedCollection new. 
+
+	ships := OrderedCollection new
 ]
 
 { #category : #'as yet unclassified' }
 Cell >> isOccupied [
-	^ships notEmpty.
+
+	^ ships notEmpty
 ]
 
 { #category : #'as yet unclassified' }
 Cell >> leaves: aShip [
-	ships remove: aShip.
+
+	ships remove: aShip
 ]

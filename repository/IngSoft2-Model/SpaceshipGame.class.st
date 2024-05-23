@@ -28,6 +28,7 @@ SpaceshipGame >> indexOfCellWith: aShip [
 
 { #category : #initialization }
 SpaceshipGame >> initializeWith: someShips using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+
 	dice := someDice.
 	board := Board
 		         length: anAmountOfCells
@@ -40,19 +41,22 @@ SpaceshipGame >> initializeWith: someShips using: someDice withCells: anAmountOf
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> isOver [
-	^board isLastCellOccupied .
+
+	^ board isLastCellOccupied
 ]
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> nextToPlay [
-   ^ships first.
+
+	^ ships first
 ]
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> playsNextTurn [
+
 	| shipToPlay diceResult |
 	self verifyIsNotOver.
-	diceResult := dice throw.	
+	diceResult := dice throw.
 	shipToPlay := self nextToPlay.
 	board move: shipToPlay by: diceResult.
 
@@ -68,18 +72,20 @@ SpaceshipGame >> verifyIsNotOver [
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> verifyIsOver [
+
 	self isOver ifFalse: [ Error signal: 'game is not over yet' ]
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> whereIs: aShip [ 
-	^board whereIs: aShip.
+SpaceshipGame >> whereIs: aShip [
+
+	^ board whereIs: aShip
 ]
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> winner [
 
 	self verifyIsOver.
-	
-	^ board winner.
+
+	^ board winner
 ]
