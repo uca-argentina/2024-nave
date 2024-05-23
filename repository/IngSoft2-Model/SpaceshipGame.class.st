@@ -77,12 +77,6 @@ SpaceshipGame >> verifyIsOver [
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> whereIs: aShip [
-
-	^ board whereIs: aShip
-]
-
-{ #category : #'as yet unclassified' }
 SpaceshipGame >> winner [
 
 	self verifyIsOver.
