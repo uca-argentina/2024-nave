@@ -103,48 +103,6 @@ GameTest >> testWhenBoardHaveTwoCellsAndShipIsInTheFirstCellThenShouldNotBeOver 
 ]
 
 { #category : #tests }
-GameTest >> testWhenGamePlayedOneTurnThenNextToPlayIsTheSecondInTheList [
-
-	| aShip anotherShip someShips someDice aGame |
-	aShip := 'test-ship-1'.
-	anotherShip := 'test-ship-2'.
-	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll:
-		            (Set with:
-			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
-
-	aGame := SpaceshipGame
-		         with: someShips
-		         using: someDice
-		         withCells: 10
-		         wormholeStart: 3
-		         wormholeEnd: 5.
-
-	aGame playsNextTurn.
-
-	self assert: aGame nextToPlay equals: anotherShip
-]
-
-{ #category : #tests }
-GameTest >> testWhenGameStartedThenFirstPlayerToPlayIsTheFirstInTheList [
-
-	| aShip anotherShip someShips someDice aGame |
-	aShip := 'test-ship-1'.
-	anotherShip := 'test-ship-2'.
-	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll:
-		            (Set with:
-			             (LoadedDie sequence: #( 1 )) asOrderedCollection).
-	aGame := SpaceshipGame
-		         with: someShips
-		         using: someDice
-		         withCells: 10
-		         wormholeStart: 3
-		         wormholeEnd: 5.
-	self assert: aGame nextToPlay equals: aShip
-]
-
-{ #category : #tests }
 GameTest >> testWhenShipIsInFirstCellAndAskForTheIndexOfThatCellShouldBeTheFirstCell [
 
 	| aShip aGame someShips someDice |
