@@ -46,18 +46,12 @@ SpaceshipGame >> isOver [
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> nextToPlay [
-
-	^ ships first
-]
-
-{ #category : #'as yet unclassified' }
 SpaceshipGame >> playsNextTurn [
 
 	| shipToPlay diceResult |
 	self verifyIsNotOver.
 	diceResult := dice throw.
-	shipToPlay := self nextToPlay.
+	shipToPlay := ships first.
 	board move: shipToPlay by: diceResult.
 
 	ships removeFirst.
