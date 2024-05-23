@@ -15,11 +15,6 @@ Board class >> length: anAmountOfCells wormholeStart: aWormholeStartLocation wor
 	^(self new) initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation
 ]
 
-{ #category : #'instance creation' }
-Board class >> with: someCells [
-	^(self new) initializeWith: someCells
-]
-
 { #category : #accessing }
 Board >> at: index place: someShips [
 
@@ -35,12 +30,6 @@ Board >> indexOfCellWith: aShip [
 	cellWithAShip := self whereIs: aShip.
 	^ (1 to: cells size) detect: [ :index |
 		  (cells at: index) = cellWithAShip ]
-]
-
-{ #category : #initialization }
-Board >> initializeWith: someCells [
-
-	cells := someCells
 ]
 
 { #category : #initialization }
