@@ -10,13 +10,13 @@ Class {
 { #category : #'as yet unclassified' }
 Cell >> enters: aShip [
 
-	ships add: aShip
+	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
 Cell >> entersAll: someShips [
 
-	ships addAll: someShips
+	someShips do: [ :eachShip | self enters: eachShip ]
 ]
 
 { #category : #accessing }

@@ -38,7 +38,7 @@ Board >> initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLoca
 	| wormholePair |
 	cells := OrderedCollection new.
 	wormholePair := WormholeCell newPair.
-	1 to: anAmountOfCells do: [ :index | cells add: Cell new ].
+	1 to: anAmountOfCells do: [ :index | cells add: NormalCell new ].
 	WormholeCell
 		newPairIn: cells
 		start: aWormholeStartLocation

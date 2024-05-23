@@ -46,5 +46,5 @@ WormholeCell >> initializeWith: aWormholeCell [
 { #category : #'as yet unclassified' }
 WormholeCell >> teleport: aShip [
 
-	super enters: aShip
+	ships add: aShip
 ]
