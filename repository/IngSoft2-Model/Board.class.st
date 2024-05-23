@@ -28,48 +28,61 @@ Board >> at: index place: someShips [
 	theCell entersAll: someShips
 ]
 
+{ #category : #testing }
+Board >> indexOfCellWith: aShip [
+
+	| cellWithAShip |
+	cellWithAShip := self whereIs: aShip.
+	^ (1 to: cells size) detect: [ :index |
+		  (cells at: index) = cellWithAShip ]
+]
+
 { #category : #initialization }
 Board >> initializeWith: someCells [
+
 	cells := someCells
 ]
 
 { #category : #initialization }
 Board >> initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+
 	| wormholePair |
 	cells := OrderedCollection new.
 	wormholePair := WormholeCell newPair.
-	1 to: anAmountOfCells do: [ :index | cells add: Cell new.].
-	WormholeCell newPairIn: cells start: aWormholeStartLocation end: aWormholeEndLocation.
+	1 to: anAmountOfCells do: [ :index | cells add: Cell new ].
+	WormholeCell
+		newPairIn: cells
+		start: aWormholeStartLocation
+		end: aWormholeEndLocation.
 	^ self
 ]
 
 { #category : #testing }
 Board >> isLastCellOccupied [
-	^cells last isOccupied.
+
+	^ cells last isOccupied
 ]
 
 { #category : #'as yet unclassified' }
-Board >> move: aShip by: anAmountOfTimes [ 
-	| actualCell nextCell |
+Board >> move: aShip by: anAmountOfTimes [
+
+	| actualCell nextCell theCellIndex |
 	actualCell := self whereIs: aShip.
-	nextCell := self moveFrom: actualCell by: anAmountOfTimes.
+	theCellIndex := (cells indexOf: actualCell) + anAmountOfTimes min:
+		                cells size.
+	nextCell := cells at: theCellIndex.
 	actualCell leaves: aShip.
-	nextCell enters: aShip.
+	nextCell enters: aShip
 ]
 
 { #category : #'as yet unclassified' }
-Board >> moveFrom: aCell by: anAmountOfTimes [ 
-	| theCellIndex |
-	theCellIndex := ((cells indexOf: aCell) + anAmountOfTimes) min: cells size.
-	^cells at: theCellIndex.
-]
+Board >> whereIs: aShip [
 
-{ #category : #'as yet unclassified' }
-Board >> whereIs: aShip [ 
-	^cells detect: [ :eachCell | eachCell includes: aShip ] .
+	^ cells detect: [ :eachCell | eachCell includes: aShip ]
 ]
 
 { #category : #'as yet unclassified' }
 Board >> winner [
-	^ cells last firstShip.
+
+	^ cells last firstShip
 ]
