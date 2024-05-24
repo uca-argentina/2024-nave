@@ -3,7 +3,6 @@ Class {
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
-
 { #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 

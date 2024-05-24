@@ -11,6 +11,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+
 Board class >> length: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 	^(self new) initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation
 ]

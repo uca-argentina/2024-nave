@@ -9,7 +9,6 @@ Class {
 
 { #category : #'instance creation' }
 WormholeCell class >> newPair [
-
 	| firstWormhole secondWormhole aWormholePair |
 	firstWormhole := self new.
 	secondWormhole := self new.
@@ -33,7 +32,6 @@ WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wor
 
 { #category : #testing }
 WormholeCell >> enters: aShip [
-
 	wormholeEnd teleport: aShip
 ]
 
@@ -47,4 +45,10 @@ WormholeCell >> initializeWith: aWormholeCell [
 WormholeCell >> teleport: aShip [
 
 	ships add: aShip
+]
+
+
+{ #category : #initialization }
+WormholeCell >> initializeWith: aWormholeCell [ 
+	wormholeEnd := aWormholeCell
 ]
