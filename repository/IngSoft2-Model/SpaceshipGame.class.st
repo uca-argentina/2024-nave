@@ -77,5 +77,5 @@ SpaceshipGame >> winner [
 
 	self verifyIsOver.
 
-	^ board winner
+	^ (ships detect: [ :eachShip | eachShip lapsCompleted >= lapsToWin ]) name.
 ]
