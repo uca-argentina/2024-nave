@@ -16,6 +16,7 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 			             (LoadedDie sequence: #( 6 )) asOrderedCollection).
 	aGame := SpaceshipGame
 		         with: someShips
+		lapsToWin: 1
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
@@ -37,6 +38,7 @@ GameTest >> testWhenBoardHaveFiveCellsAndShipIsInTheFifthCellThenShouldBeOver [
 			             (LoadedDie sequence: #( 5 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
+					lapsToWin: 1
 		         using: someDice
 		         withCells: 5
 		         wormholeStart: 1
@@ -55,7 +57,8 @@ GameTest >> testWhenBoardHaveFourCellsAndShipIsInTheFirstCellThenShouldNotBeOver
 		            (Set with:
 			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
 	aGame := SpaceshipGame
-		         with: someShips 
+		         with: someShips
+					lapsToWin: 1 
 		         using: someDice
 		         withCells: 4
 		         wormholeStart: 2
@@ -94,6 +97,7 @@ GameTest >> testWhenBoardHaveTenCellsAndShipIsInTheSecondCellThenShouldNotBeOver
 			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
+		         lapsToWin: 1
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
@@ -154,6 +158,7 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 			             (LoadedDie sequence: #( 10 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
+		         lapsToWin: 1
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
