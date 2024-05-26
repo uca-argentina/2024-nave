@@ -46,12 +46,6 @@ Board >> initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLoca
 	^ self
 ]
 
-{ #category : #testing }
-Board >> isLastCellOccupied [
-
-	^ cells last isOccupied
-]
-
 { #category : #'as yet unclassified' }
 Board >> move: aShip by: times [
 
