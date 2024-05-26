@@ -11,7 +11,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-
 Board class >> length: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 	^(self new) initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation
 ]
@@ -54,13 +53,15 @@ Board >> isLastCellOccupied [
 ]
 
 { #category : #'as yet unclassified' }
-Board >> move: aShip by: anAmountOfTimes [
+Board >> move: aShip by: times [
 
-	| actualCell nextCell theCellIndex |
+	| actualCell nextCell actualCellIndex nextCellIndex lapsDone |
 	actualCell := self whereIs: aShip.
-	theCellIndex := (cells indexOf: actualCell) + anAmountOfTimes min:
-		                cells size.
-	nextCell := cells at: theCellIndex.
+	actualCellIndex := cells indexOf: actualCell.
+	nextCellIndex := actualCellIndex - 1 + times % cells size + 1.
+	lapsDone := actualCellIndex - 1 + times // cells size.
+	aShip addLaps: lapsDone.
+	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
 ]

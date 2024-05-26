@@ -3,6 +3,7 @@ Class {
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
+
 { #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 
@@ -99,6 +100,29 @@ GameTest >> testWhenBoardHaveTenCellsAndShipIsInTheSecondCellThenShouldNotBeOver
 		         wormholeEnd: 5.
 	aGame playsNextTurn.
 	self deny: aGame isOver
+]
+
+{ #category : #tests }
+GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
+
+	| someShips aGame someDice |
+	someShips := OrderedCollection
+		             with: 'test-name-1'
+		             with: 'test-name-2'.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 4 10 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 5
+		         wormholeStart: 2
+		         wormholeEnd: 3.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	self assert: aGame isOver
 ]
 
 { #category : #tests }
