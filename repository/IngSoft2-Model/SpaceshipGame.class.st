@@ -23,9 +23,10 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 ]
 
 { #category : #accessing }
-SpaceshipGame >> indexOfCellWith: aShip [
-
-	^board indexOfCellWith: aShip
+SpaceshipGame >> indexOfCellWith: aShipName [
+	| aShip |
+	aShip :=  ships detect: [ :eachShip | eachShip name = aShipName  ].
+	^board indexOfCellWith: aShip.
 ]
 
 { #category : #initialization }
