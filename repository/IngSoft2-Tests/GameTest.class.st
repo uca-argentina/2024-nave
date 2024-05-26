@@ -78,6 +78,7 @@ GameTest >> testWhenBoardHaveTenCellsAndDiceThrowsTenThenTheWinnerShouldBeFirstP
 			             (LoadedDie sequence: #( 10 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
+							lapsToWin: 1 
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 2
@@ -140,6 +141,7 @@ GameTest >> testWhenShipIsInFirstCellAndAskForTheIndexOfThatCellShouldBeTheFirst
 			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
+		         lapsToWin: 1
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
@@ -178,9 +180,10 @@ GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 10 ) asOrderedCollection)).
+			             (LoadedDie sequence: #( 9 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
+		         lapsToWin: 1
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
