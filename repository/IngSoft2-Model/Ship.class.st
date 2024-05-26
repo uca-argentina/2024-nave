@@ -30,3 +30,8 @@ Ship >> initializeWith: aName [
 Ship >> lapsCompleted [
 	^laps
 ]
+
+{ #category : #accessing }
+Ship >> name [
+	^name.
+]
