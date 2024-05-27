@@ -65,9 +65,3 @@ Board >> whereIs: aShip [
 
 	^ cells detect: [ :eachCell | eachCell includes: aShip ]
 ]
-
-{ #category : #'as yet unclassified' }
-Board >> winner [
-
-	^ cells last firstShip
-]
