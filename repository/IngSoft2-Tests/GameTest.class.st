@@ -7,16 +7,18 @@ Class {
 { #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 
-	| someShips aGame someDice |
+	| aShip someShips aGame someDice anotherShip |
+	aShip := Ship named: 'test-ship-2'.
+	anotherShip := Ship named: 'test-ship-2'.
 	someShips := OrderedCollection
-		             with: 'test-name-1'
-		             with: 'test-name-2'.
+		             with: aShip
+		             with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 6 )) asOrderedCollection).
+			             (LoadedDie sequence: #( 6 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
-		lapsToWin: 1
+		         lapsToWin: 1
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
@@ -31,7 +33,7 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 GameTest >> testWhenAShipCompletedTheRequiredLapsThenShouldBeOver [
 
 	| aShip aGame someDice someShips |
-	aShip := 'test-ship-1'.
+	aShip := Ship named: 'test-ship-1'.
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
@@ -50,10 +52,12 @@ GameTest >> testWhenAShipCompletedTheRequiredLapsThenShouldBeOver [
 { #category : #tests }
 GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 
-	| someShips aGame someDice |
+	| aShip someShips aGame someDice anotherShip |
+	aShip := Ship named: 'test-ship-2'.
+	anotherShip := Ship named: 'test-ship-2'.
 	someShips := OrderedCollection
-		             with: 'test-name-1'
-		             with: 'test-name-2'.
+		             with: aShip
+		             with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence: #( 4 4 10 ) asOrderedCollection)).
@@ -74,7 +78,7 @@ GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 
 	| aShip aGame someDice someShips |
-	aShip := 'test-ship-1'.
+	aShip := Ship named: 'test-ship-1'.
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
@@ -94,7 +98,7 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 GameTest >> testWhenShipIsInFirstCellAndAskForTheIndexOfThatCellShouldBeTheFirstCell [
 
 	| aShip aGame someShips someDice |
-	aShip := 'test-ship-1'.
+	aShip := Ship named: 'test-ship-1'.
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
@@ -113,7 +117,7 @@ GameTest >> testWhenShipIsInFirstCellAndAskForTheIndexOfThatCellShouldBeTheFirst
 GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 
 	| aShip aGame someShips someDice |
-	aShip := 'test-ship-1'.
+	aShip := Ship named: 'test-ship-1'.
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
@@ -136,7 +140,7 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
 
 	| aShip aGame someShips someDice |
-	aShip := 'test-ship-1'.
+	aShip := Ship named: 'test-ship-1'.
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
@@ -157,8 +161,8 @@ GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
 GameTest >> testWhenTheFirstShipCompletedTheRequiredLapsThenShouldBeTheWinner [
 
 	| aShip anotherShip someShips someDice aGame |
-	aShip := 'test-ship-1'.
-	anotherShip := 'test-ship-2'.
+	aShip := Ship named: 'test-ship-1'.
+	anotherShip := Ship named: 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
