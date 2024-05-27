@@ -53,14 +53,14 @@ GameTest >> testWhenAShipCompletedTheRequiredLapsThenShouldBeOver [
 GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 
 	| aShip someShips aGame someDice anotherShip |
-	aShip := 'test-ship-2'.
+	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection
 		             with: aShip
 		             with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 4 4 10 ) asOrderedCollection)).
+			             (LoadedDie sequence: #( 4 3 10 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 2
@@ -176,4 +176,29 @@ GameTest >> testWhenTheFirstShipCompletedTheRequiredLapsThenShouldBeTheWinner [
 		         wormholeEnd: 3.
 	aGame playsNextTurn.
 	self assert: aGame winner equals: aShip
+]
+
+{ #category : #tests }
+GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirstCell [
+
+	| aShip someShips aGame someDice anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 10 5 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
 ]

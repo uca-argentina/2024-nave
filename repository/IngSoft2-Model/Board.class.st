@@ -24,6 +24,12 @@ Board >> at: index place: someShips [
 ]
 
 { #category : #accessing }
+Board >> firstCell [
+
+	^ cells first
+]
+
+{ #category : #accessing }
 Board >> indexOfCellWith: aShip [ 
 	^ cells detectIndex: [ :eachCell | eachCell includes: aShip ]
 ]
@@ -54,6 +60,29 @@ Board >> move: aShip by: times [
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
+]
+
+{ #category : #'as yet unclassified' }
+Board >> move: aShip by: times ifCollision: aBlockIfCollision [
+
+	| actualCell nextCell actualCellIndex nextCellIndex lapsDone |
+	actualCell := self whereIs: aShip.
+	actualCellIndex := cells indexOf: actualCell.
+	nextCellIndex := actualCellIndex - 1 + times % cells size + 1.
+	lapsDone := actualCellIndex - 1 + times // cells size.
+	aShip addLaps: lapsDone.
+	nextCell := cells at: nextCellIndex.
+	actualCell leaves: aShip.
+	nextCell enters: aShip.
+	nextCell ifHasTwoShips: aBlockIfCollision
+]
+
+{ #category : #api }
+Board >> move: aShip to: destinationCell [ 
+	| actualCell |
+	actualCell := self whereIs: aShip.
+	actualCell leaves: aShip.
+	destinationCell enters: aShip.
 ]
 
 { #category : #'as yet unclassified' }

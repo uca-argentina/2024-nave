@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'laps'
+		'laps',
+		'shields'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,6 +24,7 @@ Ship >> initializeWith: aName [
 
 	name := aName.
 	laps := 0.
+	shields := 3.
 	^ self
 ]
 
@@ -34,4 +36,9 @@ Ship >> lapsCompleted [
 { #category : #accessing }
 Ship >> name [
 	^name.
+]
+
+{ #category : #removing }
+Ship >> removeShield [
+	shields := shields - 1.
 ]

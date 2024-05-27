@@ -22,6 +22,13 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  wormholeEnd: aWormholeEndLocation
 ]
 
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> applyPenaltyTo: aShip [
+
+	aShip removeShield.
+	board move: aShip to: board firstCell
+]
+
 { #category : #accessing }
 SpaceshipGame >> indexOfCellWith: aShipName [
 	| aShip |
@@ -51,11 +58,20 @@ SpaceshipGame >> isOver [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> playsNextTurn [
 
-	| shipToPlay diceResult |
+	| shipToPlay diceResult actualShipDiceResult collidingShipDiceResult |
 	self verifyIsNotOver.
 	diceResult := dice throw.
 	shipToPlay := ships first.
-	board move: shipToPlay by: diceResult.
+	board
+		move: shipToPlay
+		by: diceResult
+		ifCollision: [ :actualShip :collidingShip |
+			actualShipDiceResult := dice throw.
+			collidingShipDiceResult := dice throw.
+			actualShipDiceResult > collidingShipDiceResult ifTrue: [
+				self applyPenaltyTo: collidingShip ].
+			actualShipDiceResult < collidingShipDiceResult ifTrue: [
+				self applyPenaltyTo: actualShip ] ].
 
 	ships removeFirst.
 	ships addLast: shipToPlay
