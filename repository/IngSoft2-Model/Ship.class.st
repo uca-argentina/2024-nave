@@ -10,13 +10,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-Ship class >> named: aName [ 
-	^(self new ) initializeWith: aName.
+Ship class >> named: aName [
+
+	^ self new initializeWith: aName
 ]
 
 { #category : #adding }
-Ship >> addLaps: aNumberOfLaps [ 
-	laps := laps + aNumberOfLaps 
+Ship >> addLaps: aNumberOfLaps [
+
+	laps := laps + aNumberOfLaps
 ]
 
 { #category : #initialization }
@@ -30,15 +32,18 @@ Ship >> initializeWith: aName [
 
 { #category : #'as yet unclassified' }
 Ship >> lapsCompleted [
-	^laps
+
+	^ laps
 ]
 
 { #category : #accessing }
 Ship >> name [
-	^name.
+
+	^ name
 ]
 
 { #category : #removing }
 Ship >> removeShield [
-	shields := shields - 1.
+
+	shields := shields - 1
 ]

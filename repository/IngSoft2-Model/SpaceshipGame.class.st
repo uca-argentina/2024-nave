@@ -22,15 +22,9 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  wormholeEnd: aWormholeEndLocation
 ]
 
-{ #category : #'as yet unclassified' }
-SpaceshipGame >> applyPenaltyTo: aShip [
-
-	aShip removeShield.
-	board move: aShip to: board firstCell
-]
-
 { #category : #accessing }
 SpaceshipGame >> indexOfCellWith: aShipName [
+
 	| aShip |
 	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
 	^ board indexOfCellWith: aShip
@@ -38,9 +32,11 @@ SpaceshipGame >> indexOfCellWith: aShipName [
 
 { #category : #initialization }
 SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+
 	lapsToWin := aNumberOfLapsToWin.
 	dice := someDice.
-	ships := someShipNames collect: [:eachShipName | Ship named: eachShipName].
+	ships := someShipNames collect: [ :eachShipName |
+		         Ship named: eachShipName ].
 	board := Board
 		         length: anAmountOfCells
 		         wormholeStart: aWormholeStartLocation
@@ -58,7 +54,7 @@ SpaceshipGame >> isOver [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> playsNextTurn [
 
-	| shipToPlay diceResult actualShipDiceResult collidingShipDiceResult |
+	| shipToPlay diceResult actualShipDiceResult collidingShipDiceResult loserShip |
 	self verifyIsNotOver.
 	diceResult := dice throw.
 	shipToPlay := ships first.
@@ -68,10 +64,11 @@ SpaceshipGame >> playsNextTurn [
 		ifCollision: [ :actualShip :collidingShip |
 			actualShipDiceResult := dice throw.
 			collidingShipDiceResult := dice throw.
-			actualShipDiceResult > collidingShipDiceResult ifTrue: [
-				self applyPenaltyTo: collidingShip ].
-			actualShipDiceResult < collidingShipDiceResult ifTrue: [
-				self applyPenaltyTo: actualShip ] ].
+			loserShip := actualShipDiceResult > collidingShipDiceResult
+				             ifTrue: [ collidingShip ]
+				             ifFalse: [ actualShip ].
+			loserShip removeShield.
+			board moveToTheStart: loserShip ].
 
 	ships removeFirst.
 	ships addLast: shipToPlay
