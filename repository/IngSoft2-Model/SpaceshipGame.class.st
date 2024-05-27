@@ -59,7 +59,7 @@ SpaceshipGame >> playsNextTurn [
 	diceResult := dice throw.
 	shipToPlay := ships first.
 	shipToPlay
-		ifCanPlay: [
+		applyTurnPenaltyElse:  [ 
 			board
 				move: shipToPlay
 				by: diceResult
@@ -71,7 +71,7 @@ SpaceshipGame >> playsNextTurn [
 						             ifFalse: [ actualShip ].
 					loserShip removeShield.
 					board moveToTheStart: loserShip ] ]
-		ifNot: [ shipToPlay applyTurnPenalty ].
+		.
 
 	ships removeFirst.
 	ships addLast: shipToPlay

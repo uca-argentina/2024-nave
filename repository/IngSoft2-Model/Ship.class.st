@@ -23,10 +23,13 @@ Ship >> addLaps: aNumberOfLaps [
 ]
 
 { #category : #'as yet unclassified' }
-Ship >> applyTurnPenalty [
+Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
 
-	penalty := penalty - 1.
-	penalty = 0 ifTrue: [ shields := 3 ]
+	penalty > 0
+		ifTrue: [
+			penalty = 2 ifTrue: [ shields := 3 ].
+			penalty := penalty - 1 ]
+		ifFalse: [ aBlockIfNotPenalized value ]
 ]
 
 { #category : #'as yet unclassified' }
