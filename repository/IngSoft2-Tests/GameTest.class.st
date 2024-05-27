@@ -169,7 +169,7 @@ GameTest >> testWhenTheFirstShipCompletedTheRequiredLapsThenShouldBeTheWinner [
 			             (LoadedDie sequence: #( 10 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
-							lapsToWin: 1 
+		         lapsToWin: 1
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 2
@@ -184,12 +184,11 @@ GameTest >> testWhenTwoShipsBattleAndItsADrawTheSecondShipGoesBackToFirstCell [
 	| aShip someShips aGame someDice anotherShip |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
-	someShips := OrderedCollection
-		             with: aShip
-		             with: anotherShip.
+	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 1 1 10 10 ) asOrderedCollection)).
+			             (LoadedDie sequence:
+				              #( 1 1 10 10 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 1
@@ -200,7 +199,7 @@ GameTest >> testWhenTwoShipsBattleAndItsADrawTheSecondShipGoesBackToFirstCell [
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
-	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
 ]
 
 { #category : #tests }
@@ -209,9 +208,7 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 	| aShip someShips aGame someDice anotherShip |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
-	someShips := OrderedCollection
-		             with: aShip
-		             with: anotherShip.
+	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence: #( 1 1 10 5 ) asOrderedCollection)).
@@ -225,5 +222,5 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
-	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
 ]

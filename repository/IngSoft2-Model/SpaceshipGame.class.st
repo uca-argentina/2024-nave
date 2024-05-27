@@ -64,12 +64,9 @@ SpaceshipGame >> playsNextTurn [
 		ifCollision: [ :actualShip :collidingShip |
 			actualShipDiceResult := dice throw.
 			collidingShipDiceResult := dice throw.
-			loserShip := actualShipDiceResult > collidingShipDiceResult
+			loserShip := actualShipDiceResult >= collidingShipDiceResult
 				             ifTrue: [ collidingShip ]
-				             ifFalse: [
-					             actualShipDiceResult = collidingShipDiceResult
-						             ifTrue: [ collidingShip ]
-						             ifFalse: [ actualShip ] ].
+				             ifFalse: [ actualShip ].
 			loserShip removeShield.
 			board moveToTheStart: loserShip ].
 
