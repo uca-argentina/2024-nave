@@ -23,13 +23,9 @@ Board >> at: index place: someShips [
 	theCell entersAll: someShips
 ]
 
-{ #category : #testing }
-Board >> indexOfCellWith: aShip [
-
-	| cellWithAShip |
-	cellWithAShip := self whereIs: aShip.
-	^ (1 to: cells size) detect: [ :index |
-		  (cells at: index) = cellWithAShip ]
+{ #category : #accessing }
+Board >> indexOfCellWith: aShip [ 
+	^ cells detectIndex: [ :eachCell | eachCell includes: aShip ]
 ]
 
 { #category : #initialization }
