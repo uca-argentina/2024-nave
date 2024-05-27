@@ -76,6 +76,15 @@ SpaceshipGame >> playsNextTurn [
 ]
 
 { #category : #'as yet unclassified' }
+SpaceshipGame >> skipsNextTurn [
+	| shipToPlay |
+	shipToPlay := ships first.
+	shipToPlay restoreShields.
+	ships removeFirst.
+	ships addLast: shipToPlay
+]
+
+{ #category : #'as yet unclassified' }
 SpaceshipGame >> verifyIsNotOver [
 
 	self isOver ifTrue: [ Error signal: 'game is over!' ]

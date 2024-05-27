@@ -32,14 +32,6 @@ Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
 		ifFalse: [ aBlockIfNotPenalized value ]
 ]
 
-{ #category : #'as yet unclassified' }
-Ship >> ifCanPlay: aBlockIfCanPlay ifNot: aBlockIfCanNotPlay [
-
-	shields > 0
-		ifTrue: [ aBlockIfCanPlay value ]
-		ifFalse: [ aBlockIfCanNotPlay value ]
-]
-
 { #category : #initialization }
 Ship >> initializeWith: aName [
 
@@ -67,4 +59,9 @@ Ship >> removeShield [
 
 	shields := shields - 1.
 	shields = 0 ifTrue: [ penalty := 2 ]
+]
+
+{ #category : #'as yet unclassified' }
+Ship >> restoreShields [
+	shields := 3
 ]

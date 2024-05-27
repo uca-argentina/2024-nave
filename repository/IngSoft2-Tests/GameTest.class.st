@@ -158,6 +158,41 @@ GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
 ]
 
 { #category : #tests }
+GameTest >> testWhenShipLosesTwoBattlesThenSkipsATurnThenLoseAnotherBattleThenItMovesInNextTurn [
+
+	| aShip someShips aGame someDice anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 1 1 10 5 1 2 10 5 1 1 4 10 5 1 1 )
+					              asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99.
+	aGame playsNextTurn. "+1"
+	aGame playsNextTurn. "pierde shield"
+
+	aGame playsNextTurn. "+1"
+	aGame playsNextTurn. "pierde shield"
+
+	aGame playsNextTurn. "+1"
+	aGame skipsNextTurn. "recupera los shields"
+
+	aGame playsNextTurn. "+1"
+	aGame playsNextTurn. "1" "pierde shield"
+
+	aGame playsNextTurn. "+1"
+	aGame playsNextTurn. "+1"
+
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 2
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipRunsOutOfShieldsThenShouldLoseTwoTurns [
 	
 	| aShip someShips aGame someDice anotherShip |
