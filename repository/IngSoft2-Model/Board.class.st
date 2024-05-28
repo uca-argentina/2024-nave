@@ -103,11 +103,25 @@ Board >> moveAllShips: times except: aShip [
 ]
 
 { #category : #'as yet unclassified' }
+Board >> moveAllShipsToTheStart [
+	| allShips |
+	allShips := (cells collect: [:cell | cell ships]) flattened asOrderedCollection.
+	allShips do: [ :eachShip | self moveToTheStart: eachShip ]
+]
+
+{ #category : #'as yet unclassified' }
 Board >> moveToTheStart: aShip [
 	| actualCell |
 	actualCell := self whereIs: aShip.
 	actualCell leaves: aShip.
 	cells first enters: aShip
+]
+
+{ #category : #removing }
+Board >> removeShieldFromAllShips [
+	| allShips |
+	allShips := (cells collect: [:cell | cell ships]) flattened asOrderedCollection.
+	allShips do: [ :eachShip | eachShip removeShield ]
 ]
 
 { #category : #'as yet unclassified' }
