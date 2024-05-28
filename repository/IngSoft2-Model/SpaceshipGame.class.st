@@ -74,7 +74,6 @@ SpaceshipGame >> playsNextTurn [
 
 	| shipToPlay diceResult actualShipDiceResult collidingShipDiceResult loserShip |
 	self verifyIsNotOver.
-	diceResult := dice throw.
 	shipToPlay := ships first.
 	board move: shipToPlay by: diceResult.
 	board applyEffectTo: shipToPlay.
@@ -86,7 +85,15 @@ SpaceshipGame >> playsNextTurn [
 			             ifFalse: [ actualShip ].
 		loserShip removeShield.
 		board moveToTheStart: loserShip ].
+	ships removeFirst.
+	ships addLast: shipToPlay
+]
 
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> skipsNextTurn [
+	| shipToPlay |
+	shipToPlay := ships first.
+	shipToPlay restoreShields.
 	ships removeFirst.
 	ships addLast: shipToPlay
 ]
