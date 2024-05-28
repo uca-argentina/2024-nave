@@ -85,21 +85,6 @@ Board >> move: aShip by: times [
 ]
 
 { #category : #'as yet unclassified' }
-Board >> move: aShip by: times ifCollision: aBlockIfCollision [
-
-	| actualCell nextCell actualCellIndex nextCellIndex lapsDone |
-	actualCell := self whereIs: aShip.
-	actualCellIndex := cells indexOf: actualCell.
-	nextCellIndex := actualCellIndex - 1 + times % cells size + 1.
-	lapsDone := actualCellIndex - 1 + times // cells size.
-	aShip addLaps: lapsDone.
-	nextCell := cells at: nextCellIndex.
-	actualCell leaves: aShip.
-	nextCell enters: aShip.
-	nextCell ifHasTwoShips: aBlockIfCollision
-]
-
-{ #category : #'as yet unclassified' }
 Board >> moveAllShips: times except: aShip [
 
 	| allShips |
