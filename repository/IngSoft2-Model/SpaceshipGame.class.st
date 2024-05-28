@@ -10,6 +10,11 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'testing - initialization' }
+SpaceshipGame class >> with: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: someCells [ 
+	^ (self new) initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: someCells
+]
+
 { #category : #'as yet unclassified' }
 SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 
@@ -28,6 +33,19 @@ SpaceshipGame >> indexOfCellWith: aShipName [
 	| aShip |
 	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
 	^ board indexOfCellWith: aShip
+]
+
+{ #category : #initialization }
+SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: someCells [ 
+
+	lapsToWin := aNumberOfLapsToWin.
+	dice := someDice.
+	ships := someShipNames collect: [ :eachShipName |
+		         Ship named: eachShipName ].
+	board := Board
+		         withCells: someCells.
+	board at: 1 place: ships.
+	^ self
 ]
 
 { #category : #initialization }

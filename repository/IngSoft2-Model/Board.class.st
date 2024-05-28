@@ -19,6 +19,11 @@ Board class >> length: anAmountOfCells wormholeStart: aWormholeStartLocation wor
 		  wormholeEnd: aWormholeEndLocation
 ]
 
+{ #category : #'testing - initialization' }
+Board class >> withCells: someCells [ 
+	^ (self new) initializeWith: someCells.
+]
+
 { #category : #accessing }
 Board >> at: index place: someShips [
 
@@ -31,6 +36,11 @@ Board >> at: index place: someShips [
 Board >> indexOfCellWith: aShip [
 
 	^ cells detectIndex: [ :eachCell | eachCell includes: aShip ]
+]
+
+{ #category : #initialization }
+Board >> initializeWith: someCells [ 
+	cells := someCells
 ]
 
 { #category : #initialization }
