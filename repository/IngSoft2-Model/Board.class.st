@@ -24,12 +24,26 @@ Board class >> withCells: someCells [
 	^ (self new) initializeWith: someCells.
 ]
 
+{ #category : #'as yet unclassified' }
+Board >> applyEffectTo: aShip [ 
+	| aCell |
+	aCell := self whereIs: aShip.
+	aCell applyEffectTo: aShip in: self
+]
+
 { #category : #accessing }
 Board >> at: index place: someShips [
 
 	| theCell |
 	theCell := cells at: index.
 	theCell entersAll: someShips
+]
+
+{ #category : #'as yet unclassified' }
+Board >> if: aShip isCollidding: aBlockIfColliding [ 
+	| aCell |
+	aCell := self whereIs: aShip.
+	aCell ifHasTwoShips: aBlockIfColliding 
 ]
 
 { #category : #accessing }
@@ -55,6 +69,20 @@ Board >> initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLoca
 		start: aWormholeStartLocation
 		end: aWormholeEndLocation.
 	^ self
+]
+
+{ #category : #'as yet unclassified' }
+Board >> move: aShip by: times [
+
+	| actualCell nextCell actualCellIndex nextCellIndex lapsDone |
+	actualCell := self whereIs: aShip.
+	actualCellIndex := cells indexOf: actualCell.
+	nextCellIndex := actualCellIndex - 1 + times % cells size + 1.
+	lapsDone := actualCellIndex - 1 + times // cells size.
+	aShip addLaps: lapsDone.
+	nextCell := cells at: nextCellIndex.
+	actualCell leaves: aShip.
+	nextCell enters: aShip.
 ]
 
 { #category : #'as yet unclassified' }

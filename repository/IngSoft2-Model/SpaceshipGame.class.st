@@ -76,17 +76,16 @@ SpaceshipGame >> playsNextTurn [
 	self verifyIsNotOver.
 	diceResult := dice throw.
 	shipToPlay := ships first.
-	board
-		move: shipToPlay
-		by: diceResult
-		ifCollision: [ :actualShip :collidingShip |
-			actualShipDiceResult := dice throw.
-			collidingShipDiceResult := dice throw.
-			loserShip := actualShipDiceResult >= collidingShipDiceResult
-				             ifTrue: [ collidingShip ]
-				             ifFalse: [ actualShip ].
-			loserShip removeShield.
-			board moveToTheStart: loserShip ].
+	board move: shipToPlay by: diceResult.
+	board applyEffectTo: shipToPlay.
+	board if: shipToPlay isCollidding: [ :actualShip :collidingShip |
+		actualShipDiceResult := dice throw.
+		collidingShipDiceResult := dice throw.
+		loserShip := actualShipDiceResult >= collidingShipDiceResult
+			             ifTrue: [ collidingShip ]
+			             ifFalse: [ actualShip ].
+		loserShip removeShield.
+		board moveToTheStart: loserShip ].
 
 	ships removeFirst.
 	ships addLast: shipToPlay

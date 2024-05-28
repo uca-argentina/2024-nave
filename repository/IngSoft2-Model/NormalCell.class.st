@@ -5,7 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-NormalCell >> enters: aShip [
-
-	ships add: aShip
+NormalCell >> applyEffectTo: aShip in: aBoard [ 
+	
 ]
