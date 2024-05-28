@@ -40,7 +40,7 @@ Board >> at: index place: someShips [
 ]
 
 { #category : #'as yet unclassified' }
-Board >> if: aShip isCollidding: aBlockIfColliding [ 
+Board >> if: aShip isColliding: aBlockIfColliding [ 
 	| aCell |
 	aCell := self whereIs: aShip.
 	aCell ifHasTwoShips: aBlockIfColliding 
