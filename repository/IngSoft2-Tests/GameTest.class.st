@@ -200,6 +200,43 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 ]
 
 { #category : #tests }
+GameTest >> testWhenShipEntersManyTimesToAHyperjumpCellThenShouldMoveAccordingToTheParsecSequence [
+
+	| aShip someShips aGame someDice someCells |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 10 9 8 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add:
+		(HyperJumpCell withParsecs: #( 2 10 20 ) asOrderedCollection).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGameWithFixedBoard
+		         with: someShips
+		         lapsToWin: 5
+		         using: someDice
+		         withCells: someCells
+		         lengthInParsecs: 100.
+
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 3
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipEntersToABlackholeCellThenShouldGoBackFourCells [
 
 	| aShip someShips aGame someDice someCells |
@@ -225,6 +262,39 @@ GameTest >> testWhenShipEntersToABlackholeCellThenShouldGoBackFourCells [
 	aGame playsNextTurn.
 
 	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+]
+
+{ #category : #tests }
+GameTest >> testWhenShipEntersToAHyperJumpCellThenShouldMoveTheDesiredAmountOfParsecs [
+
+	| aShip someShips aGame someDice someCells |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add:
+		(HyperJumpCell withParsecs: #( 10 ) asOrderedCollection).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGameWithFixedBoard
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: someCells
+		         lengthInParsecs: 100.
+		
+	aGame playsNextTurn.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 4
 ]
 
 { #category : #tests }
@@ -336,6 +406,39 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellThreeTimesInARowItShouldLoseT
 
 	self deny: aGame isOver.
 	self assert: (aGame indexOfCellWith: aShip) equals: 16.
+]
+
+{ #category : #tests }
+GameTest >> testWhenShipEntersToAHyperjumpCellAndParsecIsNotEnoughToMoveOneCellThenShouldStayInTheHyperjumpCell [
+
+	| aShip someShips aGame someDice someCells |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add:
+		(HyperJumpCell withParsecs: #( 5 ) asOrderedCollection).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGameWithFixedBoard
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: someCells
+		         lengthInParsecs: 100.
+		
+	aGame playsNextTurn.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 3
 ]
 
 { #category : #tests }

@@ -2,7 +2,8 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'cells'
+		'cells',
+		'lengthInParsecs'
 	],
 	#classInstVars : [
 		'cells'
@@ -49,20 +50,6 @@ Board >> indexOfCellWith: aShip [
 	^ cells detectIndex: [ :eachCell | eachCell includes: aShip ]
 ]
 
-{ #category : #initialization }
-Board >> initializeWithLength: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
-
-	| wormholePair |
-	cells := OrderedCollection new.
-	wormholePair := WormholeCell newPair.
-	1 to: anAmountOfCells do: [ :index | cells add: NormalCell new ].
-	WormholeCell
-		newPairIn: cells
-		start: aWormholeStartLocation
-		end: aWormholeEndLocation.
-	^ self
-]
-
 { #category : #'as yet unclassified' }
 Board >> move: aShip by: times [
 
@@ -90,6 +77,14 @@ Board >> move: aShip by: times ifCollision: aBlockIfCollision [
 	actualCell leaves: aShip.
 	nextCell enters: aShip.
 	nextCell ifHasTwoShips: aBlockIfCollision
+]
+
+{ #category : #'as yet unclassified' }
+Board >> move: aShip byParsecs: parsecsToMove [ 
+	| cellsToMove parsecsPerCell|
+	parsecsPerCell := lengthInParsecs // cells size.
+	cellsToMove := parsecsToMove // parsecsPerCell.
+	self move: aShip by: cellsToMove
 ]
 
 { #category : #'as yet unclassified' }
