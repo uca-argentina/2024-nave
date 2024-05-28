@@ -12,10 +12,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Board class >> length: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+Board class >> length: anAmountOfCells lengthInParsecs: anAmountOfLengthInParsecs wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 
 	^ self new
 		  initializeWithLength: anAmountOfCells
+		  lengthInParsecs: anAmountOfLengthInParsecs
 		  wormholeStart: aWormholeStartLocation
 		  wormholeEnd: aWormholeEndLocation
 ]
@@ -48,6 +49,20 @@ Board >> if: aShip isCollidding: aBlockIfColliding [
 Board >> indexOfCellWith: aShip [
 
 	^ cells detectIndex: [ :eachCell | eachCell includes: aShip ]
+]
+
+{ #category : #initialization }
+Board >> initializeWithLength: anAmountOfCells lengthInParsecs: aLengthInParsecs wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+
+	| wormholePair |
+	cells := OrderedCollection new.
+	wormholePair := WormholeCell newPair.
+	1 to: anAmountOfCells do: [ :index | cells add: NormalCell new ].
+	WormholeCell
+		newPairIn: cells
+		start: aWormholeStartLocation
+		end: aWormholeEndLocation.
+	^ self
 ]
 
 { #category : #'as yet unclassified' }

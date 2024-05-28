@@ -22,7 +22,8 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
-		         wormholeEnd: 7.
+		         wormholeEnd: 7
+					lengthInParsecs: 100.
 	self
 		should: [ aGame winner ]
 		raise: Error
@@ -40,11 +41,12 @@ GameTest >> testWhenAShipCompletedTheRequiredLapsThenShouldBeOver [
 			             (LoadedDie sequence: #( 5 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
-					lapsToWin: 1
+		         lapsToWin: 1
 		         using: someDice
 		         withCells: 5
 		         wormholeStart: 1
-		         wormholeEnd: 2.
+		         wormholeEnd: 2
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	self assert: aGame isOver
 ]
@@ -69,12 +71,13 @@ GameTest >> testWhenAShipEntersIntoAMoonwalkCellAndOneShipGoesBackMoreThanTheFir
 	someCells add: (MoonwalkCell times: 3).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
-	
+
 	aGame := SpaceshipGameWithFixedBoard
 		         with: someShips
 		         lapsToWin: 2
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+		         lengthInParsecs: 100.
 
 	aGame playsNextTurn.
 	aGame playsNextTurn.
@@ -110,12 +113,13 @@ GameTest >> testWhenAShipEntersIntoAMoonwalkCellThenItShouldStayInThatCell [
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
-	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 7.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 7
 ]
 
 { #category : #tests }
@@ -145,7 +149,8 @@ GameTest >> testWhenAShipEntersIntoAMoonwalkCellWithThreeStepsThenAllTheOtherShi
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
@@ -160,9 +165,7 @@ GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 	| aShip someShips aGame someDice anotherShip |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
-	someShips := OrderedCollection
-		             with: aShip
-		             with: anotherShip.
+	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence: #( 4 3 10 ) asOrderedCollection)).
@@ -172,7 +175,8 @@ GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 		         using: someDice
 		         withCells: 5
 		         wormholeStart: 2
-		         wormholeEnd: 3.
+		         wormholeEnd: 3
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
@@ -190,11 +194,12 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 			             (LoadedDie sequence: #( 6 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
-					lapsToWin: 2
+		         lapsToWin: 2
 		         using: someDice
 		         withCells: 4
 		         wormholeStart: 2
-		         wormholeEnd: 3.
+		         wormholeEnd: 3
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	self deny: aGame isOver
 ]
@@ -254,14 +259,15 @@ GameTest >> testWhenShipEntersToABlackholeCellThenShouldGoBackFourCells [
 	someCells add: NormalCell new.
 	someCells add: BlackholeCell new.
 	someCells add: NormalCell new.
-	aGame := SpaceshipGameWithFixedBoard 
+	aGame := SpaceshipGameWithFixedBoard
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 
-	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+	self assert: (aGame indexOfCellWith: aShip) equals: 3
 ]
 
 { #category : #tests }
@@ -322,7 +328,8 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellAndThatShipLosesTwoTimesShoul
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
@@ -356,14 +363,15 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellThenShouldGoForwardFourCells 
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
-	aGame := SpaceshipGameWithFixedBoard 
+	aGame := SpaceshipGameWithFixedBoard
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 
-	self assert: (aGame indexOfCellWith: aShip) equals: 6.
+	self assert: (aGame indexOfCellWith: aShip) equals: 6
 ]
 
 { #category : #tests }
@@ -374,7 +382,8 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellThreeTimesInARowItShouldLoseT
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 1 1 1 10 10 ) asOrderedCollection)).
+			             (LoadedDie sequence:
+				              #( 1 1 1 10 10 ) asOrderedCollection)).
 	someCells := OrderedCollection new.
 	someCells add: NormalCell new.
 	someCells add: HyperSpaceJump new.
@@ -397,7 +406,8 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellThreeTimesInARowItShouldLoseT
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
@@ -405,7 +415,7 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellThreeTimesInARowItShouldLoseT
 	aGame playsNextTurn.
 
 	self deny: aGame isOver.
-	self assert: (aGame indexOfCellWith: aShip) equals: 16.
+	self assert: (aGame indexOfCellWith: aShip) equals: 16
 ]
 
 { #category : #tests }
@@ -456,7 +466,8 @@ GameTest >> testWhenShipIsInFirstCellAndAskForTheIndexOfThatCellShouldBeTheFirst
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
-		         wormholeEnd: 5.
+		         wormholeEnd: 5
+		         lengthInParsecs: 100.
 	self assert: (aGame indexOfCellWith: aShip) equals: 1
 ]
 
@@ -475,7 +486,8 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
-		         wormholeEnd: 5.
+		         wormholeEnd: 5
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	self
 		should: [ aGame playsNextTurn ]
@@ -498,10 +510,10 @@ GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 3
-		         wormholeEnd: 5.
+		         wormholeEnd: 5
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	self assert: (aGame indexOfCellWith: aShip) equals: 10
-
 ]
 
 { #category : #tests }
@@ -520,7 +532,8 @@ GameTest >> testWhenShipLosesTwoBattlesThenSkipsATurnThenLoseAnotherBattleThenIt
 		         using: someDice
 		         withCells: 100
 		         wormholeStart: 98
-		         wormholeEnd: 99.
+		         wormholeEnd: 99
+		         lengthInParsecs: 100.
 	aGame playsNextTurn. "+1"
 	aGame playsNextTurn. "pierde shield"
 
@@ -541,21 +554,22 @@ GameTest >> testWhenShipLosesTwoBattlesThenSkipsATurnThenLoseAnotherBattleThenIt
 
 { #category : #tests }
 GameTest >> testWhenShipRunsOutOfShieldsThenShouldLoseTwoTurns [
-	
+
 	| aShip someShips aGame someDice anotherShip |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll:
-		            (Set with:
-			             (LoadedDie sequence: #( 1 1 10 5 1 2 10 5 1 3 10 5 4 4 ) asOrderedCollection)).
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 1 1 10 5 1 2 10 5 1 3 10 5 4 4 )
+					              asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
 		         withCells: 100
 		         wormholeStart: 98
-		         wormholeEnd: 99.
+		         wormholeEnd: 99
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
@@ -564,30 +578,31 @@ GameTest >> testWhenShipRunsOutOfShieldsThenShouldLoseTwoTurns [
 
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
 ]
 
 { #category : #tests }
 GameTest >> testWhenShipRunsOutOfShieldsThenTheOtherShipMoves [
-	
+
 	| aShip someShips aGame someDice anotherShip |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll:
-		            (Set with:
-			             (LoadedDie sequence: #( 1 1 10 5 1 2 10 5 1 3 10 5 4 4 ) asOrderedCollection)).
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 1 1 10 5 1 2 10 5 1 3 10 5 4 4 )
+					              asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
 		         withCells: 100
 		         wormholeStart: 98
-		         wormholeEnd: 99.
+		         wormholeEnd: 99
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
@@ -596,33 +611,34 @@ GameTest >> testWhenShipRunsOutOfShieldsThenTheOtherShipMoves [
 
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	self assert: (aGame indexOfCellWith: aShip) equals: 12
 ]
 
 { #category : #tests }
 GameTest >> testWhenShipRunsOutOfShieldsThenTwoTurnsLaterCanPlay [
-	
+
 	| aShip someShips aGame someDice anotherShip |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll:
-		            (Set with:
-			             (LoadedDie sequence: #( 1 1 10 5 1 2 10 5 1 3 10 5 4 4 4 2 ) asOrderedCollection)).
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 1 1 10 5 1 2 10 5 1 3 10 5 4 4 4 2 )
+					              asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
 		         withCells: 100
 		         wormholeStart: 98
-		         wormholeEnd: 99.
+		         wormholeEnd: 99
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
@@ -631,18 +647,18 @@ GameTest >> testWhenShipRunsOutOfShieldsThenTwoTurnsLaterCanPlay [
 
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
+
 	aGame playsNextTurn.
 	aGame playsNextTurn.
-	
-	
-	
+
+
+
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 3
 ]
 
@@ -662,7 +678,8 @@ GameTest >> testWhenTheFirstShipCompletedTheRequiredLapsThenShouldBeTheWinner [
 		         using: someDice
 		         withCells: 10
 		         wormholeStart: 2
-		         wormholeEnd: 3.
+		         wormholeEnd: 3
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	self assert: aGame winner equals: aShip
 ]
@@ -684,7 +701,8 @@ GameTest >> testWhenTwoShipsBattleAndItsADrawTheSecondShipGoesBackToFirstCell [
 		         using: someDice
 		         withCells: 100
 		         wormholeStart: 98
-		         wormholeEnd: 99.
+		         wormholeEnd: 99
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
@@ -707,7 +725,8 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 		         using: someDice
 		         withCells: 100
 		         wormholeStart: 98
-		         wormholeEnd: 99.
+		         wormholeEnd: 99
+		         lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
