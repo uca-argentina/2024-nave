@@ -95,6 +95,66 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 ]
 
 { #category : #tests }
+GameTest >> testWhenShipEntersToABlackholeCellThenLandsInAOccupiedCellThenTheLoserShipShouldMoveToTheBeginning [
+
+	| aShip someShips aGame someDice someCells anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 6 10 5 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: BlackholeCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: someCells.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	
+	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
+]
+
+{ #category : #tests }
+GameTest >> testWhenShipEntersToABlackholeCellThenLandsIntoAnotherBlackholeCellThenSecondBlackholeShouldNotBeApplied [
+
+	| aShip someShips aGame someDice someCells anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 6 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: BlackholeCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: someCells.
+	aGame playsNextTurn.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipEntersToABlackholeCellThenShouldGoBackFourCells [
 
 	| aShip someShips aGame someDice someCells |
