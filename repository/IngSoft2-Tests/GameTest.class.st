@@ -13,12 +13,12 @@ GameTest >> testARandomMatchEnds [
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (Die of: 10)).
+			             (Die of: 30)).
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: 20
+		         withCells: 15
 		         wormholeStart: 4
 		         wormholeEnd: 5
 		         lengthInParsecs: 200.
