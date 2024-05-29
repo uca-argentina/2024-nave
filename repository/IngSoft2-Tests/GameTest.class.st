@@ -233,7 +233,7 @@ GameTest >> testWhenShipEntersManyTimesToAHyperjumpCellThenShouldMoveAccordingTo
 		         withCells: someCells
 		         lengthInParsecs: 100.
 
-
+{ #category : #tests }
 GameTest >> testWhenSecondShipsLosesTwoShieldsAndThenAnotherShieldDueToAtomicBombEffectThenItShouldLoseTwoTurns [
 
 	| aShip someShips aGame someDice someCells anotherShip |
