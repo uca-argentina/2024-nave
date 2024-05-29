@@ -5,6 +5,30 @@ Class {
 }
 
 { #category : #tests }
+GameTest >> testARandomMatchEnds [
+
+	| aShip someShips aGame someDice anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (Die of: 10)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 20
+		         wormholeStart: 4
+		         wormholeEnd: 5
+		         lengthInParsecs: 200.
+		
+	[aGame isOver] whileFalse: [ 
+		aGame playsNextTurn.
+	]
+]
+
+{ #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 
 	| aShip someShips aGame someDice anotherShip |
@@ -166,7 +190,7 @@ GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 	aGame := SpaceshipGameWithFixedBoard
 		         initializeWithAllNormalCells: 5
 		         ships: someShips
-		         lapsToWin: 1
+		         lapsToWin: 2
 		         using: someDice
 		         lengthInParsecs: 100.
 	aGame playsNextTurn.
