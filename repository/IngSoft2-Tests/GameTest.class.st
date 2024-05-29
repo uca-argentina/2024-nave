@@ -455,22 +455,30 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 { #category : #tests }
 GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
 
-	| aShip aGame someShips someDice |
+	| aShip aGame someShips someDice anotherShip yetAnotherShip |
 	aShip := 'test-ship-1'.
-	someShips := OrderedCollection with: aShip.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection with: aShip with: anotherShip with: yetAnotherShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 9 ) asOrderedCollection)).
+			             (LoadedDie sequence:
+				              #( 100 11 10 100 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
-		         lapsToWin: 1
+		         lapsToWin: 2
 		         using: someDice
-		         withCells: 10
-		         wormholeStart: 3
-		         wormholeEnd: 5.
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99.
 	aGame playsNextTurn.
-	self assert: (aGame indexOfCellWith: aShip) equals: 10
-
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	self assert: aGame ranking equals: {
+			aShip.
+			anotherShip.
+			yetAnotherShip } asOrderedCollection
 ]
 
 { #category : #tests }
