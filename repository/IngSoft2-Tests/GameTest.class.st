@@ -155,6 +155,35 @@ GameTest >> testWhenAShipEntersIntoAMoonwalkCellWithThreeStepsThenAllTheOtherShi
 ]
 
 { #category : #tests }
+GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
+
+	| aShip aGame someShips someDice anotherShip yetAnotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection with: aShip with: anotherShip with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 100 11 10 100 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	self assert: aGame ranking equals: {
+			aShip.
+			anotherShip.
+			yetAnotherShip } asOrderedCollection
+]
+
+{ #category : #tests }
 GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 
 	| aShip someShips aGame someDice anotherShip |
@@ -455,30 +484,21 @@ GameTest >> testWhenShipIsInLastCellThenPlaysNextTurnShouldThrowError [
 { #category : #tests }
 GameTest >> testWhenShipIsInLastCellThenTheIndexOfThatCellShouldBeTheLastIndex [
 
-	| aShip aGame someShips someDice anotherShip yetAnotherShip |
+	| aShip aGame someShips someDice |
 	aShip := 'test-ship-1'.
-	anotherShip := 'test-ship-2'.
-	yetAnotherShip := 'test-ship-3'.
-	someShips := OrderedCollection with: aShip with: anotherShip with: yetAnotherShip.
+	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence:
-				              #( 100 11 10 100 ) asOrderedCollection)).
+			             (LoadedDie sequence: #( 9 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
-		         lapsToWin: 2
+		         lapsToWin: 1
 		         using: someDice
-		         withCells: 100
-		         wormholeStart: 98
-		         wormholeEnd: 99.
+		         withCells: 10
+		         wormholeStart: 3
+		         wormholeEnd: 5.
 	aGame playsNextTurn.
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	self assert: aGame ranking equals: {
-			aShip.
-			anotherShip.
-			yetAnotherShip } asOrderedCollection
+	self assert: (aGame indexOfCellWith: aShip) equals: 10
 ]
 
 { #category : #tests }
