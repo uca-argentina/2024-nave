@@ -205,6 +205,47 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 ]
 
 { #category : #tests }
+GameTest >> testWhenSecondShipsLosesTwoShieldsAndThenAnotherShieldDueToAtomicBombEffectThenItShouldLoseTwoTurns [
+
+	| aShip someShips aGame someDice someCells anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll: (Set with:
+			             (LoadedDie sequence:
+				              #( 1 1 10 5 1 2 10 5 1 1 1 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: AtomicBombCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGameWithFixedBoard
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: someCells
+					lengthInParsecs: 100.
+
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	"Loser Turn"
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	"Loser Turn"
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	
+	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipEntersManyTimesToAHyperjumpCellThenShouldMoveAccordingToTheParsecSequence [
 
 	| aShip someShips aGame someDice someCells |
@@ -232,46 +273,6 @@ GameTest >> testWhenShipEntersManyTimesToAHyperjumpCellThenShouldMoveAccordingTo
 		         using: someDice
 		         withCells: someCells
 		         lengthInParsecs: 100.
-]
-
-{ #category : #tests }
-GameTest >> testWhenSecondShipsLosesTwoShieldsAndThenAnotherShieldDueToAtomicBombEffectThenItShouldLoseTwoTurns [
-
-	| aShip someShips aGame someDice someCells anotherShip |
-	aShip := 'test-ship-1'.
-	anotherShip := 'test-ship-2'.
-	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll: (Set with:
-			             (LoadedDie sequence:
-				              #( 1 1 10 5 1 2 10 5 1 1 1 ) asOrderedCollection)).
-	someCells := OrderedCollection new.
-	someCells add: NormalCell new.
-	someCells add: NormalCell new.
-	someCells add: NormalCell new.
-	someCells add: AtomicBombCell new.
-	someCells add: NormalCell new.
-	someCells add: NormalCell new.
-
-	aGame := SpaceshipGameWithFixedBoard
-		         with: someShips
-		         lapsToWin: 1
-		         using: someDice
-		         withCells: someCells.
-
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	"Loser Turn"
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	"Loser Turn"
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	
-	self assert: (aGame indexOfCellWith: aShip) equals: 3.
-	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
 ]
 
 { #category : #tests }
@@ -507,7 +508,8 @@ GameTest >> testWhenShipEntersToAnAtomicBombCellAllShipsShouldGoBackToTheBeginni
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+					lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
@@ -780,7 +782,8 @@ GameTest >> testWhenThirdShipEntersToAnAtomicBombCellAndThenFirstShipRollsNineIn
 		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
-		         withCells: someCells.
+		         withCells: someCells
+					lengthInParsecs: 100.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 	aGame playsNextTurn.
