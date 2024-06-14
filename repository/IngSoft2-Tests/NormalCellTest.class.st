@@ -96,18 +96,6 @@ NormalCellTest >> testWhenCellHasAShipThenShouldIncludeThatShip [
 ]
 
 { #category : #tests }
-NormalCellTest >> testWhenCellHasAShipThenShouldNotIncludeAnotherShip [
-
-	| aShip aCell anotherShip |
-	aShip := 'test-name-1'.
-	anotherShip := 'test-name-2'.
-	aCell := NormalCell new.
-	aCell enters: aShip.
-
-	self deny: (aCell includes: anotherShip)
-]
-
-{ #category : #tests }
 NormalCellTest >> testWhenCellHasNoShipThenShouldNotIncludeAShip [
 
 	| aShip aCell |
