@@ -203,23 +203,31 @@ GameTest >> testWhenAShipEntersIntoAMoonwalkCellWithThreeStepsThenAllTheOtherShi
 { #category : #tests }
 GameTest >> testWhenAShipEntersToABlackholeCellThenLandsInAnotherBlackholeCellThenSecondEffectShouldNotBeApplied [
 
-	| aShip someShips aGame someDice anotherShip |
+	| aShip someShips aGame someDice someCells anotherShip |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 1 1 10 5 ) asOrderedCollection)).
+			             (LoadedDie sequence: #( 2 6 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: BlackholeCell new.
+	someCells add: NormalCell new.
 	aGame := SpaceshipGameWithFixedBoard
-		         initializeWithAllNormalCells: 10
-		         ships: someShips
+		         with: someShips
 		         lapsToWin: 1
 		         using: someDice
+		         withCells: someCells
 		         lengthInParsecs: 100.
 	aGame playsNextTurn.
-	aGame playsNextTurn.
 
-	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+	self assert: (aGame indexOfCellWith: aShip) equals: 3
 ]
 
 { #category : #tests }
