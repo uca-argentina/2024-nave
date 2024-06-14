@@ -38,11 +38,6 @@ WormholeCell >> applyEffectTo: aShip in: aBoard [
 	wormholeEnd enters: aShip
 ]
 
-{ #category : #testing }
-WormholeCell >> enters: aShip [
-	wormholeEnd teleport: aShip
-]
-
 { #category : #initialization }
 WormholeCell >> initializeWith: aWormholeCell [
 
