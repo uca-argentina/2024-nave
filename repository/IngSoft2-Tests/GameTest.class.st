@@ -808,6 +808,30 @@ GameTest >> testWhenShipRunsOutOfShieldsThenTwoTurnsLaterCanPlay [
 ]
 
 { #category : #tests }
+GameTest >> testWhenShipsEntersToAWormholeAndThereIsAnotherShipInTheOtherWormholeThenTheyShouldBattle [
+
+	| aShip someShips aGame someDice anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 4 6 1 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 15
+		         wormholeStart: 4
+		         wormholeEnd: 5
+		         lengthInParsecs: 200.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+	
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
+]
+
+{ #category : #tests }
 GameTest >> testWhenTheFirstShipCompletedTheRequiredLapsThenShouldBeTheWinner [
 
 	| aShip anotherShip someShips someDice aGame |
