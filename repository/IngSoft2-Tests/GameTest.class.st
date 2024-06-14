@@ -223,6 +223,28 @@ GameTest >> testWhenAShipEntersToABlackholeCellThenLandsInAnotherBlackholeCellTh
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipEntersToAWormholeThenItShouldBeOnTheOtherWormhole [
+
+	| aShip someShips aGame someDice |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 3 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 15
+		         wormholeStart: 4
+		         wormholeEnd: 5
+		         lengthInParsecs: 200.
+	aGame playsNextTurn.
+	
+	self assert: (aGame indexOfCellWith: aShip) equals: 5.
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 
 	| aShip aGame someShips someDice anotherShip yetAnotherShip |
