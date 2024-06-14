@@ -61,7 +61,7 @@ Board >> indexOfCellWith: aShip [
 { #category : #initialization }
 Board >> initializeWithLength: anAmountOfCells lengthInParsecs: aLengthInParsecs wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 
-	| wormholePair notRandomCellsCount randomCellsCount normalCellsCount blackholeCellsCount hyperspacejumpCount moonwalkCount hyperjumpCount atomicbombCount cellsDistribution normalsCells blackholeCells hyperspacejumpCells moonwalkCells hyperjumpCells atomicbombCells roundDifference |
+	| notRandomCellsCount randomCellsCount normalCellsCount blackholeCellsCount hyperspacejumpCount moonwalkCount hyperjumpCount atomicbombCount cellsDistribution normalsCells blackholeCells hyperspacejumpCells moonwalkCells hyperjumpCells atomicbombCells roundDifference |
 	notRandomCellsCount := 2. "The wormhole cells are not random, and they are 2"
 	randomCellsCount := anAmountOfCells - 2.
 
@@ -107,7 +107,6 @@ Board >> initializeWithLength: anAmountOfCells lengthInParsecs: aLengthInParsecs
 	cellsDistribution addAll: atomicbombCells.
 
 	cells := OrderedCollection new.
-	wormholePair := WormholeCell newPair.
 	1 to: anAmountOfCells do: [ :index | cells add: NormalCell new ].
 	WormholeCell
 		newPairIn: cells
