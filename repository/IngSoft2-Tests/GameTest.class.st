@@ -201,6 +201,28 @@ GameTest >> testWhenAShipEntersIntoAMoonwalkCellWithThreeStepsThenAllTheOtherShi
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipEntersToABlackholeCellThenLandsInAnotherBlackholeCellThenSecondEffectShouldNotBeApplied [
+
+	| aShip someShips aGame someDice anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 10 5 ) asOrderedCollection)).
+	aGame := SpaceshipGameWithFixedBoard
+		         initializeWithAllNormalCells: 10
+		         ships: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         lengthInParsecs: 100.
+	aGame playsNextTurn.
+	aGame playsNextTurn.
+
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 
 	| aShip aGame someShips someDice anotherShip yetAnotherShip |
