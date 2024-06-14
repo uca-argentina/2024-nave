@@ -33,7 +33,9 @@ WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wor
 
 { #category : #'as yet unclassified' }
 WormholeCell >> applyEffectTo: aShip in: aBoard [
-	wormholeEnd teleport: aShip.
+
+	self leaves: aShip.
+	wormholeEnd enters: aShip
 ]
 
 { #category : #testing }
@@ -45,10 +47,4 @@ WormholeCell >> enters: aShip [
 WormholeCell >> initializeWith: aWormholeCell [
 
 	wormholeEnd := aWormholeCell
-]
-
-{ #category : #'as yet unclassified' }
-WormholeCell >> teleport: aShip [
-
-	ships add: aShip
 ]
