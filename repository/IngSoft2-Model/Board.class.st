@@ -33,6 +33,13 @@ Board >> allShips [
 ]
 
 { #category : #'as yet unclassified' }
+Board >> anyShipCompletedAllLaps [
+
+	^ lapsPerShip anySatisfy: [ :lapsByEachShip |
+		  lapsByEachShip >= lapsToWin ]
+]
+
+{ #category : #'as yet unclassified' }
 Board >> applyEffectTo: aShip [
 
 	| aCell |
@@ -117,6 +124,11 @@ Board >> initializeWith: someShips length: anAmountOfCells lengthInParsecs: aLen
 	lapsPerShip := Dictionary new.
 	someShips do: [ :eachShip | lapsPerShip at: eachShip put: 0 ].
 	^ self
+]
+
+{ #category : #'as yet unclassified' }
+Board >> lapsOf: aShip [ 
+	^ lapsPerShip at: aShip.
 ]
 
 { #category : #'as yet unclassified' }
