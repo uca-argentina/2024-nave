@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cells',
-		'lengthInParsecs'
+		'lengthInParsecs',
+		'lapsPerShip',
+		'lapsToWin'
 	],
 	#classInstVars : [
 		'cells'
@@ -12,11 +14,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Board class >> length: anAmountOfCells lengthInParsecs: anAmountOfLengthInParsecs wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+Board class >> withShips: someShips length: anAmountOfCells lengthInParsecs: anAmountOfLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 
 	^ self new
-		  initializeWithLength: anAmountOfCells
+		  initializeWith: someShips
+		  length: anAmountOfCells
 		  lengthInParsecs: anAmountOfLengthInParsecs
+		  lapsToWin: aNumberOfLapsToWin
 		  wormholeStart: aWormholeStartLocation
 		  wormholeEnd: aWormholeEndLocation
 ]
@@ -36,14 +40,6 @@ Board >> applyEffectTo: aShip [
 	aCell applyEffectTo: aShip in: self
 ]
 
-{ #category : #accessing }
-Board >> at: index place: someShips [
-
-	| theCell |
-	theCell := cells at: index.
-	theCell entersAll: someShips
-]
-
 { #category : #'as yet unclassified' }
 Board >> if: aShip isCollidding: aBlockIfColliding [
 
@@ -59,7 +55,7 @@ Board >> indexOfCellWith: aShip [
 ]
 
 { #category : #initialization }
-Board >> initializeWithLength: anAmountOfCells lengthInParsecs: aLengthInParsecs wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+Board >> initializeWith: someShips length: anAmountOfCells lengthInParsecs: aLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
 
 	| notRandomCellsCount randomCellsCount normalCellsCount blackholeCellsCount hyperspacejumpCount moonwalkCount hyperjumpCount atomicbombCount cellsDistribution normalsCells blackholeCells hyperspacejumpCells moonwalkCells hyperjumpCells atomicbombCells roundDifference |
 	notRandomCellsCount := 2. "The wormhole cells are not random, and they are 2"
@@ -81,14 +77,16 @@ Board >> initializeWithLength: anAmountOfCells lengthInParsecs: aLengthInParsecs
 	normalCellsCount timesRepeat: [ normalsCells add: NormalCell new ].
 
 	blackholeCells := OrderedCollection new.
-	blackholeCellsCount timesRepeat: [ blackholeCells add: BlackholeCell new ].
+	blackholeCellsCount timesRepeat: [
+		blackholeCells add: BlackholeCell new ].
 
 	hyperspacejumpCells := OrderedCollection new.
-	hyperspacejumpCount timesRepeat:  [
+	hyperspacejumpCount timesRepeat: [
 		hyperspacejumpCells add: HyperSpaceJump new ].
 
 	moonwalkCells := OrderedCollection new.
-	moonwalkCount timesRepeat: [ moonwalkCells  add: (MoonwalkCell times: (5 atRandom)) ]. "Pongo N como un random entre 1 y 5"
+	moonwalkCount timesRepeat: [
+		moonwalkCells add: (MoonwalkCell times: 5 atRandom) ]. "Pongo N como un random entre 1 y 5"
 
 	hyperjumpCells := OrderedCollection new.
 	hyperjumpCount timesRepeat: [
@@ -96,7 +94,8 @@ Board >> initializeWithLength: anAmountOfCells lengthInParsecs: aLengthInParsecs
 			(HyperJumpCell withParsecs: #( 50 10 5 ) asOrderedCollection) ]. "Valor fijo de parsecs, despues se puede cambiar"
 
 	atomicbombCells := OrderedCollection new.
-	atomicbombCount timesRepeat: [ atomicbombCells add: AtomicBombCell new ].
+	atomicbombCount timesRepeat: [
+		atomicbombCells add: AtomicBombCell new ].
 
 	cellsDistribution := OrderedCollection new.
 	cellsDistribution addAll: normalsCells.
@@ -112,18 +111,25 @@ Board >> initializeWithLength: anAmountOfCells lengthInParsecs: aLengthInParsecs
 		newPairIn: cells
 		start: aWormholeStartLocation
 		end: aWormholeEndLocation.
+
+	(cells at: 1) entersAll: someShips.
+	lapsToWin := aNumberOfLapsToWin.
+	lapsPerShip := Dictionary new.
+	someShips do: [ :eachShip | lapsPerShip at: eachShip put: 0 ].
 	^ self
 ]
 
 { #category : #'as yet unclassified' }
 Board >> move: aShip by: times [
 
-	| actualCell nextCell actualCellIndex nextCellIndex lapsDone |
+	| actualCell nextCell actualCellIndex nextCellIndex actualShipLaps lapsChangeAmount |
 	actualCell := self whereIs: aShip.
 	actualCellIndex := cells indexOf: actualCell.
+	actualShipLaps := lapsPerShip at: aShip.
 	nextCellIndex := actualCellIndex - 1 + times % cells size + 1.
-	lapsDone := actualCellIndex - 1 + times // cells size.
-	aShip addLaps: lapsDone.
+	lapsChangeAmount := actualCellIndex - 1 + times // cells size.
+	
+	lapsPerShip at: aShip put: actualShipLaps + lapsChangeAmount.
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
@@ -165,6 +171,13 @@ Board >> moveToTheStart: aShip [
 Board >> removeShieldFromAllShips [
 
 	self allShips do: [ :eachShip | eachShip removeShield ]
+]
+
+{ #category : #'as yet unclassified' }
+Board >> shipWithCompletedLaps [
+
+	^ lapsPerShip keys detect: [ :eachShip |
+		  (lapsPerShip at: eachShip) >= lapsToWin ]
 ]
 
 { #category : #'as yet unclassified' }

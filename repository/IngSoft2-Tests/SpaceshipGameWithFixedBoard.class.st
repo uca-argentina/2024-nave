@@ -23,27 +23,27 @@ SpaceshipGameWithFixedBoard class >> with: someShipNames lapsToWin: anAmountOfLa
 { #category : #initialization }
 SpaceshipGameWithFixedBoard >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: someCells lengthInParsecs: aLengthInParsecs [
 
-	lapsToWin := aNumberOfLapsToWin.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
 		         Ship named: eachShipName ].
 	board := FixedBoard
-		         initializeWith: someCells
+		         initializeWith: ships
+		         lapsToWin: aNumberOfLapsToWin
+		         cells: someCells
 		         lengthInParsecs: aLengthInParsecs.
-	board at: 1 place: ships.
 	^ self
 ]
 
 { #category : #initialization }
 SpaceshipGameWithFixedBoard >> initializeWithAllNormalCells: length ships: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice lengthInParsecs: aLengthInParsecs [
 
-	lapsToWin := aNumberOfLapsToWin.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
 		         Ship named: eachShipName ].
 	board := FixedBoard
 		         initializeWithAllNormalCells: length
-		         lengthInParsecs: aLengthInParsecs.
-	board at: 1 place: ships.
+		         lapsToWin: aNumberOfLapsToWin
+		         lengthInParsecs: aLengthInParsecs
+		         ships: ships.
 	^ self
 ]
