@@ -1047,9 +1047,8 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 		         wormholeStart: 9
 		         wormholeEnd: 10
 		         lengthInParsecs: 100
-		         cellGenerator:
-		         (FixedCellGenerator allNormalCellsWith: 10). aGame
-			         playsNextTurn.
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+	aGame playsNextTurn.
 	aGame playsNextTurn.
 
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
