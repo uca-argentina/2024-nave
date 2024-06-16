@@ -285,16 +285,18 @@ GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 		             with: yetAnotherShip.
 	someDice := Dice withAll: (Set with:
 			             (LoadedDie sequence:
-				              #( 100 11 10 100 ) asOrderedCollection)).
+				              #( 3 2 1 ) asOrderedCollection)).
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 2
 		         using: someDice
 		         withCells: 10
-		         wormholeStart: 2
-		         wormholeEnd: 3
+		         wormholeStart: 8
+		         wormholeEnd: 9
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+	aGame playsNextTurn.
+	aGame playsNextTurn.
 	aGame playsNextTurn.
 	self assert: aGame ranking equals: {
 			aShip.

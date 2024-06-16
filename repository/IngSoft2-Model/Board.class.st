@@ -28,8 +28,7 @@ Board class >> withShips: someShips lengthInParsecs: anAmountOfLengthInParsecs l
 { #category : #'as yet unclassified' }
 Board >> allShips [
 
-	^ (cells collect: [ :cell | cell ships ]) flattened
-		  asOrderedCollection
+	^ lapsPerShip keys asSet 
 ]
 
 { #category : #'as yet unclassified' }
@@ -130,6 +129,24 @@ Board >> moveToTheStart: aShip [
 	actualCell := self whereIs: aShip.
 	actualCell leaves: aShip.
 	cells first enters: aShip
+]
+
+{ #category : #'ship order' }
+Board >> orderedShips [
+
+	| sortByRankBlock |
+	sortByRankBlock := [ :aShip :anotherShip |
+	                   (self rank: aShip) >= (self rank: anotherShip) ].
+	^ (self allShips sorted: sortByRankBlock) asOrderedCollection
+]
+
+{ #category : #accessing }
+Board >> rank: aShip [
+
+	| cellIndex lapsDone |
+	cellIndex := cells indexOf: (self whereIs: aShip).
+	lapsDone := lapsPerShip at: aShip.
+	^ cellIndex + (lapsDone * cells size)
 ]
 
 { #category : #removing }
