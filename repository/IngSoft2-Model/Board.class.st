@@ -14,15 +14,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Board class >> withShips: someShips length: anAmountOfCells lengthInParsecs: anAmountOfLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+Board class >> withShips: someShips lengthInParsecs: anAmountOfLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation cellGenerator: aCellGenerator [
 
 	^ self new
 		  initializeWith: someShips
-		  length: anAmountOfCells
 		  lengthInParsecs: anAmountOfLengthInParsecs
 		  lapsToWin: aNumberOfLapsToWin
 		  wormholeStart: aWormholeStartLocation
 		  wormholeEnd: aWormholeEndLocation
+		  cellGenerator: aCellGenerator
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,67 +62,20 @@ Board >> indexOfCellWith: aShip [
 ]
 
 { #category : #initialization }
-Board >> initializeWith: someShips length: anAmountOfCells lengthInParsecs: aLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation [
+Board >> initializeWith: someShips lengthInParsecs: aLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation cellGenerator: aCellGenerator [
 
-	| notRandomCellsCount randomCellsCount normalCellsCount blackholeCellsCount hyperspacejumpCount moonwalkCount hyperjumpCount atomicbombCount cellsDistribution normalsCells blackholeCells hyperspacejumpCells moonwalkCells hyperjumpCells atomicbombCells roundDifference |
-	notRandomCellsCount := 2. "The wormhole cells are not random, and they are 2"
-	randomCellsCount := anAmountOfCells - 2.
+	lengthInParsecs := aLengthInParsecs.
+	lapsToWin := aNumberOfLapsToWin.
+	lapsPerShip := Dictionary new.
+	someShips do: [ :eachShip | lapsPerShip at: eachShip put: 0 ].
 
-	normalCellsCount := (0.4 * randomCellsCount) floor.
-	blackholeCellsCount := (0.2 * randomCellsCount) floor.
-	hyperspacejumpCount := (0.2 * randomCellsCount) floor.
-	moonwalkCount := (0.1 * randomCellsCount) floor.
-	hyperjumpCount := (0.08 * randomCellsCount) floor.
-	atomicbombCount := (0.02 * randomCellsCount) floor.
-
-	roundDifference := randomCellsCount - normalCellsCount
-	                   - blackholeCellsCount - hyperspacejumpCount
-	                   - moonwalkCount - hyperjumpCount - atomicbombCount.
-	normalCellsCount := normalCellsCount + roundDifference.
-
-	normalsCells := OrderedCollection new.
-	normalCellsCount timesRepeat: [ normalsCells add: NormalCell new ].
-
-	blackholeCells := OrderedCollection new.
-	blackholeCellsCount timesRepeat: [
-		blackholeCells add: BlackholeCell new ].
-
-	hyperspacejumpCells := OrderedCollection new.
-	hyperspacejumpCount timesRepeat: [
-		hyperspacejumpCells add: HyperSpaceJumpCell new ].
-
-	moonwalkCells := OrderedCollection new.
-	moonwalkCount timesRepeat: [
-		moonwalkCells add: (MoonwalkCell times: 5 atRandom) ]. "Pongo N como un random entre 1 y 5"
-
-	hyperjumpCells := OrderedCollection new.
-	hyperjumpCount timesRepeat: [
-		hyperjumpCells add:
-			(HyperJumpCell withParsecs: #( 50 10 5 ) asOrderedCollection) ]. "Valor fijo de parsecs, despues se puede cambiar"
-
-	atomicbombCells := OrderedCollection new.
-	atomicbombCount timesRepeat: [
-		atomicbombCells add: AtomicBombCell new ].
-
-	cellsDistribution := OrderedCollection new.
-	cellsDistribution addAll: normalsCells.
-	cellsDistribution addAll: blackholeCells.
-	cellsDistribution addAll: hyperspacejumpCells.
-	cellsDistribution addAll: moonwalkCells.
-	cellsDistribution addAll: hyperjumpCells.
-	cellsDistribution addAll: atomicbombCells.
-
-	cells := OrderedCollection new.
-	1 to: anAmountOfCells do: [ :index | cells add: NormalCell new ].
+	cells := aCellGenerator generate.
 	WormholeCell
 		newPairIn: cells
 		start: aWormholeStartLocation
 		end: aWormholeEndLocation.
 
 	(cells at: 1) entersAll: someShips.
-	lapsToWin := aNumberOfLapsToWin.
-	lapsPerShip := Dictionary new.
-	someShips do: [ :eachShip | lapsPerShip at: eachShip put: 0 ].
 	^ self
 ]
 

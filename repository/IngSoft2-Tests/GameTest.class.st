@@ -270,13 +270,10 @@ GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 		         with: someShips
 		         lapsToWin: 2
 		         using: someDice
-		         withCells: 100
-		         wormholeStart: 98
-		         wormholeEnd: 99
+		         withCells: 10
+		         wormholeStart: 2
+		         wormholeEnd: 3
 					lengthInParsecs: 100.
-	aGame playsNextTurn.
-	aGame playsNextTurn.
-	aGame playsNextTurn.
 	aGame playsNextTurn.
 	self assert: aGame ranking equals: {
 			aShip.
