@@ -10,7 +10,16 @@ Class {
 
 { #category : #initialization }
 CellGenerator class >> length: aNumberOfCells probabilites: someProbabilities [
-	^ self new initializeWith: aNumberOfCells probabilities: someProbabilities.
+
+	| probabilitiesSum |
+	probabilitiesSum := (someProbabilities collect: [ :eachProbability |
+		                     eachProbability first ]) sum.
+	probabilitiesSum ~= 1 ifTrue: [
+		Error signal: 'probabilities should sum one in total' ].
+
+	^ self new
+		  initializeWith: aNumberOfCells
+		  probabilities: someProbabilities
 ]
 
 { #category : #translating }

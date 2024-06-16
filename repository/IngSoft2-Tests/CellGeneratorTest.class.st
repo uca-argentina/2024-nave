@@ -30,3 +30,16 @@ CellGeneratorTest >> testWhenNormalCellProbabilitieIsOneAndLengthTwentyThenShoul
 	self assert: cells size equals: 20.
 	cells do: [ :eachCell | self assert: (eachCell isKindOf: NormalCell) ]
 ]
+
+{ #category : #tests }
+CellGeneratorTest >> testWhenProbabilitiesDontSumOneInTotalShouldThrow [
+
+	| probabilites |
+	probabilites := OrderedCollection with: {
+			                0.5.
+			                [ NormalCell new ] }.
+	self
+		should: [ CellGenerator length: 20 probabilites: probabilites ]
+		raise: Error
+		withMessage: 'probabilities should sum one in total'
+]
