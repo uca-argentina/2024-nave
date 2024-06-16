@@ -89,7 +89,7 @@ Board >> initializeWith: someShips length: anAmountOfCells lengthInParsecs: aLen
 
 	hyperspacejumpCells := OrderedCollection new.
 	hyperspacejumpCount timesRepeat: [
-		hyperspacejumpCells add: HyperSpaceJump new ].
+		hyperspacejumpCells add: HyperSpaceJumpCell new ].
 
 	moonwalkCells := OrderedCollection new.
 	moonwalkCount timesRepeat: [

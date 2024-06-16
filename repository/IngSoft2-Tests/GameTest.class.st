@@ -470,7 +470,7 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellAndThatShipLosesTwoTimesShoul
 				              #( 1 5 9 10 6 1 9 10 2 1 ) asOrderedCollection)).
 	someCells := OrderedCollection new.
 	someCells add: NormalCell new.
-	someCells add: HyperSpaceJump new.
+	someCells add: HyperSpaceJumpCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -511,7 +511,7 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellThenShouldGoForwardFourCells 
 			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
 	someCells := OrderedCollection new.
 	someCells add: NormalCell new.
-	someCells add: HyperSpaceJump new.
+	someCells add: HyperSpaceJumpCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -541,17 +541,17 @@ GameTest >> testWhenShipEntersToAHyperSpaceJumpCellThreeTimesInARowItShouldLoseT
 				              #( 1 1 1 10 10 ) asOrderedCollection)).
 	someCells := OrderedCollection new.
 	someCells add: NormalCell new.
-	someCells add: HyperSpaceJump new.
+	someCells add: HyperSpaceJumpCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
-	someCells add: HyperSpaceJump new.
+	someCells add: HyperSpaceJumpCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
-	someCells add: HyperSpaceJump new.
+	someCells add: HyperSpaceJumpCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
