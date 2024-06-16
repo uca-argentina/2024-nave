@@ -124,12 +124,15 @@ NormalCellTest >> testWhenShipEntersToABlackholeCellThenLandsInAOccupiedCellThen
 	someCells add: NormalCell new.
 	someCells add: BlackholeCell new.
 	someCells add: NormalCell new.
-	aGame := SpaceshipGameWithFixedBoard
+	aGame := SpaceshipGame
 		         with: someShips
-		         lapsToWin: 1
+		         lapsToWin: 2
 		         using: someDice
-		         withCells: someCells
-		         lengthInParsecs: 100.
+		         withCells: someCells size
+		         wormholeStart: 4
+		         wormholeEnd: 5
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells).
 	aGame playsNextTurn.
 	aGame playsNextTurn.
 
