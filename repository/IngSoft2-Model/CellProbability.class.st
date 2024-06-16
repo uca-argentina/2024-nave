@@ -1,0 +1,27 @@
+Class {
+	#name : #CellProbability,
+	#superclass : #Object,
+	#instVars : [
+		'cellCreationBlock',
+		'rangeStart',
+		'rangeEnd'
+	],
+	#category : #'IngSoft2-Model'
+}
+
+{ #category : #initialization }
+CellProbability class >> cellCreation: aCellCreationBlock rangeStart: aRangeStart rangeEnd: aRangeEnd [
+
+	^ self new
+		  initializeWith: aCellCreationBlock
+		  rangeStart: aRangeStart
+		  rangeEnd: aRangeEnd
+]
+
+{ #category : #initialization }
+CellProbability >> initializeWith: aCellCreationBlock rangeStart: aRangeStart rangeEnd: aRangeEnd [
+	cellCreationBlock := aCellCreationBlock.
+	rangeStart := aRangeStart.
+	rangeEnd := aRangeEnd.
+	^ self.
+]
