@@ -54,6 +54,64 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 ]
 
 { #category : #tests }
+GameTest >> testIfStackTwoSpeedCardsThenShouldMoveTwoCellsMore [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck anotherSpeedCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+	deck := aGame deckOf: aShip.
+	aSpeedCard := deck first.
+	anotherSpeedCard := deck second.
+	aSpeedCard target: 'test-ship-1'.
+	anotherSpeedCard target: 'test-ship-1'.
+	aGame playCard: aSpeedCard by: aShip.
+	aGame playCard: anotherSpeedCard by: aShip.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 7
+]
+
+{ #category : #tests }
+GameTest >> testIfTryToUseTheSameCardAgainShouldRaiseError [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+	deck := aGame deckOf: aShip.
+	aSpeedCard := deck first.
+	aGame playCard: aSpeedCard by: aShip.
+	self
+		should: [ aGame playCard: aSpeedCard by: aShip ]
+		raise: Error
+		withMessage: 'that card is not in deck'
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipCompletedTheRequiredLapsThenShouldBeOver [
 
 	| aShip aGame someDice someShips |

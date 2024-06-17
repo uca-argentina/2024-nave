@@ -60,6 +60,14 @@ Ship >> restoreShields [
 ]
 
 { #category : #'as yet unclassified' }
+Ship >> useCard: aCard [
+
+	self verifyHas: aCard.
+	deck remove: aCard
+	
+]
+
+{ #category : #'as yet unclassified' }
 Ship >> verifyHas: aSpeedCard [
 
 	(deck includes: aSpeedCard) ifFalse: [
