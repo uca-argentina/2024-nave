@@ -107,29 +107,6 @@ SpaceshipGame >> playCard: aSpeedCard [
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> playsNextTurn [
-
-	| shipToPlay diceResult actualShipDiceResult collidingShipDiceResult loserShip |
-	self verifyIsNotOver.
-	shipToPlay := ships first.
-	shipToPlay applyTurnPenaltyElse: [
-		diceResult := dice throw.
-		board move: shipToPlay by: diceResult.
-		board applyEffectTo: shipToPlay.
-		board if: shipToPlay isCollidding: [ :actualShip :collidingShip |
-			actualShipDiceResult := dice throw.
-			collidingShipDiceResult := dice throw.
-			loserShip := actualShipDiceResult >= collidingShipDiceResult
-				             ifTrue: [ collidingShip ]
-				             ifFalse: [ actualShip ].
-			loserShip removeShield.
-			board moveToTheStart: loserShip ] ].
-
-	ships removeFirst.
-	ships addLast: shipToPlay
-]
-
-{ #category : #'as yet unclassified' }
 SpaceshipGame >> ranking [
 
 	^board orderedShips collect: [ :ship | ship name ]
