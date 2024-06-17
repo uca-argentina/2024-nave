@@ -152,8 +152,9 @@ SpaceshipGame >> throwDice [
 	shipToPlay := ships first.
 	shipToPlay applyTurnPenaltyElse: [
 		diceResult := dice throw.
-		diceModifier := (activeCards collect: [ :card | card diceModifier ]) sumNumbers.
-		board move: shipToPlay by: (diceResult + diceModifier).
+		diceModifier := (activeCards collect: [ :card |
+			                 card diceModifierTo: shipToPlay name ]) sumNumbers.
+		board move: shipToPlay by: diceResult + diceModifier.
 		board applyEffectTo: shipToPlay.
 		board if: shipToPlay isCollidding: [ :actualShip :collidingShip |
 			actualShipDiceResult := dice throw.

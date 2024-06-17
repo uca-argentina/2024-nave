@@ -273,6 +273,34 @@ GameTest >> testWhenAShipEntersToAWormholeThenItShouldBeOnTheOtherWormhole [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+	aSpeedCard := SpeedCard new.
+	aSpeedCard target: 'test-ship-1'.
+	aGame playCard: aSpeedCard.
+	aGame throwDice.
+	
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 5.
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 
 	| aShip aGame someShips someDice anotherShip yetAnotherShip |

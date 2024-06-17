@@ -8,8 +8,10 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SpeedCard >> diceModifier [
-	^1
+SpeedCard >> diceModifierTo: aShipName [
+
+	aShipName ~= targetShipName ifTrue: [ ^ 0 ].
+	^ 1
 ]
 
 { #category : #accessing }
