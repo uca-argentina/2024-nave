@@ -14,27 +14,29 @@ Class {
 SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs [
 
 	| defaultCellGenerator defaultProbabilities |
-	defaultProbabilities := OrderedCollection
-		                        with: {
-				                        0.4.
-				                        [ NormalCell new ] }
-		                        with: {
-				                        0.2.
-				                        [ BlackholeCell new ] }
-		                        with: {
-				                        0.2.
-				                        [ HyperSpaceJumpCell new ] }
-		                        with: {
-				                        0.1.
-				                        [ MoonwalkCell times: 5 atRandom ] }
-		                        with: {
-				                        0.08.
-				                        [
-				                        HyperJumpCell withParsecs:
-					                        #( 50 10 5 ) asOrderedCollection ] }
-		                        with: {
-				                        0.02.
-				                        [ AtomicBombCell new ] }.
+	defaultProbabilities := OrderedCollection new.
+	defaultProbabilities
+		add: {
+				(3 / 10).
+				[ NormalCell new ] };
+		add: {
+				(2 / 10).
+				[ BlackholeCell new ] };
+		add: {
+				(2 / 10).
+				[ HyperSpaceJumpCell new ] };
+		add: {
+				(1 / 10).
+				[ MoonwalkCell times: 5 atRandom ] };
+		add: {
+				(8 / 100).
+				[ HyperJumpCell withParsecs: #( 50 10 5 ) asOrderedCollection ] };
+		add: {
+				(2 / 100).
+				[ AtomicBombCell new ] };
+		add: {
+				(1 / 10).
+				[ CardGivingCell new ] }.
 	defaultCellGenerator := CellGenerator
 		                        length: anAmountOfCells
 		                        probabilites: defaultProbabilities.
