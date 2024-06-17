@@ -47,6 +47,12 @@ Ship >> name [
 	^ name
 ]
 
+{ #category : #'as yet unclassified' }
+Ship >> receive: aCard [
+
+	deck add: aCard
+]
+
 { #category : #removing }
 Ship >> removeShield [
 

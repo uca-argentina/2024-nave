@@ -331,6 +331,35 @@ GameTest >> testWhenAShipEntersToAWormholeThenItShouldBeOnTheOtherWormhole [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipLandsInACardGivingCellTheShipShouldHaveOneMoreCard [
+
+	| aShip someShips aGame someDice someCells |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: CardGivingCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 3
+		         wormholeEnd: 4
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells).
+	aGame throwDice.
+
+	self assert: (aGame deckOf: aShip) size equals: 3
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck |
