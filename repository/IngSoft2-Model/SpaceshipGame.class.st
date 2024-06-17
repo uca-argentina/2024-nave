@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'board',
 		'dice',
-		'ships'
+		'ships',
+		'activeCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -72,7 +73,7 @@ SpaceshipGame >> indexOfCellWith: aShipName [
 
 { #category : #initialization }
 SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator [
-
+	activeCards := OrderedCollection new.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
 		         Ship named: eachShipName ].
@@ -98,6 +99,11 @@ SpaceshipGame >> lapsOf: aShipName [
 	| aShip |
 	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
 	^ board lapsOf: aShip.
+]
+
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> playCard: aSpeedCard [ 
+	activeCards add: aSpeedCard.
 ]
 
 { #category : #'as yet unclassified' }
@@ -134,6 +140,30 @@ SpaceshipGame >> skipsNextTurn [
 	| shipToPlay |
 	shipToPlay := ships first.
 	shipToPlay restoreShields.
+	ships removeFirst.
+	ships addLast: shipToPlay
+]
+
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> throwDice [
+
+	| shipToPlay diceResult actualShipDiceResult collidingShipDiceResult loserShip diceModifier |
+	self verifyIsNotOver.
+	shipToPlay := ships first.
+	shipToPlay applyTurnPenaltyElse: [
+		diceResult := dice throw.
+		diceModifier := (activeCards collect: [ :card | card diceModifier ]) sumNumbers.
+		board move: shipToPlay by: (diceResult + diceModifier).
+		board applyEffectTo: shipToPlay.
+		board if: shipToPlay isCollidding: [ :actualShip :collidingShip |
+			actualShipDiceResult := dice throw.
+			collidingShipDiceResult := dice throw.
+			loserShip := actualShipDiceResult >= collidingShipDiceResult
+				             ifTrue: [ collidingShip ]
+				             ifFalse: [ actualShip ].
+			loserShip removeShield.
+			board moveToTheStart: loserShip ] ].
+
 	ships removeFirst.
 	ships addLast: shipToPlay
 ]
