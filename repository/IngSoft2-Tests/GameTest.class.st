@@ -275,7 +275,7 @@ GameTest >> testWhenAShipEntersToAWormholeThenItShouldBeOnTheOtherWormhole [
 { #category : #tests }
 GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell [
 
-	| aShip aGame someShips someDice anotherShip aSpeedCard |
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
@@ -291,13 +291,14 @@ GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell 
 		         wormholeEnd: 9
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
-	aSpeedCard := SpeedCard new.
+	deck := aGame deckOf: aShip.
+	aSpeedCard := deck first.
 	aSpeedCard target: 'test-ship-1'.
-	aGame playCard: aSpeedCard.
+	aGame playCard: aSpeedCard by: aShip.
 	aGame throwDice.
-	
+
 	aGame throwDice.
-	self assert: (aGame indexOfCellWith: anotherShip) equals: 5.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 5
 ]
 
 { #category : #tests }
@@ -382,7 +383,7 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 { #category : #tests }
 GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 
-	| aShip aGame someShips someDice anotherShip aSpeedCard |
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
@@ -398,11 +399,12 @@ GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 		         wormholeEnd: 9
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
-	aSpeedCard := SpeedCard new.
+	deck := aGame deckOf: aShip.
+	aSpeedCard := deck first.
 	aSpeedCard target: 'test-ship-1'.
-	aGame playCard: aSpeedCard.
+	aGame playCard: aSpeedCard by: aShip.
 	aGame throwDice.
-	self assert: (aGame indexOfCellWith: aShip) equals: 6.
+	self assert: (aGame indexOfCellWith: aShip) equals: 6
 ]
 
 { #category : #tests }
@@ -1108,4 +1110,31 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 	aGame throwDice.
 
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testWhenUsingACardThatsNotInTheShipDeckThenShouldRaiseError [
+
+	| aShip someShips aGame someDice anotherShip aSpeedCard |
+	aShip := 'test-ship-2'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 6 ) asOrderedCollection)).
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 2
+		         wormholeEnd: 3
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+	aSpeedCard := SpeedCard new.
+	aSpeedCard target: aShip.
+	self
+		should: [ aGame playCard: aSpeedCard by: aShip ]
+		raise: Error
+		withMessage: 'that card is not in deck'
 ]

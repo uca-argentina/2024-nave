@@ -63,20 +63,30 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  cellGenerator: aCellGenerator
 ]
 
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> deckOf: aShipName [
+
+	| aShip |
+	aShip := self shipNamed: aShipName.
+	^ aShip deck copy
+]
+
 { #category : #accessing }
 SpaceshipGame >> indexOfCellWith: aShipName [
 
-	| aShip |
-	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
-	^ board indexOfCellWith: aShip
+	^ board indexOfCellWith: (self shipNamed: aShipName)
 ]
 
 { #category : #initialization }
 SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator [
+
 	activeCards := OrderedCollection new.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
-		         Ship named: eachShipName ].
+		         Ship
+			         named: eachShipName
+			         deck:
+			         (OrderedCollection with: SpeedCard new with: SpeedCard new) ].
 	board := Board
 		         withShips: ships
 		         lengthInParsecs: aLengthInParsecs
@@ -96,20 +106,30 @@ SpaceshipGame >> isOver [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> lapsOf: aShipName [
 
-	| aShip |
-	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
-	^ board lapsOf: aShip.
+	^ board lapsOf: (self shipNamed: aShipName)
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> playCard: aSpeedCard [ 
-	activeCards add: aSpeedCard.
+SpaceshipGame >> playCard: aSpeedCard by: aShipName [
+
+	| aShip |
+	aShip := self shipNamed: aShipName.
+	aShip verifyHas: aSpeedCard.
+	activeCards add: aSpeedCard
 ]
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> ranking [
 
 	^board orderedShips collect: [ :ship | ship name ]
+]
+
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> shipNamed: aShipName [
+
+	| aShip |
+	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
+	^ aShip
 ]
 
 { #category : #'as yet unclassified' }

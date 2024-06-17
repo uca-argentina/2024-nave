@@ -4,15 +4,16 @@ Class {
 	#instVars : [
 		'name',
 		'shields',
-		'penalty'
+		'penalty',
+		'deck'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Ship class >> named: aName [
+Ship class >> named: aName deck: aDeck [
 
-	^ self new initializeWith: aName
+	^ self new initializeWith: aName deck: aDeck
 ]
 
 { #category : #'as yet unclassified' }
@@ -25,9 +26,15 @@ Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
 		ifFalse: [ aBlockIfNotPenalized value ]
 ]
 
-{ #category : #initialization }
-Ship >> initializeWith: aName [
+{ #category : #accessing }
+Ship >> deck [
+	^ deck
+]
 
+{ #category : #initialization }
+Ship >> initializeWith: aName deck: aDeck [
+
+	deck := aDeck.
 	name := aName.
 	shields := 3.
 	penalty := 0.
@@ -50,4 +57,11 @@ Ship >> removeShield [
 { #category : #'as yet unclassified' }
 Ship >> restoreShields [
 	shields := 3
+]
+
+{ #category : #'as yet unclassified' }
+Ship >> verifyHas: aSpeedCard [
+
+	(deck includes: aSpeedCard) ifFalse: [
+		Error signal: 'that card is not in deck' ]
 ]
