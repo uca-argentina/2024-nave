@@ -133,12 +133,12 @@ SpaceshipGame >> lapsOf: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> playCard: aSpeedCard by: aShipName [
+SpaceshipGame >> playCard: aCard by: aShipName [
 
 	| aShip |
 	aShip := self shipNamed: aShipName.
-	aShip useCard: aSpeedCard.
-	activeCards add: aSpeedCard
+	aShip useCard: aCard.
+	activeCards add: aCard
 	
 ]
 

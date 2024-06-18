@@ -397,6 +397,45 @@ GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell 
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipPlaysAnAccelerationCardThenAllShipsShouldMoveOneMoreCell [
+
+	| aShip aGame someShips someDice anotherShip deck cardsToDraw yetAnotherShip anAccelerationCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 10 20 30 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: AccelerationCard new
+		               with: AccelerationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 98
+		         wormholeEnd: 99
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame deckOf: aShip.
+	anAccelerationCard := deck first.
+	aGame playCard: anAccelerationCard by: aShip.
+	aGame throwDice.
+
+	aGame throwDice.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 12.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 22.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 32
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 
 	| aShip aGame someShips someDice anotherShip yetAnotherShip |
