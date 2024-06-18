@@ -11,5 +11,5 @@ AccelerationCard >> diceModifierTo: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-AccelerationCard >> useIn: aBoard [
+AccelerationCard >> useIn: aBoard withActiveCards: someActiveCards [
 ]

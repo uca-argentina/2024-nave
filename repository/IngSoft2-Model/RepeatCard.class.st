@@ -14,7 +14,7 @@ RepeatCard >> target: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-RepeatCard >> useIn: aBoard [
-
+RepeatCard >> useIn: aBoard withActiveCards: someActiveCards [
+	
 	aBoard applyLastEffectTo: targetShipName
 ]

@@ -20,7 +20,7 @@ SpeedCard >> target: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-SpeedCard >> useIn: aBoard [
+SpeedCard >> useIn: aBoard withActiveCards: someActiveCards [
 
 	
 ]

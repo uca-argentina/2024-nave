@@ -137,7 +137,7 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 
 	| aShip |
 	aShip := self shipNamed: aShipName.
-	aShip useCard: aCard in: board.
+	aShip useCard: aCard in: board withActiveCards: activeCards.
 	activeCards add: aCard
 ]
 

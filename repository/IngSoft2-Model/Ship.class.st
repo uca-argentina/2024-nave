@@ -75,6 +75,14 @@ Ship >> useCard: aCard in: aBoard [
 ]
 
 { #category : #'as yet unclassified' }
+Ship >> useCard: aCard in: aBoard withActiveCards: someActiveCards [
+
+	self verifyHas: aCard.
+	aCard useIn: aBoard withActiveCards: someActiveCards.
+	cards remove: aCard
+]
+
+{ #category : #'as yet unclassified' }
 Ship >> verifyHas: aSpeedCard [
 
 	(cards includes: aSpeedCard) ifFalse: [
