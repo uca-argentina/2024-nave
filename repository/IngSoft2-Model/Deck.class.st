@@ -9,8 +9,11 @@ Deck >> drawCard [
 
 	| cardTypes cardCreatorBlock |
 	cardTypes := {
-		             [ SpeedCard new ].
-		             [ RepeatCard new ] }.
+		             [ AccelerationCard new ].
+		             [ CancellationCard new ].
+		             [ RedoCard new ].
+		             [ RepeatCard new ].
+		             [ SpeedCard new ] }.
 	cardCreatorBlock := cardTypes atRandom.
 	^ cardCreatorBlock value
 ]

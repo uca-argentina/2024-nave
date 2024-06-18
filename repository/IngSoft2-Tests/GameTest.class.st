@@ -120,13 +120,16 @@ GameTest >> testIfStackTwoSpeedCardsThenShouldMoveTwoCellsMore [
 { #category : #tests }
 GameTest >> testIfTryToUseTheSameCardAgainShouldRaiseError [
 
-	| aShip aGame someShips someDice anotherShip aSpeedCard deck |
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck someCardToDraw |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	someCardToDraw := OrderedCollection
+		                  with: SpeedCard new
+		                  with: SpeedCard new.
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 2
@@ -135,7 +138,8 @@ GameTest >> testIfTryToUseTheSameCardAgainShouldRaiseError [
 		         wormholeStart: 8
 		         wormholeEnd: 9
 		         lengthInParsecs: 100
-		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: someCardToDraw).
 	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aSpeedCard targetShip: aShip.
