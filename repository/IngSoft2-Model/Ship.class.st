@@ -67,14 +67,6 @@ Ship >> restoreShields [
 ]
 
 { #category : #'as yet unclassified' }
-Ship >> useCard: aCard in: aBoard [
-
-	self verifyHas: aCard.
-	aCard useIn: aBoard.
-	cards remove: aCard
-]
-
-{ #category : #'as yet unclassified' }
 Ship >> useCard: aCard in: aBoard withActiveCards: someActiveCards [
 
 	self verifyHas: aCard.
