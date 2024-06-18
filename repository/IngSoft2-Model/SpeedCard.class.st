@@ -18,3 +18,9 @@ SpeedCard >> diceModifierTo: aShipName [
 SpeedCard >> target: aShipName [ 
 	targetShipName := aShipName.
 ]
+
+{ #category : #'as yet unclassified' }
+SpeedCard >> useIn: aBoard [
+
+	
+]
