@@ -10,7 +10,7 @@ Class {
 { #category : #'as yet unclassified' }
 CardGivingCell class >> deck: aDeck [
 
-	^ self new initializeWith: aDeck
+	^ super new initializeWith: aDeck
 ]
 
 { #category : #'instance creation' }
@@ -28,6 +28,7 @@ CardGivingCell >> applyEffectTo: aShip in: aBoard [
 { #category : #initialization }
 CardGivingCell >> initializeWith: aDeck [
 
+	ships := OrderedCollection new.
 	deck := aDeck.
 	^ self
 ]
