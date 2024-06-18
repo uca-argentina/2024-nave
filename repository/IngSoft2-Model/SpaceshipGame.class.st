@@ -137,9 +137,8 @@ SpaceshipGame >> playCard: aSpeedCard by: aShipName [
 
 	| aShip |
 	aShip := self shipNamed: aShipName.
-	aShip useCard: aSpeedCard.
+	aShip useCard: aSpeedCard in: board.
 	activeCards add: aSpeedCard
-	
 ]
 
 { #category : #'as yet unclassified' }

@@ -5,7 +5,8 @@ Class {
 		'cells',
 		'lengthInParsecs',
 		'lapsPerShip',
-		'lapsToWin'
+		'lapsToWin',
+		'lastCellEffectUsed'
 	],
 	#classInstVars : [
 		'cells'
@@ -43,7 +44,16 @@ Board >> applyEffectTo: aShip [
 
 	| aCell |
 	aCell := self whereIs: aShip.
+	lastCellEffectUsed := aCell.
 	aCell applyEffectTo: aShip in: self
+]
+
+{ #category : #'as yet unclassified' }
+Board >> applyLastEffectTo: aShipName [
+
+	| aShip |
+	aShip := self allShips detect: [ :ship | ship name = aShipName ].
+	lastCellEffectUsed applyEffectTo: aShip in: self
 ]
 
 { #category : #'as yet unclassified' }
