@@ -54,6 +54,36 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 ]
 
 { #category : #tests }
+GameTest >> testIfNoTurnWasPlayedThenRepeatCardShouldNotHaveEffect [
+
+	| aShip aGame someShips someDice anotherShip deck cardsToDraw aRepeatCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: RepeatCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame deckOf: aShip.
+	aRepeatCard := deck first.
+	aRepeatCard target: aShip.
+	aGame playCard: aRepeatCard by: aShip.
+	self assert: (aGame indexOfCellWith: aShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testIfStackTwoSpeedCardsThenShouldMoveTwoCellsMore [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck anotherSpeedCard cardsToDraw |

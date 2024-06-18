@@ -73,6 +73,7 @@ Board >> indexOfCellWith: aShip [
 { #category : #initialization }
 Board >> initializeWith: someShips lengthInParsecs: aLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation cellGenerator: aCellGenerator [
 
+	lastCellEffectUsed := NormalCell new.
 	lengthInParsecs := aLengthInParsecs.
 	lapsToWin := aNumberOfLapsToWin.
 	lapsPerShip := Dictionary new.
