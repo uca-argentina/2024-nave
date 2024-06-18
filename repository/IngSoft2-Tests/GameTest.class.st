@@ -467,6 +467,46 @@ GameTest >> testWhenAShipPlaysAnAccelerationCardThenAllShipsShouldMoveOneMoreCel
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipPlaysCancellationCardAndCardToRemoveIsSpeedCardAndThereIsNoSpeedCardActiveShouldThrowAnError [
+
+	| aShip aGame someShips someDice anotherShip cardsToDraw aCancellationCard anAccelerationCard aSpeedCard aDeck anotherDeck |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 7 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: AccelerationCard new
+		               with: AccelerationCard new
+		               with: CancellationCard new
+		               with: CancellationCard new
+		               with: SpeedCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aDeck := aGame deckOf: aShip.
+	anotherDeck := aGame deckOf: anotherShip.
+	anAccelerationCard := aDeck first.
+	aCancellationCard := anotherDeck first.
+	aSpeedCard := cardsToDraw third.
+	aCancellationCard cardToRemove: aSpeedCard.
+	aGame playCard: anAccelerationCard by: aShip.
+	aGame throwDice.
+	self
+		should: [ aGame playCard: aCancellationCard by: anotherShip ]
+		raise: Error
+		withMessage: 'no such card in active cards!'
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipPlaysCancellationCardAndGameHasOneActiveCardThenEffectShouldNotBeAppliedNextTurn [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw aCancellationCard |
@@ -499,6 +539,41 @@ GameTest >> testWhenAShipPlaysCancellationCardAndGameHasOneActiveCardThenEffectS
 	aGame playCard: aCancellationCard by: anotherShip.
 	aGame throwDice.
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 5
+]
+
+{ #category : #tests }
+GameTest >> testWhenAShipPlaysCancellationCardAndThereAreZeroActiveCardsShouldThrowAnError [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw aCancellationCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 7 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame deckOf: aShip.
+	aSpeedCard := deck first.
+	aCancellationCard := deck second.
+	aSpeedCard target: 'test-ship-2'.
+	aCancellationCard cardToRemove: aSpeedCard.
+	aGame throwDice.
+	self
+		should: [ aGame playCard: aCancellationCard by: anotherShip ]
+		raise: Error
+		withMessage: 'no such card in active cards!'
 ]
 
 { #category : #tests }

@@ -75,8 +75,8 @@ Ship >> useCard: aCard in: aBoard withActiveCards: someActiveCards [
 ]
 
 { #category : #'as yet unclassified' }
-Ship >> verifyHas: aSpeedCard [
+Ship >> verifyHas: aCard [
 
-	(cards includes: aSpeedCard) ifFalse: [
+	(cards includes: aCard) ifFalse: [
 		Error signal: 'that card is not in deck' ]
 ]
