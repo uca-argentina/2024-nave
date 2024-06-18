@@ -56,13 +56,16 @@ GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 { #category : #tests }
 GameTest >> testIfStackTwoSpeedCardsThenShouldMoveTwoCellsMore [
 
-	| aShip aGame someShips someDice anotherShip aSpeedCard deck anotherSpeedCard |
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck anotherSpeedCard cardsToDraw |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: SpeedCard new.
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 2
@@ -71,7 +74,8 @@ GameTest >> testIfStackTwoSpeedCardsThenShouldMoveTwoCellsMore [
 		         wormholeStart: 8
 		         wormholeEnd: 9
 		         lengthInParsecs: 100
-		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
 	deck := aGame deckOf: aShip.
 	aSpeedCard := deck first.
 	anotherSpeedCard := deck second.
@@ -362,13 +366,16 @@ GameTest >> testWhenAShipLandsInACardGivingCellTheShipShouldHaveOneMoreCard [
 { #category : #tests }
 GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell [
 
-	| aShip aGame someShips someDice anotherShip aSpeedCard deck |
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: SpeedCard new.
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 2
@@ -377,7 +384,8 @@ GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell 
 		         wormholeStart: 8
 		         wormholeEnd: 9
 		         lengthInParsecs: 100
-		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
 	deck := aGame deckOf: aShip.
 	aSpeedCard := deck first.
 	aSpeedCard target: 'test-ship-1'.
@@ -470,13 +478,16 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 { #category : #tests }
 GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 
-	| aShip aGame someShips someDice anotherShip aSpeedCard deck |
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
 	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence: #( 4 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: SpeedCard new.
 	aGame := SpaceshipGame
 		         with: someShips
 		         lapsToWin: 2
@@ -485,7 +496,8 @@ GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 		         wormholeStart: 8
 		         wormholeEnd: 9
 		         lengthInParsecs: 100
-		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
 	deck := aGame deckOf: aShip.
 	aSpeedCard := deck first.
 	aSpeedCard target: 'test-ship-1'.
@@ -1203,7 +1215,7 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 GameTest >> testWhenUsingACardThatsNotInTheShipDeckThenShouldRaiseError [
 
 	| aShip someShips aGame someDice anotherShip aSpeedCard |
-	aShip := 'test-ship-2'.
+	aShip := 'test-ship-1'.
 	anotherShip := 'test-ship-2'.
 	someShips := OrderedCollection with: aShip with: anotherShip.
 	someDice := Dice withAll:
