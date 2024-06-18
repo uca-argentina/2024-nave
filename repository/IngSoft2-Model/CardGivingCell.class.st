@@ -7,5 +7,7 @@ Class {
 { #category : #'as yet unclassified' }
 CardGivingCell >> applyEffectTo: aShip in: aBoard [
 
-	aShip receive: SpeedCard new
+	| deck |
+	deck := Deck new.
+	aShip receive: deck drawCard.
 ]
