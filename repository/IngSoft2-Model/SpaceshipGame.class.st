@@ -14,7 +14,7 @@ Class {
 { #category : #'as yet unclassified' }
 SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs [
 
-	| defaultCellGenerator defaultProbabilities |
+	| defaultCellGenerator defaultDeck defaultProbabilities |
 	defaultProbabilities := OrderedCollection new.
 	defaultProbabilities
 		add: {
@@ -41,6 +41,7 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 	defaultCellGenerator := CellGenerator
 		                        length: anAmountOfCells
 		                        probabilites: defaultProbabilities.
+	defaultDeck := Deck new.
 	^ self
 		  with: someShips
 		  lapsToWin: aNumberOfLapsToWin
@@ -50,10 +51,27 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  wormholeEnd: aWormholeEndLocation
 		  lengthInParsecs: aLengthInParsecs
 		  cellGenerator: defaultCellGenerator
+		  deck: defaultDeck
 ]
 
 { #category : #'as yet unclassified' }
 SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator [
+	| defaultDeck |
+	defaultDeck := Deck new.
+	^ self new
+		  initializeWith: someShips
+		  lapsToWin: aNumberOfLapsToWin
+		  using: someDice
+		  withCells: anAmountOfCells
+		  wormholeStart: aWormholeStartLocation
+		  wormholeEnd: aWormholeEndLocation
+		  lengthInParsecs: aLengthInParsecs
+		  cellGenerator: aCellGenerator
+		  deck: defaultDeck 
+]
+
+{ #category : #'as yet unclassified' }
+SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator deck: aDeck [
 
 	^ self new
 		  initializeWith: someShips
@@ -64,6 +82,7 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  wormholeEnd: aWormholeEndLocation
 		  lengthInParsecs: aLengthInParsecs
 		  cellGenerator: aCellGenerator
+		  deck: aDeck
 ]
 
 { #category : #'as yet unclassified' }
@@ -81,15 +100,16 @@ SpaceshipGame >> indexOfCellWith: aShipName [
 ]
 
 { #category : #initialization }
-SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator [
+SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator deck: aDeck [
 
+	deck := aDeck.
 	activeCards := OrderedCollection new.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
 		         Ship
 			         named: eachShipName
 			         deck:
-			         (OrderedCollection with: SpeedCard new with: SpeedCard new) ].
+			         (OrderedCollection with: deck drawCard with: deck drawCard) ].
 	board := Board
 		         withShips: ships
 		         lengthInParsecs: aLengthInParsecs
