@@ -20,7 +20,9 @@ CancellationCard >> diceModifierTo: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-CancellationCard >> useIn: aBoard withActiveCards: someActiveCards [
+CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame [
 
-	someActiveCards remove: cardToRemove ifAbsent: [ Error signal: 'no such card in active cards!' ]
+	someActiveCards
+		remove: cardToRemove
+		ifAbsent: [ Error signal: 'no such card in active cards!' ]
 ]

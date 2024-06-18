@@ -699,6 +699,39 @@ GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 ]
 
 { #category : #tests }
+GameTest >> testWhenPlayAAccelerationCardAndThenARedoCardThenShouldApplyTheAcelerationEffectTwice [
+
+	| aShip aGame someShips someDice anotherShip deck cardsToDraw anAccelerationCard aRedoCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: AccelerationCard new
+		               with: RedoCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame cardsOf: aShip.
+	anAccelerationCard := deck first.
+	aRedoCard := deck second.
+	aGame playCard: anAccelerationCard by: aShip.
+	aGame playCard: aRedoCard by: aShip.
+	aGame throwDice.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 7
+]
+
+{ #category : #tests }
 GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
