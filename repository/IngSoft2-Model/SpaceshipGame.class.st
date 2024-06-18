@@ -5,7 +5,8 @@ Class {
 		'board',
 		'dice',
 		'ships',
-		'activeCards'
+		'activeCards',
+		'deck'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -70,7 +71,7 @@ SpaceshipGame >> deckOf: aShipName [
 
 	| aShip |
 	aShip := self shipNamed: aShipName.
-	^ aShip deck copy
+	^ aShip cards copy
 ]
 
 { #category : #accessing }
