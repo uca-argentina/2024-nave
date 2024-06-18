@@ -1,6 +1,6 @@
 Class {
 	#name : #AccelerationCard,
-	#superclass : #Object,
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
 
@@ -12,4 +12,6 @@ AccelerationCard >> diceModifierTo: aShipName [
 
 { #category : #'as yet unclassified' }
 AccelerationCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame [
+
+	someActiveCards add: self
 ]

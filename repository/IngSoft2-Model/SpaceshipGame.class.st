@@ -6,7 +6,8 @@ Class {
 		'dice',
 		'ships',
 		'activeCards',
-		'deck'
+		'deck',
+		'lastUsedCard'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -132,6 +133,12 @@ SpaceshipGame >> lapsOf: aShipName [
 	^ board lapsOf: (self shipNamed: aShipName)
 ]
 
+{ #category : #accessing }
+SpaceshipGame >> lastUsedCard [
+
+	^ lastUsedCard
+]
+
 { #category : #'as yet unclassified' }
 SpaceshipGame >> playCard: aCard by: aShipName [
 
@@ -142,7 +149,7 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 		in: board
 		withActiveCards: activeCards
 		withGame: self.
-	activeCards add: aCard
+	lastUsedCard := aCard
 ]
 
 { #category : #'as yet unclassified' }

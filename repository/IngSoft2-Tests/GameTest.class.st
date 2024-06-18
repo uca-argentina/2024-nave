@@ -78,7 +78,7 @@ GameTest >> testIfNoTurnWasPlayedThenRepeatCardShouldNotHaveEffect [
 		         deck: (LoadedDeck cards: cardsToDraw).
 	deck := aGame cardsOf: aShip.
 	aRepeatCard := deck first.
-	aRepeatCard target: aShip.
+	aRepeatCard targetShip: aShip.
 	aGame playCard: aRepeatCard by: aShip.
 	self assert: (aGame indexOfCellWith: aShip) equals: 1
 ]
@@ -109,8 +109,8 @@ GameTest >> testIfStackTwoSpeedCardsThenShouldMoveTwoCellsMore [
 	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	anotherSpeedCard := deck second.
-	aSpeedCard target: 'test-ship-1'.
-	anotherSpeedCard target: 'test-ship-1'.
+	aSpeedCard targetShip: 'test-ship-1'.
+	anotherSpeedCard targetShip: 'test-ship-1'.
 	aGame playCard: aSpeedCard by: aShip.
 	aGame playCard: anotherSpeedCard by: aShip.
 	aGame throwDice.
@@ -138,7 +138,7 @@ GameTest >> testIfTryToUseTheSameCardAgainShouldRaiseError [
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
 	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
-	aSpeedCard target: aShip.
+	aSpeedCard targetShip: aShip.
 	aGame playCard: aSpeedCard by: aShip.
 	self
 		should: [ aGame playCard: aSpeedCard by: aShip ]
@@ -419,7 +419,7 @@ GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell 
 		         deck: (LoadedDeck cards: cardsToDraw).
 	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
-	aSpeedCard target: 'test-ship-1'.
+	aSpeedCard targetShip: 'test-ship-1'.
 	aGame playCard: aSpeedCard by: aShip.
 	aGame throwDice.
 
@@ -497,7 +497,7 @@ GameTest >> testWhenAShipPlaysCancellationCardAndCardToRemoveIsSpeedCardAndThere
 	anAccelerationCard := aDeck first.
 	aCancellationCard := anotherDeck first.
 	aSpeedCard := cardsToDraw third.
-	aCancellationCard cardToRemove: aSpeedCard.
+	aCancellationCard targetCard: aSpeedCard.
 	aGame playCard: anAccelerationCard by: aShip.
 	aGame throwDice.
 	self
@@ -532,8 +532,8 @@ GameTest >> testWhenAShipPlaysCancellationCardAndGameHasOneActiveCardThenEffectS
 	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aCancellationCard := deck second.
-	aSpeedCard target: 'test-ship-2'.
-	aCancellationCard cardToRemove: aSpeedCard.
+	aSpeedCard targetShip: 'test-ship-2'.
+	aCancellationCard targetCard: aSpeedCard.
 	aGame playCard: aSpeedCard by: aShip.
 	aGame throwDice.
 	aGame playCard: aCancellationCard by: anotherShip.
@@ -567,8 +567,8 @@ GameTest >> testWhenAShipPlaysCancellationCardAndThereAreZeroActiveCardsShouldTh
 	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aCancellationCard := deck second.
-	aSpeedCard target: 'test-ship-2'.
-	aCancellationCard cardToRemove: aSpeedCard.
+	aSpeedCard targetShip: 'test-ship-2'.
+	aCancellationCard targetCard: aSpeedCard.
 	aGame throwDice.
 	self
 		should: [ aGame playCard: aCancellationCard by: anotherShip ]
@@ -669,7 +669,7 @@ GameTest >> testWhenLastEffectWasBlackHoleAndUseTheRepeatCardThenShouldGoBackFou
 		         cellGenerator: (FixedCellGenerator cells: someCells)
 		         deck: (LoadedDeck cards: cardsToDraw).
 	aRepeatCard := (aGame cardsOf: aShip) first.
-	aRepeatCard target: aShip.
+	aRepeatCard targetShip: aShip.
 	aGame throwDice.
 	aGame playCard: aRepeatCard by: aShip.
 
@@ -756,7 +756,7 @@ GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 		         deck: (LoadedDeck cards: cardsToDraw).
 	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
-	aSpeedCard target: 'test-ship-1'.
+	aSpeedCard targetShip: 'test-ship-1'.
 	aGame playCard: aSpeedCard by: aShip.
 	aGame throwDice.
 	self assert: (aGame indexOfCellWith: aShip) equals: 6
@@ -1487,7 +1487,7 @@ GameTest >> testWhenUsingACardThatsNotInTheShipDeckThenShouldRaiseError [
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
 	aSpeedCard := SpeedCard new.
-	aSpeedCard target: aShip.
+	aSpeedCard targetShip: aShip.
 	self
 		should: [ aGame playCard: aSpeedCard by: aShip ]
 		raise: Error

@@ -1,9 +1,6 @@
 Class {
 	#name : #SpeedCard,
-	#superclass : #Object,
-	#instVars : [
-		'targetShipName'
-	],
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
 
@@ -14,13 +11,8 @@ SpeedCard >> diceModifierTo: aShipName [
 	^ 1
 ]
 
-{ #category : #accessing }
-SpeedCard >> target: aShipName [ 
-	targetShipName := aShipName.
-]
-
 { #category : #'as yet unclassified' }
 SpeedCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame [
 
-	
+	someActiveCards add: self
 ]
