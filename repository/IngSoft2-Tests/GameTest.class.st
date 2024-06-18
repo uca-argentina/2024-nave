@@ -108,6 +108,7 @@ GameTest >> testIfTryToUseTheSameCardAgainShouldRaiseError [
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
 	deck := aGame deckOf: aShip.
 	aSpeedCard := deck first.
+	aSpeedCard target: aShip.
 	aGame playCard: aSpeedCard by: aShip.
 	self
 		should: [ aGame playCard: aSpeedCard by: aShip ]

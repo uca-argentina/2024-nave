@@ -9,3 +9,7 @@ AccelerationCard >> diceModifierTo: aShipName [
 
 	^ 1
 ]
+
+{ #category : #'as yet unclassified' }
+AccelerationCard >> useIn: aBoard [
+]
