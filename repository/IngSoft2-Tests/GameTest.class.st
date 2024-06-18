@@ -76,7 +76,7 @@ GameTest >> testIfNoTurnWasPlayedThenRepeatCardShouldNotHaveEffect [
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	aRepeatCard := deck first.
 	aRepeatCard target: aShip.
 	aGame playCard: aRepeatCard by: aShip.
@@ -106,7 +106,7 @@ GameTest >> testIfStackTwoSpeedCardsThenShouldMoveTwoCellsMore [
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	anotherSpeedCard := deck second.
 	aSpeedCard target: 'test-ship-1'.
@@ -136,7 +136,7 @@ GameTest >> testIfTryToUseTheSameCardAgainShouldRaiseError [
 		         wormholeEnd: 9
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aSpeedCard target: aShip.
 	aGame playCard: aSpeedCard by: aShip.
@@ -391,7 +391,7 @@ GameTest >> testWhenAShipLandsInACardGivingCellTheShipShouldHaveOneMoreCard [
 		         cellGenerator: (FixedCellGenerator cells: someCells).
 	aGame throwDice.
 
-	self assert: (aGame deckOf: aShip) size equals: 3
+	self assert: (aGame cardsOf: aShip) size equals: 3
 ]
 
 { #category : #tests }
@@ -417,7 +417,7 @@ GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell 
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aSpeedCard target: 'test-ship-1'.
 	aGame playCard: aSpeedCard by: aShip.
@@ -454,7 +454,7 @@ GameTest >> testWhenAShipPlaysAnAccelerationCardThenAllShipsShouldMoveOneMoreCel
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	anAccelerationCard := deck first.
 	aGame playCard: anAccelerationCard by: aShip.
 	aGame throwDice.
@@ -492,8 +492,8 @@ GameTest >> testWhenAShipPlaysCancellationCardAndCardToRemoveIsSpeedCardAndThere
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	aDeck := aGame deckOf: aShip.
-	anotherDeck := aGame deckOf: anotherShip.
+	aDeck := aGame cardsOf: aShip.
+	anotherDeck := aGame cardsOf: anotherShip.
 	anAccelerationCard := aDeck first.
 	aCancellationCard := anotherDeck first.
 	aSpeedCard := cardsToDraw third.
@@ -529,7 +529,7 @@ GameTest >> testWhenAShipPlaysCancellationCardAndGameHasOneActiveCardThenEffectS
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aCancellationCard := deck second.
 	aSpeedCard target: 'test-ship-2'.
@@ -564,7 +564,7 @@ GameTest >> testWhenAShipPlaysCancellationCardAndThereAreZeroActiveCardsShouldTh
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aCancellationCard := deck second.
 	aSpeedCard target: 'test-ship-2'.
@@ -668,7 +668,7 @@ GameTest >> testWhenLastEffectWasBlackHoleAndUseTheRepeatCardThenShouldGoBackFou
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator cells: someCells)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	aRepeatCard := (aGame deckOf: aShip) first.
+	aRepeatCard := (aGame cardsOf: aShip) first.
 	aRepeatCard target: aShip.
 	aGame throwDice.
 	aGame playCard: aRepeatCard by: aShip.
@@ -721,7 +721,7 @@ GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
 		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame deckOf: aShip.
+	deck := aGame cardsOf: aShip.
 	aSpeedCard := deck first.
 	aSpeedCard target: 'test-ship-1'.
 	aGame playCard: aSpeedCard by: aShip.

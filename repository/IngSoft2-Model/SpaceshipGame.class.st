@@ -86,7 +86,7 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> deckOf: aShipName [
+SpaceshipGame >> cardsOf: aShipName [
 
 	| aShip |
 	aShip := self shipNamed: aShipName.
