@@ -8,12 +8,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-Card >> diceModifierTo: aShip [
-
-	^ 0
-]
-
 { #category : #accessing }
 Card >> targetCard: aCard [
 
