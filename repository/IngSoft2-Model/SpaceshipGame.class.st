@@ -170,13 +170,14 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 	aShip := self shipNamed: aShipName.
 	shipToPlay := ships first.
 	isShipTurn := aShip = shipToPlay.
+	aCard lastCardWas: self lastUsedCard.
 	aCard verifyCanBeUsed: isShipTurn.
 	aShip
 		useCard: aCard
 		in: board
 		withActiveCards: activeCards
 		withGame: self.
-	lastUsedCard := aCard
+	aCard ifWasUsed: [ lastUsedCard := aCard ]
 ]
 
 { #category : #'as yet unclassified' }
