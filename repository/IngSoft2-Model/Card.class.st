@@ -21,7 +21,7 @@ Card >> targetShip: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-Card >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame [
+Card >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
 
 	self subclassResponsibility
 ]

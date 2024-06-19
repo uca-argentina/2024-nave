@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame [
+CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
 
 	someActiveCards
 		remove: targetCard

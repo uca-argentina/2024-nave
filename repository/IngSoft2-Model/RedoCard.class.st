@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-RedoCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame [
+RedoCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
 
 	| lastUsedCard cardToUse |
 	lastUsedCard := aGame lastUsedCard.
@@ -16,4 +16,5 @@ RedoCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame [
 		useIn: aBoard
 		withActiveCards: someActiveCards
 		withGame: aGame
+		withShip: aShip
 ]

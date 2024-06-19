@@ -100,11 +100,14 @@ Board >> move: aShip by: times [
 	| actualCell nextCell actualCellIndex nextCellIndex actualShipLaps lapsChangeAmount |
 	actualCell := self whereIs: aShip.
 	actualCellIndex := cells indexOf: actualCell.
-	actualShipLaps := lapsPerShip at: aShip.
 	nextCellIndex := actualCellIndex - 1 + times % cells size + 1.
-	lapsChangeAmount := actualCellIndex - 1 + times // cells size.
 	
+	aShip updateLapsIfRequired: [ 
+		actualShipLaps := lapsPerShip at: aShip.
+	lapsChangeAmount := actualCellIndex - 1 + times // cells size.
 	lapsPerShip at: aShip put: actualShipLaps + lapsChangeAmount.
+	].
+	
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
@@ -149,6 +152,12 @@ Board >> orderedShips [
 	sortByRankBlock := [ :aShip :anotherShip |
 	                   (self rank: aShip) >= (self rank: anotherShip) ].
 	^ (self allShips sorted: sortByRankBlock) asOrderedCollection
+]
+
+{ #category : #'as yet unclassified' }
+Board >> placeAtTheStart: aShip [
+
+	cells first enters: aShip
 ]
 
 { #category : #accessing }

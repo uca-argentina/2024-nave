@@ -86,6 +86,15 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  deck: aDeck
 ]
 
+{ #category : #adding }
+SpaceshipGame >> addMercenaryOf: aShip [
+
+	| aMercenaryShip |
+	aMercenaryShip := MercenaryShip named: 'prueba'.
+	ships add: aMercenaryShip.
+	board placeAtTheStart: aMercenaryShip
+]
+
 { #category : #'as yet unclassified' }
 SpaceshipGame >> cardsOf: aShipName [
 
@@ -107,7 +116,7 @@ SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin usi
 	activeCards := OrderedCollection new.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
-		         Ship
+		         PlayerShip
 			         named: eachShipName
 			         deck:
 			         (OrderedCollection with: deck drawCard with: deck drawCard) ].

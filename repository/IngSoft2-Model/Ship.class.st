@@ -2,19 +2,12 @@ Class {
 	#name : #Ship,
 	#superclass : #Object,
 	#instVars : [
-		'name',
 		'shields',
 		'penalty',
-		'cards'
+		'name'
 	],
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #'instance creation' }
-Ship class >> named: aName deck: aDeck [
-
-	^ self new initializeWith: aName cards: aDeck
-]
 
 { #category : #'as yet unclassified' }
 Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
@@ -26,16 +19,9 @@ Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
 		ifFalse: [ aBlockIfNotPenalized value ]
 ]
 
-{ #category : #accessing }
-Ship >> cards [
-
-	^ cards
-]
-
 { #category : #initialization }
-Ship >> initializeWith: aName cards: someCards [
+Ship >> initializeWith: aName [
 
-	cards := someCards.
 	name := aName.
 	shields := 3.
 	penalty := 0.
@@ -48,12 +34,6 @@ Ship >> name [
 	^ name
 ]
 
-{ #category : #'as yet unclassified' }
-Ship >> receive: aCard [
-
-	cards add: aCard
-]
-
 { #category : #removing }
 Ship >> removeShield [
 
@@ -64,19 +44,4 @@ Ship >> removeShield [
 { #category : #'as yet unclassified' }
 Ship >> restoreShields [
 	shields := 3
-]
-
-{ #category : #'as yet unclassified' }
-Ship >> useCard: aCard in: aBoard withActiveCards: someActiveCards withGame: aGame [
-
-	self verifyHas: aCard.
-	aCard useIn: aBoard withActiveCards: someActiveCards withGame: aGame.
-	cards remove: aCard
-]
-
-{ #category : #'as yet unclassified' }
-Ship >> verifyHas: aCard [
-
-	(cards includes: aCard) ifFalse: [
-		Error signal: 'that card is not in deck' ]
 ]
