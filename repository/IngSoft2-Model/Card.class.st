@@ -24,11 +24,6 @@ Card >> lastCardWas: aCard [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-Card >> mercenary: aMercenaryShip [
-	
-]
-
 { #category : #accessing }
 Card >> targetCard: aCard [
 
