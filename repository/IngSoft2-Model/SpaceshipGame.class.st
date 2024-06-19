@@ -166,6 +166,7 @@ SpaceshipGame >> mercenariesOf: aShipName [
 SpaceshipGame >> playCard: aCard by: aShipName [
 
 	| aShip isShipTurn shipToPlay |
+	self verifyIsNotOver.
 	aShip := self shipNamed: aShipName.
 	shipToPlay := ships first.
 	isShipTurn := aShip = shipToPlay.

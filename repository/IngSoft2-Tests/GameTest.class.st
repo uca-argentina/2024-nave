@@ -967,6 +967,40 @@ GameTest >> testWhenBothShipsHaveAMercenaryThenBothShouldHelpInTheBattle [
 ]
 
 { #category : #tests }
+GameTest >> testWhenGameIsEndedAndTryToUseACardThenShouldThrowError [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 20 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: SpeedCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aGame throwDice.
+
+	deck := aGame cardsOf: anotherShip.
+	aSpeedCard := deck first.
+	aSpeedCard targetShip: anotherShip.
+	self
+		should: [ aGame playCard: aSpeedCard by: anotherShip ]
+		raise: Error
+		withMessage: 'game is over!'
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 
 	| aShip aGame someShips someDice anotherShip yetAnotherShip |
