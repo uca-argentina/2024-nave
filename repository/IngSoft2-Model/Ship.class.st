@@ -16,6 +16,11 @@ Ship >> addAlly: anAlly [
 	allies add: anAlly
 ]
 
+{ #category : #accessing }
+Ship >> allies [
+	^ allies
+]
+
 { #category : #'as yet unclassified' }
 Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
 
@@ -35,7 +40,7 @@ Ship >> ifIsNotAlly: aShip do: aBlockIfNotAlly [
 { #category : #initialization }
 Ship >> initializeWith: aName [
 
-	allies := Set new.
+	allies := OrderedCollection new.
 	name := aName.
 	shields := 3.
 	penalty := 0.

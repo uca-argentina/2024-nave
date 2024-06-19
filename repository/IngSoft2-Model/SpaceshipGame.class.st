@@ -89,8 +89,10 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 { #category : #adding }
 SpaceshipGame >> addMercenaryOf: aShip [
 
-	| aMercenaryShip |
-	aMercenaryShip := MercenaryShip named: 'prueba'.
+	| aMercenaryShip aMercenaryName |
+	aMercenaryName := 'mercenary-of-' , aShip name , '-'
+	                  , 10000 atRandom printString.
+	aMercenaryShip := MercenaryShip named: aMercenaryName.
 	aMercenaryShip addAlly: aShip.
 	aShip addAlly: aMercenaryShip.
 
@@ -149,6 +151,14 @@ SpaceshipGame >> lapsOf: aShipName [
 SpaceshipGame >> lastUsedCard [
 
 	^ lastUsedCard
+]
+
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> mercenariesOf: aShipName [
+
+	| aShip |
+	aShip := self shipNamed: aShipName.
+	^ aShip allies collect: [ :eachAlly | eachAlly name ]
 ]
 
 { #category : #'as yet unclassified' }
