@@ -13,6 +13,18 @@ Card >> beRemovedFrom: aGame [
 ]
 
 { #category : #'as yet unclassified' }
+Card >> ifWasUsed: aBlockIfWasUsed [
+
+	aBlockIfWasUsed value
+]
+
+{ #category : #accessing }
+Card >> lastCardWas: aCard [
+
+	
+]
+
+{ #category : #'as yet unclassified' }
 Card >> mercenary: aMercenaryShip [
 	
 ]

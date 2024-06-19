@@ -1215,6 +1215,59 @@ GameTest >> testWhenPlayAAccelerationCardAndThenARedoCardThenShouldApplyTheAcele
 ]
 
 { #category : #tests }
+GameTest >> testWhenPlaysASpeedCardThenPlaysARedoCardThenPlaysAnotherRedoCardShouldMoveThreeMoreCells [
+
+    | aShip aGame someShips someDice aSpeedCard someCardsToDraw someCells anotherCardsToDraw cards aRedoCard anotherRedoCard |
+    aShip := 'test-ship-1'.
+    someShips := OrderedCollection with: aShip.
+    someDice := Dice withAll:
+                    (Set with:
+                         (LoadedDie sequence: #( 1 1 ) asOrderedCollection)).
+    someCardsToDraw := OrderedCollection
+                           with: SpeedCard new
+                           with: RedoCard new.
+    anotherCardsToDraw := OrderedCollection with: RedoCard new.
+    someCells := OrderedCollection new.
+    someCells
+        add: NormalCell new;
+        add: (CardGivingCell deck: (LoadedDeck cards: anotherCardsToDraw));
+        add: NormalCell new;
+        add: NormalCell new;
+        add: NormalCell new;
+        add: NormalCell new;
+        add: NormalCell new;
+        add: NormalCell new;
+        add: NormalCell new;
+        add: NormalCell new.
+
+    aGame := SpaceshipGame
+                 with: someShips
+                 lapsToWin: 2
+                 using: someDice
+                 withCells: someCells size
+                 wormholeStart: 8
+                 wormholeEnd: 9
+                 lengthInParsecs: 100
+                 cellGenerator: (FixedCellGenerator cells: someCells)
+                 deck: (LoadedDeck cards: someCardsToDraw).
+
+    aGame throwDice.
+    cards := aGame cardsOf: aShip.
+    aSpeedCard := cards first.
+    aRedoCard := cards second.
+    anotherRedoCard := cards third.
+    aSpeedCard targetShip: aShip.
+    aRedoCard targetShip: aShip.
+    anotherRedoCard targetShip: aShip.
+
+    aGame playCard: aSpeedCard by: aShip.
+    aGame playCard: aRedoCard by: aShip.
+    aGame playCard: anotherRedoCard by: aShip.
+    aGame throwDice.
+    self assert: (aGame indexOfCellWith: aShip) equals: 6
+]
+
+{ #category : #tests }
 GameTest >> testWhenPlaysASpeedCardThenShouldMoveOneMoreCell [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
@@ -1995,6 +2048,47 @@ GameTest >> testWhenTwoShipsHaveMercenariesAndCancelOneThenTheOtherShouldKeepHav
 	
 	self assert: someMercenaries size equals: 0.
 	self assert: someOtherMercenaries size equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testWhenUsesARedoCardAfterAPermanentCardAndItsNotTheShipTurnShouldThrowError [
+
+	| aShip aGame someShips someDice aSpeedCard someCardsToDraw anotherCardsToDraw cards aRedoCard anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 ) asOrderedCollection)).
+	someCardsToDraw := OrderedCollection
+		                   with: SpeedCard new
+		                   with: RedoCard new
+		                   with: SpeedCard new
+		                   with: RedoCard new.
+	anotherCardsToDraw := OrderedCollection with: RedoCard new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: someCardsToDraw).
+	cards := aGame cardsOf: aShip.
+	aSpeedCard := cards first.
+	aRedoCard := cards second.
+	aSpeedCard targetShip: aShip.
+	aRedoCard targetShip: aShip.
+
+	aGame playCard: aSpeedCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+	self
+		should: [ aGame playCard: aRedoCard by: aShip ]
+		raise: Error
+		withMessage: 'it is not your turn!'
 ]
 
 { #category : #tests }
