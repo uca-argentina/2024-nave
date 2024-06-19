@@ -11,6 +11,12 @@ MercenaryShip class >> named: aName [
 ]
 
 { #category : #'as yet unclassified' }
+MercenaryShip >> throw: aDice [
+
+	^ aDice throw
+]
+
+{ #category : #'as yet unclassified' }
 MercenaryShip >> updateLapsIfRequired: aBlockToUpdateLaps [
 
 	

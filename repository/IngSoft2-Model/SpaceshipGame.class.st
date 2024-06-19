@@ -201,8 +201,9 @@ SpaceshipGame >> throwDice [
 		board applyEffectTo: shipToPlay.
 		board if: shipToPlay isCollidding: [ :actualShip :collidingShip |
 			actualShip ifIsNotAlly: collidingShip do: [
-				actualShipDiceResult := dice throw.
-				collidingShipDiceResult := dice throw.
+				actualShipDiceResult := actualShip throw: dice.
+				collidingShipDiceResult := collidingShip throw: dice.
+
 				loserShip := actualShipDiceResult >= collidingShipDiceResult
 					             ifTrue: [ collidingShip ]
 					             ifFalse: [ actualShip ].

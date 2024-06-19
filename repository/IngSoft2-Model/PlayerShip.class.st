@@ -34,6 +34,15 @@ PlayerShip >> receive: aCard [
 ]
 
 { #category : #'as yet unclassified' }
+PlayerShip >> throw: aDice [
+
+	| myResult myAlliesResult |
+	myResult := aDice throw.
+	myAlliesResult := (allies collect: [ :eachAlly | aDice throw ]) sumNumbers.
+	^ myResult + myAlliesResult
+]
+
+{ #category : #'as yet unclassified' }
 PlayerShip >> updateLapsIfRequired: aBlockToUpdateLaps [
 
 	aBlockToUpdateLaps value
