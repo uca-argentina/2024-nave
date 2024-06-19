@@ -4,12 +4,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #testing }
-RedoCard >> isPermanent [
-
-	^ (type = 0)
-]
-
 { #category : #'as yet unclassified' }
 RedoCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
 
@@ -23,4 +17,10 @@ RedoCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withS
 		withActiveCards: someActiveCards
 		withGame: aGame
 		withShip: aShip
+]
+
+{ #category : #'as yet unclassified' }
+RedoCard >> verifyCanBeUsed: isMyTurn [
+
+	
 ]

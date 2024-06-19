@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'targetCard',
-		'targetShipName',
-		'type'
+		'targetShipName'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,6 +22,12 @@ Card >> targetShip: aShipName [
 
 { #category : #'as yet unclassified' }
 Card >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
+
+	self subclassResponsibility
+]
+
+{ #category : #'as yet unclassified' }
+Card >> verifyCanBeUsed: isMyTurn [
 
 	self subclassResponsibility
 ]

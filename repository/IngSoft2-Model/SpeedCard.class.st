@@ -1,6 +1,6 @@
 Class {
 	#name : #SpeedCard,
-	#superclass : #Card,
+	#superclass : #PermanentCard,
 	#category : #'IngSoft2-Model'
 }
 
@@ -9,12 +9,6 @@ SpeedCard >> diceModifierTo: aShipName [
 
 	aShipName ~= targetShipName ifTrue: [ ^ 0 ].
 	^ 1
-]
-
-{ #category : #testing }
-SpeedCard >> isPermanent [
-
-	^ (type = 0)
 ]
 
 { #category : #'as yet unclassified' }

@@ -1,6 +1,6 @@
 Class {
 	#name : #AccelerationCard,
-	#superclass : #Card,
+	#superclass : #PermanentCard,
 	#category : #'IngSoft2-Model'
 }
 
@@ -8,18 +8,6 @@ Class {
 AccelerationCard >> diceModifierTo: aShipName [
 
 	^ 1
-]
-
-{ #category : #initialization }
-AccelerationCard >> initialize [
-
-	type := 0
-]
-
-{ #category : #testing }
-AccelerationCard >> isPermanent [
-
-	^ (type = 0)
 ]
 
 { #category : #'as yet unclassified' }

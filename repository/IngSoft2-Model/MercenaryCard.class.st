@@ -1,6 +1,6 @@
 Class {
 	#name : #MercenaryCard,
-	#superclass : #Card,
+	#superclass : #PermanentCard,
 	#category : #'IngSoft2-Model'
 }
 
@@ -8,12 +8,6 @@ Class {
 MercenaryCard >> diceModifierTo: aShip [
 
 	^ 0
-]
-
-{ #category : #testing }
-MercenaryCard >> isPermanent [
-
-	^ (type = 0)
 ]
 
 { #category : #'as yet unclassified' }

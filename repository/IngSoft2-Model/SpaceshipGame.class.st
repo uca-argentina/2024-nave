@@ -164,9 +164,11 @@ SpaceshipGame >> mercenariesOf: aShipName [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> playCard: aCard by: aShipName [
 
-	| aShip |
-	((aShipName ~= ships first name) and: (aCard isPermanent)) ifTrue: [ Error signal: 'it is not your turn!' ].
+	| aShip isShipTurn shipToPlay |
 	aShip := self shipNamed: aShipName.
+	shipToPlay := ships first.
+	isShipTurn := aShip = shipToPlay.
+	aCard verifyCanBeUsed: isShipTurn.
 	aShip
 		useCard: aCard
 		in: board
