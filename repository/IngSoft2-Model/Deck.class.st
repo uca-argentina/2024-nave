@@ -13,7 +13,8 @@ Deck >> drawCard [
 		             [ CancellationCard new ].
 		             [ RedoCard new ].
 		             [ RepeatCard new ].
-		             [ SpeedCard new ] }.
+		             [ SpeedCard new ].
+		             [ MercenaryCard new ] }.
 	cardCreatorBlock := cardTypes atRandom.
 	^ cardCreatorBlock value
 ]
