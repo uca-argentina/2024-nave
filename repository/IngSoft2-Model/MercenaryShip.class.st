@@ -10,6 +10,12 @@ MercenaryShip class >> named: aName [
 	^ self new initializeWith: aName
 ]
 
+{ #category : #actions }
+MercenaryShip >> beRemoved [
+
+	allies do: [ :eachAlly | eachAlly removeAlly: self ]
+]
+
 { #category : #'as yet unclassified' }
 MercenaryShip >> throw: aDice [
 

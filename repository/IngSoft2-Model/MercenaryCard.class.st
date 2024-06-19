@@ -2,15 +2,16 @@ Class {
 	#name : #MercenaryCard,
 	#superclass : #PermanentCard,
 	#instVars : [
-		'myMercenary'
+		'myMercenaryShip'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'as yet unclassified' }
-MercenaryCard >> beRemovedFrom: aGame [
+MercenaryCard >> beRemovedWith: someShips [
 
-	aGame removeMercenary: myMercenary
+	myMercenaryShip beRemoved.
+	someShips remove: myMercenaryShip
 ]
 
 { #category : #'as yet unclassified' }
@@ -20,14 +21,18 @@ MercenaryCard >> diceModifierTo: aShip [
 ]
 
 { #category : #'as yet unclassified' }
-MercenaryCard >> mercenary: aMercenaryShip [
+MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
-	myMercenary := aMercenaryShip
-]
-
-{ #category : #'as yet unclassified' }
-MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
-
+	| aMercenaryName aMercenaryShip cardUser |
+	cardUser := someShips first.
 	someActiveCards add: self.
-	aGame addMercenaryOf: aShip using: self
+	aMercenaryName := 'mercenary-of-' , cardUser name , '-'
+	                  , 10000 atRandom printString.
+	aMercenaryShip := MercenaryShip named: aMercenaryName.
+	aMercenaryShip addAlly: cardUser.
+	cardUser addAlly: aMercenaryShip.
+
+	myMercenaryShip := aMercenaryShip.
+	someShips add: aMercenaryShip.
+	aBoard placeAtTheStart: aMercenaryShip
 ]

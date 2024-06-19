@@ -57,10 +57,10 @@ PlayerShip >> updateLapsIfRequired: aBlockToUpdateLaps [
 ]
 
 { #category : #'as yet unclassified' }
-PlayerShip >> useCard: aCard in: aBoard withActiveCards: someActiveCards withGame: aGame [
+PlayerShip >> useCard: aCard in: aBoard withActiveCards: someActiveCards withShips: someShips [
 
 	self verifyHas: aCard.
-	aCard useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: self.
+	aCard useIn: aBoard withActiveCards: someActiveCards withShips: someShips.
 	cards remove: aCard
 ]
 

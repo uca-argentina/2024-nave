@@ -13,6 +13,10 @@ Card >> beRemovedFrom: aGame [
 ]
 
 { #category : #'as yet unclassified' }
+Card >> beRemovedWith: someShips [
+]
+
+{ #category : #'as yet unclassified' }
 Card >> ifWasUsed: aBlockIfWasUsed [
 
 	aBlockIfWasUsed value
@@ -42,7 +46,7 @@ Card >> targetShip: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-Card >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
+Card >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
 	self subclassResponsibility
 ]

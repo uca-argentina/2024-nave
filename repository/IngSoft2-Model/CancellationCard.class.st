@@ -5,9 +5,9 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
+CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
-	targetCard beRemovedFrom: aGame.
+	targetCard beRemovedWith: someShips.
 	someActiveCards
 		remove: targetCard
 		ifAbsent: [ Error signal: 'no such card in active cards!' ]

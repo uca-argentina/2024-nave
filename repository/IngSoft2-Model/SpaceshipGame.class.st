@@ -86,21 +86,6 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  deck: aDeck
 ]
 
-{ #category : #adding }
-SpaceshipGame >> addMercenaryOf: aShip using: aCard [
-
-	| aMercenaryShip aMercenaryName |
-	aMercenaryName := 'mercenary-of-' , aShip name , '-'
-	                  , 10000 atRandom printString.
-	aMercenaryShip := MercenaryShip named: aMercenaryName.
-	aMercenaryShip addAlly: aShip.
-	aShip addAlly: aMercenaryShip.
-
-	aCard mercenary: aMercenaryShip.
-	ships add: aMercenaryShip.
-	board placeAtTheStart: aMercenaryShip
-]
-
 { #category : #'as yet unclassified' }
 SpaceshipGame >> cardsOf: aShipName [
 
@@ -176,7 +161,7 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 		useCard: aCard
 		in: board
 		withActiveCards: activeCards
-		withGame: self.
+		withShips: ships.
 	aCard ifWasUsed: [ lastUsedCard := aCard ]
 ]
 
@@ -184,13 +169,6 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 SpaceshipGame >> ranking [
 
 	^board orderedShips collect: [ :ship | ship name ]
-]
-
-{ #category : #removing }
-SpaceshipGame >> removeMercenary: aMercenaryShip [
-
-	ships remove: aMercenaryShip.
-	ships do: [ :ship | ship removeAlly: aMercenaryShip ]
 ]
 
 { #category : #'as yet unclassified' }
