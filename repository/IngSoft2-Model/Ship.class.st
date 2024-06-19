@@ -4,10 +4,17 @@ Class {
 	#instVars : [
 		'shields',
 		'penalty',
-		'name'
+		'name',
+		'allies'
 	],
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #'as yet unclassified' }
+Ship >> addAlly: anAlly [
+
+	allies add: anAlly
+]
 
 { #category : #'as yet unclassified' }
 Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
@@ -19,9 +26,16 @@ Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
 		ifFalse: [ aBlockIfNotPenalized value ]
 ]
 
+{ #category : #'as yet unclassified' }
+Ship >> ifIsNotAlly: aShip do: aBlockIfNotAlly [
+
+	(allies includes: aShip) ifFalse: [ aBlockIfNotAlly value ]
+]
+
 { #category : #initialization }
 Ship >> initializeWith: aName [
 
+	allies := Set new.
 	name := aName.
 	shields := 3.
 	penalty := 0.

@@ -614,6 +614,37 @@ GameTest >> testWhenAShipUsesAMercenaryCardAndTheMercenaryAndAnotherShipLandsInT
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipUsesAMercenaryCardAndTheMercenaryAndThatShipLandsInTheSameCellThenTheyShouldNotBattle [
+
+	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 1 10 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	cards := aGame cardsOf: aShip.
+	aMercenaryCard := cards first.
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno de mercenaria"
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 2
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 
 	| aShip aGame someShips someDice anotherShip yetAnotherShip |

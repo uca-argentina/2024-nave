@@ -91,6 +91,9 @@ SpaceshipGame >> addMercenaryOf: aShip [
 
 	| aMercenaryShip |
 	aMercenaryShip := MercenaryShip named: 'prueba'.
+	aMercenaryShip addAlly: aShip.
+	aShip addAlly: aMercenaryShip.
+
 	ships add: aMercenaryShip.
 	board placeAtTheStart: aMercenaryShip
 ]
@@ -197,13 +200,14 @@ SpaceshipGame >> throwDice [
 		board move: shipToPlay by: diceResult + diceModifier.
 		board applyEffectTo: shipToPlay.
 		board if: shipToPlay isCollidding: [ :actualShip :collidingShip |
-			actualShipDiceResult := dice throw.
-			collidingShipDiceResult := dice throw.
-			loserShip := actualShipDiceResult >= collidingShipDiceResult
-				             ifTrue: [ collidingShip ]
-				             ifFalse: [ actualShip ].
-			loserShip removeShield.
-			board moveToTheStart: loserShip ] ].
+			actualShip ifIsNotAlly: collidingShip do: [
+				actualShipDiceResult := dice throw.
+				collidingShipDiceResult := dice throw.
+				loserShip := actualShipDiceResult >= collidingShipDiceResult
+					             ifTrue: [ collidingShip ]
+					             ifFalse: [ actualShip ].
+				loserShip removeShield.
+				board moveToTheStart: loserShip ] ] ].
 
 	ships removeFirst.
 	ships addLast: shipToPlay
