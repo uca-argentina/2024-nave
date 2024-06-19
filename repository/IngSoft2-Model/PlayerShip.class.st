@@ -19,6 +19,14 @@ PlayerShip >> cards [
 	^ cards
 ]
 
+{ #category : #initialization }
+PlayerShip >> initializeWith: aName cards: someCards [
+
+	self initializeWith: aName.
+	cards := someCards.
+	^ self
+]
+
 { #category : #'as yet unclassified' }
 PlayerShip >> receive: aCard [
 
