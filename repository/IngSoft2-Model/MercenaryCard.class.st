@@ -10,9 +10,15 @@ MercenaryCard >> diceModifierTo: aShip [
 	^ 0
 ]
 
+{ #category : #testing }
+MercenaryCard >> isPermanent [
+
+	^ (type = 0)
+]
+
 { #category : #'as yet unclassified' }
 MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
 
 	someActiveCards add: self.
-	aGame addMercenaryOf: aShip.
+	aGame addMercenaryOf: aShip
 ]

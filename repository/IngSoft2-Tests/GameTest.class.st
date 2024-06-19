@@ -29,6 +29,77 @@ GameTest >> testARandomMatchEnds [
 ]
 
 { #category : #tests }
+GameTest >> testIfAShipPlaysAInstantCardAndItsNotItsTurnShouldApplyEffect [
+
+	| aShip aGame someShips someDice cardsToDraw anotherShip anAccelerationCard aCancellationCard shipCards anotherShipCards |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: AccelerationCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	shipCards := aGame cardsOf: aShip.
+	anotherShipCards := aGame cardsOf: anotherShip.
+	anAccelerationCard := shipCards first.
+	aCancellationCard := anotherShipCards second.
+	aCancellationCard targetCard: anAccelerationCard. 
+	aGame playCard: anAccelerationCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+	aGame playCard: aCancellationCard by: anotherShip.
+	aGame throwDice. "turno test-ship-2"
+
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 2
+]
+
+{ #category : #tests }
+GameTest >> testIfAShipPlaysAPermanentCardAndItsNotItsTurnShouldThrowAnError [
+
+	| aShip aGame someShips someDice cards cardsToDraw anotherShip anAccelerationCard anotherAccelerationCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: AccelerationCard new
+		               with: AccelerationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	cards := aGame cardsOf: aShip.
+	anAccelerationCard := cards first.
+	anotherAccelerationCard := cards second.
+	aGame playCard: anAccelerationCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+
+	self
+		should: [aGame playCard: anotherAccelerationCard by: aShip]
+		raise: Error
+		withMessage: 'it is not your turn!'
+]
+
+{ #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 
 	| aShip someShips aGame someDice anotherShip |

@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'targetCard',
-		'targetShipName'
+		'targetShipName',
+		'type'
 	],
 	#category : #'IngSoft2-Model'
 }

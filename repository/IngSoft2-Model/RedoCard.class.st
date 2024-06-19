@@ -4,6 +4,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #testing }
+RedoCard >> isPermanent [
+
+	^ (type = 0)
+]
+
 { #category : #'as yet unclassified' }
 RedoCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
 

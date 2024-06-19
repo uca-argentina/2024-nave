@@ -11,6 +11,12 @@ SpeedCard >> diceModifierTo: aShipName [
 	^ 1
 ]
 
+{ #category : #testing }
+SpeedCard >> isPermanent [
+
+	^ (type = 0)
+]
+
 { #category : #'as yet unclassified' }
 SpeedCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
 

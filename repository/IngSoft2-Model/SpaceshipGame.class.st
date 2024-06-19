@@ -165,6 +165,7 @@ SpaceshipGame >> mercenariesOf: aShipName [
 SpaceshipGame >> playCard: aCard by: aShipName [
 
 	| aShip |
+	((aShipName ~= ships first name) and: (aCard isPermanent)) ifTrue: [ Error signal: 'it is not your turn!' ].
 	aShip := self shipNamed: aShipName.
 	aShip
 		useCard: aCard
