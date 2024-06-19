@@ -18,20 +18,6 @@ RedoCard >> lastCardWas: aCard [
 ]
 
 { #category : #'as yet unclassified' }
-RedoCard >> useIn: aBoard withActiveCards: someActiveCards withGame: aGame withShip: aShip [
-
-	| cardToUse |
-	cardToUse := lastUsedCard class new.
-	cardToUse targetShip: targetShipName.
-	cardToUse targetCard: targetCard.
-	cardToUse
-		useIn: aBoard
-		withActiveCards: someActiveCards
-		withGame: aGame
-		withShip: aShip
-]
-
-{ #category : #'as yet unclassified' }
 RedoCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
 	| cardToUse |
