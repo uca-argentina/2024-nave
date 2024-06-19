@@ -151,6 +151,44 @@ GameTest >> testIfTryToUseTheSameCardAgainShouldRaiseError [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAMercenaryLosesABattleItsAllyShouldNotMoveToTheStart [
+
+	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip someMercenaries aMercenaryShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 8 1 1 10 5 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 4
+		         wormholeEnd: 5
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+
+	cards := aGame cardsOf: aShip.
+	aMercenaryCard := cards first.
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno de test-ship-2"
+	aGame throwDice. "turno de mercenary"
+
+	someMercenaries := aGame mercenariesOf: aShip.
+	aMercenaryShip := someMercenaries first.
+	self assert: (aGame indexOfCellWith: aMercenaryShip) equals: 1.
+	self assert: (aGame indexOfCellWith: aShip) equals: 9
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipAndItsMercenaryLosesABattleThenTheyShouldMoveToTheStart [
 
 	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip someMercenaries aMercenaryShip |
