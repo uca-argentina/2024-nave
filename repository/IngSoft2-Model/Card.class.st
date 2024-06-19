@@ -9,10 +9,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Card >> beRemovedFrom: aGame [
-]
-
-{ #category : #'as yet unclassified' }
 Card >> beRemovedWith: someShips [
 ]
 
