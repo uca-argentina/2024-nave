@@ -8,6 +8,15 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'as yet unclassified' }
+Card >> beRemovedFrom: aGame [
+]
+
+{ #category : #'as yet unclassified' }
+Card >> mercenary: aMercenaryShip [
+	
+]
+
 { #category : #accessing }
 Card >> targetCard: aCard [
 

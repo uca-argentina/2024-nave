@@ -844,6 +844,48 @@ GameTest >> testWhenAShipUsesAMercenaryCardAndTheMercenaryAndThatShipLandsInTheS
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipUsesAMercenaryCardAndThenAnotherShipCancellsThatMercenaryThenShouldRemoveIt [
+
+	| aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip aShipCards anotherShipCards aCancellationCard someMercenaries |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 1 10 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: CancellationCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aShipCards := aGame cardsOf: aShip.
+	anotherShipCards := aGame cardsOf: anotherShip.
+
+	aMercenaryCard := aShipCards first.
+	aCancellationCard := anotherShipCards first.
+
+
+
+	aCancellationCard targetCard: aMercenaryCard.
+
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame playCard: aCancellationCard by: anotherShip.
+
+	someMercenaries := aGame mercenariesOf: aShip.
+	self assert: someMercenaries size equals: 0
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipUsesAMercenaryCardAndThenBattleWithAnotherShipThenTheMercenaryShouldHelp [
 
 	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip |
@@ -1813,6 +1855,53 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 	aGame throwDice.
 
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testWhenTwoShipsHaveMercenariesAndCancelOneThenTheOtherShouldKeepHavingOne [
+
+	| aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip aShipCards anotherShipCards aCancellationCard someMercenaries anotherMercenaryCard someOtherMercenaries |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 1 10 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aShipCards := aGame cardsOf: aShip.
+	anotherShipCards := aGame cardsOf: anotherShip.
+
+	aMercenaryCard := aShipCards first.
+
+	anotherMercenaryCard := anotherShipCards first.
+	aCancellationCard := anotherShipCards second.
+
+	aCancellationCard targetCard: aMercenaryCard.
+
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame throwDice.
+	aGame playCard: anotherMercenaryCard by: anotherShip.
+	aGame playCard: aCancellationCard by: anotherShip.
+
+	someMercenaries := aGame mercenariesOf: aShip.
+	someOtherMercenaries := aGame mercenariesOf: anotherShip.
+	
+	self assert: someMercenaries size equals: 0.
+	self assert: someOtherMercenaries size equals: 1
 ]
 
 { #category : #tests }

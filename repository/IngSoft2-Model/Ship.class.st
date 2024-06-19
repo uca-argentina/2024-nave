@@ -54,6 +54,12 @@ Ship >> name [
 ]
 
 { #category : #removing }
+Ship >> removeAlly: aMercenaryShip [
+
+	allies remove: aMercenaryShip ifAbsent: [  ]
+]
+
+{ #category : #removing }
 Ship >> removeShield [
 
 	shields := shields - 1.
