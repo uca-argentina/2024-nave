@@ -189,6 +189,59 @@ GameTest >> testWhenAMercenaryLosesABattleItsAllyShouldNotMoveToTheStart [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAMercenaryShipLosesThreeTimesThenShouldLoseTwoTurns [
+
+	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip someMercenaries aMercenaryShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 1 5 5 10 9 1 1 6 10 9 1 1 7 10 9 1 1 1 1 )
+					              asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	cards := aGame cardsOf: aShip.
+	aMercenaryCard := cards first.
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria"
+
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria"
+
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria"
+
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria pero esta penalizada"
+
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria pero esta penalizada"
+
+	someMercenaries := aGame mercenariesOf: aShip.
+	aMercenaryShip := someMercenaries first.
+	self assert: (aGame indexOfCellWith: aShip) equals: 6.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 10.
+	self assert: (aGame indexOfCellWith: aMercenaryShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipAndItsMercenaryLosesABattleThenTheyShouldMoveToTheStart [
 
 	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip someMercenaries aMercenaryShip |
@@ -751,6 +804,53 @@ GameTest >> testWhenAShipUsesAMercenaryCardAndThenBattleWithAnotherShipThenTheMe
 
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
 	self assert: (aGame indexOfCellWith: aShip) equals: 2
+]
+
+{ #category : #tests }
+GameTest >> testWhenBothShipsHaveAMercenaryThenBothShouldHelpInTheBattle [
+
+	| aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip someMercenaries aMercenaryShip someCards someOtherCards anotherMercenaryCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 3 3 2 2 2 3 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 4
+		         wormholeEnd: 5
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+
+	someCards := aGame cardsOf: aShip.
+	aMercenaryCard := someCards first.
+
+	someOtherCards := aGame cardsOf: anotherShip.
+	anotherMercenaryCard := someOtherCards first.
+	"turno test-ship-1"
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame throwDice.
+	"turno de test-ship-2"
+	aGame playCard: anotherMercenaryCard by: anotherShip.
+	aGame throwDice.
+
+
+
+	someMercenaries := aGame mercenariesOf: aShip.
+	aMercenaryShip := someMercenaries first.
+	self assert: (aGame indexOfCellWith: aShip) equals: 1.
+	self assert: (aGame indexOfCellWith: aMercenaryShip) equals: 1
 ]
 
 { #category : #tests }

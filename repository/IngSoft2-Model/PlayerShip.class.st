@@ -33,6 +33,14 @@ PlayerShip >> receive: aCard [
 	cards add: aCard
 ]
 
+{ #category : #removing }
+PlayerShip >> removeShield [
+
+	allies do: [ :eachAlly | eachAlly removeShield ].
+	shields := shields - 1.
+	shields = 0 ifTrue: [ penalty := 2 ]
+]
+
 { #category : #'as yet unclassified' }
 PlayerShip >> throw: aDice [
 
