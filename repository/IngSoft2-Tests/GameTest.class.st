@@ -1101,6 +1101,65 @@ GameTest >> testWhenLastEffectWasBlackHoleAndUseTheRepeatCardThenShouldGoBackFou
 ]
 
 { #category : #tests }
+GameTest >> testWhenLastEffectWasMoonwalkCellAndUseTheRepeatCardThenAllShipsExceptFirstShipShouldGoBackOneCell [
+
+	| aShip someShips aGame someDice someCells cardsToDraw aRepeatCard anotherShip yetAnotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 11 2 8 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: (MoonwalkCell times: 1).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 12
+		         wormholeEnd: 13
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aRepeatCard := (aGame cardsOf: yetAnotherShip) first.
+	aRepeatCard targetShip: aShip.
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice. "cae en MoonWalk"
+	aGame playCard: aRepeatCard by: yetAnotherShip.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 12.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 8
+]
+
+{ #category : #tests }
 GameTest >> testWhenNoShipCompletedTheLapsThenGameShouldNotBeOver [
 
 	| aShip aGame someDice someShips |
