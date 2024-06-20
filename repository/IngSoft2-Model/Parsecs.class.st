@@ -2,27 +2,25 @@ Class {
 	#name : #Parsecs,
 	#superclass : #Object,
 	#instVars : [
-		'parsecs'
+		'amount'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #accessing }
-Parsecs class >> amount: aNumberOfParsecs [
+Parsecs class >> amount: anAmount [
 
-	^ self new initializeWith: aNumberOfParsecs
-]
-
-{ #category : #'as yet unclassified' }
-Parsecs >> calculateLengthToMove: aShip in: aBoard [ 
-	| cellsToMove parsecsPerCell|
-	parsecsPerCell := aBoard lengthInParsecs // aBoard cells size.
-	cellsToMove := parsecs  // parsecsPerCell.
-	^cellsToMove
+	^ self new initializeWith: anAmount
 ]
 
 { #category : #initialization }
-Parsecs >> initializeWith: aNumberOfParsecs [
+Parsecs >> initializeWith: anAmount [
 
-	parsecs := aNumberOfParsecs
+	amount := anAmount
+]
+
+{ #category : #'as yet unclassified' }
+Parsecs >> toCellsOf: aBoard [
+
+	^ amount // aBoard parsecsPerCell
 ]

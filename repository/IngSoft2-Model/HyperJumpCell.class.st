@@ -16,12 +16,11 @@ HyperJumpCell class >> withLengths: aCollectionOfLenghts [
 { #category : #'as yet unclassified' }
 HyperJumpCell >> applyEffectTo: aShip in: aBoard [
 
-	| aLengthToMove aLengthUnitToMove |
-	aLengthUnitToMove := collectionOfLengths first.
+	| anAmountToMove |
+	anAmountToMove := collectionOfLengths first.
 	collectionOfLengths removeFirst.
-	collectionOfLengths addLast: aLengthUnitToMove.
-	aLengthToMove := aLengthUnitToMove calculateLengthToMove: aShip in: aBoard.
-	aBoard move: aShip by: aLengthToMove
+	collectionOfLengths addLast: anAmountToMove.
+	aBoard move: aShip by: anAmountToMove
 ]
 
 { #category : #initialization }

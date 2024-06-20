@@ -2,28 +2,27 @@ Class {
 	#name : #Lightyears,
 	#superclass : #Object,
 	#instVars : [
-		'lightyears'
+		'amount'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #accessing }
-Lightyears class >> amount: aNumberOfLightyears [
+Lightyears class >> amount: anAmount [
 
-	^ self new initializeWith: aNumberOfLightyears
-]
-
-{ #category : #'as yet unclassified' }
-Lightyears >> calculateLengthToMove: aShip in: aBoard [
-
-	| cellsToMove lightyearsPerCell |
-	lightyearsPerCell := (aBoard lengthInParsecs // aBoard cells size) * 3.
-	cellsToMove := lightyears // lightyearsPerCell.
-	^ cellsToMove
+	^ self new initializeWith: anAmount
 ]
 
 { #category : #initialization }
-Lightyears >> initializeWith: aNumberOfLightyears [
+Lightyears >> initializeWith: anAmount [
 
-	lightyears := aNumberOfLightyears
+	amount := anAmount
+]
+
+{ #category : #'as yet unclassified' }
+Lightyears >> toCellsOf: aBoard [
+
+	| amountInParsecs |
+	amountInParsecs := amount // 3.
+	^ amountInParsecs // aBoard parsecsPerCell
 ]

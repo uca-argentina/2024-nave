@@ -56,11 +56,6 @@ Board >> applyLastEffectTo: aShipName [
 	lastCellEffectUsed applyEffectTo: aShip in: self
 ]
 
-{ #category : #accessing }
-Board >> cells [
-	^ cells
-]
-
 { #category : #'as yet unclassified' }
 Board >> if: aShip isCollidding: aBlockIfColliding [
 
@@ -99,25 +94,21 @@ Board >> lapsOf: aShip [
 	^ lapsPerShip at: aShip.
 ]
 
-{ #category : #accessing }
-Board >> lengthInParsecs [
-	^ lengthInParsecs
-]
-
 { #category : #'as yet unclassified' }
-Board >> move: aShip by: times [
+Board >> move: aShip by: anAmount [
 
-	| actualCell nextCell actualCellIndex nextCellIndex actualShipLaps lapsChangeAmount |
+	| actualCell nextCell actualCellIndex nextCellIndex actualShipLaps lapsChangeAmount cellsToMove |
+	cellsToMove := anAmount toCellsOf: self.
+
 	actualCell := self whereIs: aShip.
 	actualCellIndex := cells indexOf: actualCell.
-	nextCellIndex := actualCellIndex - 1 + times % cells size + 1.
-	
-	aShip updateLapsIfRequired: [ 
+	nextCellIndex := actualCellIndex - 1 + cellsToMove % cells size + 1.
+
+	aShip updateLapsIfRequired: [
 		actualShipLaps := lapsPerShip at: aShip.
-	lapsChangeAmount := actualCellIndex - 1 + times // cells size.
-	lapsPerShip at: aShip put: actualShipLaps + lapsChangeAmount.
-	].
-	
+		lapsChangeAmount := actualCellIndex - 1 + cellsToMove // cells size.
+		lapsPerShip at: aShip put: actualShipLaps + lapsChangeAmount ].
+
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
@@ -154,6 +145,12 @@ Board >> orderedShips [
 	sortByRankBlock := [ :aShip :anotherShip |
 	                   (self rank: aShip) >= (self rank: anotherShip) ].
 	^ (self allShips sorted: sortByRankBlock) asOrderedCollection
+]
+
+{ #category : #'as yet unclassified' }
+Board >> parsecsPerCell [
+
+	^ lengthInParsecs // cells size
 ]
 
 { #category : #'as yet unclassified' }
