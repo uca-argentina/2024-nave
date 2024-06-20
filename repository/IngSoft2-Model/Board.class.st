@@ -56,6 +56,11 @@ Board >> applyLastEffectTo: aShipName [
 	lastCellEffectUsed applyEffectTo: aShip in: self
 ]
 
+{ #category : #accessing }
+Board >> cells [
+	^ cells
+]
+
 { #category : #'as yet unclassified' }
 Board >> if: aShip isCollidding: aBlockIfColliding [
 
@@ -94,6 +99,11 @@ Board >> lapsOf: aShip [
 	^ lapsPerShip at: aShip.
 ]
 
+{ #category : #accessing }
+Board >> lengthInParsecs [
+	^ lengthInParsecs
+]
+
 { #category : #'as yet unclassified' }
 Board >> move: aShip by: times [
 
@@ -111,14 +121,6 @@ Board >> move: aShip by: times [
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
-]
-
-{ #category : #'as yet unclassified' }
-Board >> move: aShip byParsecs: parsecsToMove [ 
-	| cellsToMove parsecsPerCell|
-	parsecsPerCell := lengthInParsecs // cells size.
-	cellsToMove := parsecsToMove // parsecsPerCell.
-	self move: aShip by: cellsToMove
 ]
 
 { #category : #'as yet unclassified' }

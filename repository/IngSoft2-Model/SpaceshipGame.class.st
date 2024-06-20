@@ -32,7 +32,7 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 				[ MoonwalkCell times: 5 atRandom ] };
 		add: {
 				(8 / 100).
-				[ HyperJumpCell withParsecs: #( 50 10 5 ) asOrderedCollection ] };
+				[ HyperJumpCell withLengths: {(Parsecs amount: 50). (Parsecs amount: 10). (Parsecs amount: 5)} asOrderedCollection ] };
 		add: {
 				(2 / 100).
 				[ AtomicBombCell new ] };

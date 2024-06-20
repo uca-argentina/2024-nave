@@ -1355,8 +1355,10 @@ GameTest >> testWhenShipEntersManyTimesToAHyperjumpCellThenShouldMoveAccordingTo
 
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
-	someCells add:
-		(HyperJumpCell withParsecs: #( 2 10 20 ) asOrderedCollection).
+	someCells add: (HyperJumpCell withLengths: {
+				 (Parsecs amount: 2).
+				 (Parsecs amount: 10).
+				 (Parsecs amount: 20) } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -1408,6 +1410,42 @@ GameTest >> testWhenShipEntersToABlackholeCellThenShouldGoBackFourCells [
 ]
 
 { #category : #tests }
+GameTest >> testWhenShipEntersToAHyperJumpCellThenShouldMoveTheDesiredAmountOfLightyears [
+
+	| aShip someShips aGame someDice someCells |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add:
+		(HyperJumpCell withLengths: { (Lightyears amount: 60) } asOrderedCollection).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 5
+		         wormholeEnd: 6
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells).
+
+	aGame throwDice.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 5
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipEntersToAHyperJumpCellThenShouldMoveTheDesiredAmountOfParsecs [
 
 	| aShip someShips aGame someDice someCells |
@@ -1420,7 +1458,7 @@ GameTest >> testWhenShipEntersToAHyperJumpCellThenShouldMoveTheDesiredAmountOfPa
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add:
-		(HyperJumpCell withParsecs: #( 10 ) asOrderedCollection).
+		(HyperJumpCell withLengths: { (Parsecs amount: 10) } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -1580,7 +1618,7 @@ GameTest >> testWhenShipEntersToAHyperjumpCellAndParsecIsNotEnoughToMoveOneCellT
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add:
-		(HyperJumpCell withParsecs: #( 5 ) asOrderedCollection).
+		(HyperJumpCell withLengths: { Parsecs amount: 5 } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -2001,6 +2039,45 @@ GameTest >> testWhenTwoShipsBattleAndTheFirstShipWinsTheSecondShipGoesBackToFirs
 	aGame throwDice.
 
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testWhenTwoShipsEnterToAHyperJumpCellThenShouldMoveTheDesiredAmountOfParsecsOrLightyears [
+
+	| aShip someShips aGame someDice someCells anotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: (HyperJumpCell withLengths: {
+				 (Parsecs amount: 10).
+				 (Lightyears amount: 90) } asOrderedCollection).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 5
+		         wormholeEnd: 6
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells).
+
+	aGame throwDice.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 4.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 6
 ]
 
 { #category : #tests }
