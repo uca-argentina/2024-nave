@@ -1356,9 +1356,9 @@ GameTest >> testWhenShipEntersManyTimesToAHyperjumpCellThenShouldMoveAccordingTo
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: (HyperJumpCell withLengths: {
-				 (Parsecs amount: 2).
-				 (Parsecs amount: 10).
-				 (Parsecs amount: 20) } asOrderedCollection).
+				 2 parsecs.
+				 10 parsecs.
+				 20 parsecs } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -1422,7 +1422,7 @@ GameTest >> testWhenShipEntersToAHyperJumpCellThenShouldMoveTheDesiredAmountOfLi
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add:
-		(HyperJumpCell withLengths: { (Lightyears amount: 60) } asOrderedCollection).
+		(HyperJumpCell withLengths: { 60 lightYears } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -1458,7 +1458,7 @@ GameTest >> testWhenShipEntersToAHyperJumpCellThenShouldMoveTheDesiredAmountOfPa
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add:
-		(HyperJumpCell withLengths: { (Parsecs amount: 10) } asOrderedCollection).
+		(HyperJumpCell withLengths: { 10 parsecs } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -1618,7 +1618,7 @@ GameTest >> testWhenShipEntersToAHyperjumpCellAndParsecIsNotEnoughToMoveOneCellT
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add:
-		(HyperJumpCell withLengths: { Parsecs amount: 5 } asOrderedCollection).
+		(HyperJumpCell withLengths: { 5 parsecs } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
@@ -1635,7 +1635,7 @@ GameTest >> testWhenShipEntersToAHyperjumpCellAndParsecIsNotEnoughToMoveOneCellT
 		         wormholeEnd: 5
 		         lengthInParsecs: 100
 		         cellGenerator: (FixedCellGenerator cells: someCells).
-		
+
 	aGame throwDice.
 
 	self assert: (aGame indexOfCellWith: aShip) equals: 3
@@ -2055,8 +2055,8 @@ GameTest >> testWhenTwoShipsEnterToAHyperJumpCellThenShouldMoveTheDesiredAmountO
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: (HyperJumpCell withLengths: {
-				 (Parsecs amount: 10).
-				 (Lightyears amount: 90) } asOrderedCollection).
+				 10 parsecs.
+				 90 lightYears } asOrderedCollection).
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
 	someCells add: NormalCell new.
