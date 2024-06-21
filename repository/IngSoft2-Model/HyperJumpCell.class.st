@@ -2,7 +2,7 @@ Class {
 	#name : #HyperJumpCell,
 	#superclass : #Cell,
 	#instVars : [
-		'collectionOfLengths'
+		'lengths'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,15 +17,15 @@ HyperJumpCell class >> withLengths: aCollectionOfLenghts [
 HyperJumpCell >> applyEffectTo: aShip in: aBoard [
 
 	| anAmountToMove |
-	anAmountToMove := collectionOfLengths first.
-	collectionOfLengths removeFirst.
-	collectionOfLengths addLast: anAmountToMove.
+	anAmountToMove := lengths first.
+	lengths removeFirst.
+	lengths addLast: anAmountToMove.
 	aBoard move: aShip by: anAmountToMove
 ]
 
 { #category : #initialization }
-HyperJumpCell >> initializeWith: aCollectionOfLengths [
+HyperJumpCell >> initializeWith: someLengths [
 
-	collectionOfLengths := aCollectionOfLengths.
+	lengths := someLengths.
 	^ self
 ]
