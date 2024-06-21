@@ -29,7 +29,7 @@ Board class >> withShips: someShips lengthInParsecs: anAmountOfLengthInParsecs l
 { #category : #'as yet unclassified' }
 Board >> allShips [
 
-	^ lapsPerShip keys asSet 
+	^ lapsPerShip keys asSet
 ]
 
 { #category : #'as yet unclassified' }

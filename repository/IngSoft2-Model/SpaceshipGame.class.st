@@ -128,7 +128,7 @@ SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin usi
 { #category : #'as yet unclassified' }
 SpaceshipGame >> isOver [
 
-	^ board anyShipCompletedAllLaps.
+	^ board anyShipCompletedAllLaps
 ]
 
 { #category : #'as yet unclassified' }
@@ -172,7 +172,7 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> ranking [
 
-	^board orderedShips collect: [ :ship | ship name ]
+	^ board orderedShips collect: [ :ship | ship name ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -185,6 +185,7 @@ SpaceshipGame >> shipNamed: aShipName [
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> skipsNextTurn [
+
 	| shipToPlay |
 	shipToPlay := ships first.
 	shipToPlay restoreShields.

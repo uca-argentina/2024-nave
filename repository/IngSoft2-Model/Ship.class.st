@@ -18,6 +18,7 @@ Ship >> addAlly: anAlly [
 
 { #category : #accessing }
 Ship >> allies [
+
 	^ allies
 ]
 
@@ -68,5 +69,6 @@ Ship >> removeShield [
 
 { #category : #'as yet unclassified' }
 Ship >> restoreShields [
+
 	shields := 3
 ]
