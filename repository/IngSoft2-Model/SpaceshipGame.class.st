@@ -137,12 +137,6 @@ SpaceshipGame >> lapsOf: aShipName [
 	^ board lapsOf: (self shipNamed: aShipName)
 ]
 
-{ #category : #accessing }
-SpaceshipGame >> lastUsedCard [
-
-	^ lastUsedCard
-]
-
 { #category : #'as yet unclassified' }
 SpaceshipGame >> mercenariesOf: aShipName [
 
@@ -159,7 +153,7 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 	aShip := self shipNamed: aShipName.
 	shipToPlay := ships first.
 	isShipTurn := aShip = shipToPlay.
-	aCard lastCardWas: self lastUsedCard.
+	aCard lastCardWas: lastUsedCard.
 	aCard verifyCanBeUsed: isShipTurn.
 	aShip
 		useCard: aCard
