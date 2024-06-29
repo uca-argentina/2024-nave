@@ -29,6 +29,5 @@ MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someS
 
 	targetShip := someShips detect: [ :eachShip |
 		              eachShip name = targetShipName ].
-	targetShip addAlly: cardUser.
 	cardUser addAlly: targetShip
 ]

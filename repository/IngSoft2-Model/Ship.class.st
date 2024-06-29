@@ -54,7 +54,7 @@ Ship >> cards [
 { #category : #'as yet unclassified' }
 Ship >> ifIsNotAlly: aShip do: aBlockIfNotAlly [
 
-	(allies includes: aShip) ifFalse: [ aBlockIfNotAlly value ]
+	((allies includes: aShip) or: (aShip allies includes: self)) ifFalse: [ aBlockIfNotAlly value ]
 ]
 
 { #category : #initialization }
