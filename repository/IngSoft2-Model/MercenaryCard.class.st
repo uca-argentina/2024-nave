@@ -23,16 +23,12 @@ MercenaryCard >> diceModifierTo: aShip [
 { #category : #'as yet unclassified' }
 MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
-	| aMercenaryName aMercenaryShip cardUser |
+	| cardUser targetShip |
 	cardUser := someShips first.
 	someActiveCards add: self.
-	aMercenaryName := 'mercenary-of-' , cardUser name , '-'
-	                  , 10000 atRandom printString.
-	aMercenaryShip := MercenaryShip named: aMercenaryName.
-	aMercenaryShip addAlly: cardUser.
-	cardUser addAlly: aMercenaryShip.
 
-	myMercenaryShip := aMercenaryShip.
-	someShips add: aMercenaryShip.
-	aBoard placeAtTheStart: aMercenaryShip
+	targetShip := someShips detect: [ :eachShip |
+		              eachShip name = targetShipName ].
+	targetShip addAlly: cardUser.
+	cardUser addAlly: targetShip
 ]

@@ -111,9 +111,9 @@ SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin usi
 	activeCards := OrderedCollection new.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
-		         PlayerShip
+		         Ship
 			         named: eachShipName
-			         deck:
+			         cards:
 			         (OrderedCollection with: deck drawCard with: deck drawCard) ].
 	board := Board
 		         withShips: ships
