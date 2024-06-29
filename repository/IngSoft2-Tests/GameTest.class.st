@@ -660,7 +660,7 @@ GameTest >> testWhenAShipPlaysMercenaryCardAndBattlesAnotherShipShouldAddItsDice
 	yetAnotherShip := 'test-ship-3'.
 	someShips := OrderedCollection with: aShip with: anotherShip with: yetAnotherShip.
 	someDice := Dice withAll: (Set with: (LoadedDie sequence:
-				              #( 1 1 10 5 19 )
+				              #( 1 1 10 10 19 )
 					              asOrderedCollection)).
 	cardsToDraw := OrderedCollection
 		               with: MercenaryCard new
