@@ -7,8 +7,8 @@ Class {
 { #category : #'as yet unclassified' }
 CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
-	targetCard beRemovedWith: someShips.
-	someActiveCards remove: targetCard
+	someActiveCards remove: targetCard.
+	targetCard beRemovedWithShips: someShips
 ]
 
 { #category : #'as yet unclassified' }

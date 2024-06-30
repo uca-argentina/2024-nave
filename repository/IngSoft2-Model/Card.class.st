@@ -9,7 +9,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Card >> beRemovedWith: someShips [
+Card >> beRemovedWithShips: someShips [
+
 ]
 
 { #category : #'as yet unclassified' }

@@ -8,10 +8,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MercenaryCard >> beRemovedWith: someShips [
+MercenaryCard >> beRemovedWithShips: someShips [
 
-	myMercenaryShip beRemoved.
-	someShips remove: myMercenaryShip
+	| targetShip |
+	targetShip := someShips detect: [ :eachShip |
+		              eachShip name = targetShipName ].
+	someShips do: [ :eachShip | eachShip removeAlly: targetShip ]
 ]
 
 { #category : #'as yet unclassified' }

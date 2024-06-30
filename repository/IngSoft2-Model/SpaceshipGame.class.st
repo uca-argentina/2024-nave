@@ -138,14 +138,6 @@ SpaceshipGame >> lapsOf: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-SpaceshipGame >> mercenariesOf: aShipName [
-
-	| aShip |
-	aShip := self shipNamed: aShipName.
-	^ aShip allies collect: [ :eachAlly | eachAlly name ]
-]
-
-{ #category : #'as yet unclassified' }
 SpaceshipGame >> playCard: aCard by: aShipName [
 
 	| aShip isShipTurn shipToPlay |
@@ -208,7 +200,8 @@ SpaceshipGame >> throwDice [
 					             ifTrue: [ collidingShip ]
 					             ifFalse: [ actualShip ].
 				loserShip removeShield.
-				board moveToTheStart: loserShip ] ] ].
+				board moveToTheStart: loserShip.
+				loserShip allies do: [ :eachAlly | board moveToTheStart: eachAlly ] ] ] ].
 
 	ships removeFirst.
 	ships addLast: shipToPlay
