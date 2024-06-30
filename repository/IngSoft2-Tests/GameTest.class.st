@@ -482,6 +482,53 @@ GameTest >> testWhenAShipEntersToAWormholeThenItShouldBeOnTheOtherWormhole [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipHasTwoMercenariesThenTheyShouldHelpInABattle [
+
+	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip yetAnotherShip yetAnotherAnotherShip anotherMercenaryCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	yetAnotherAnotherShip := 'test-ship-4'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip
+		             with: yetAnotherAnotherShip.
+	someDice := Dice withAll: (Set with:
+			             (LoadedDie sequence:
+				              #( 1 2 3 1 1 1 1 2 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	cards := aGame cardsOf: aShip.
+	aMercenaryCard := cards first.
+	anotherMercenaryCard := cards second.
+	aMercenaryCard targetShip: anotherShip.
+	anotherMercenaryCard targetShip: yetAnotherShip.
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame playCard: anotherMercenaryCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno test-ship-3"
+	aGame throwDice. "turno test-ship-4"
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 2.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 3.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 4.
+	self assert: (aGame indexOfCellWith: yetAnotherAnotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipLandsInACardGivingCellTheShipShouldHaveOneMoreCard [
 
 	| aShip someShips aGame someDice someCells |
