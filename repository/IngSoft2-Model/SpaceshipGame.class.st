@@ -154,7 +154,7 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 	shipToPlay := ships first.
 	isShipTurn := aShip = shipToPlay.
 	aCard lastCardWas: lastUsedCard.
-	aCard verifyCanBeUsed: isShipTurn.
+	aCard verifyCanBeUsed: isShipTurn withActiveCards: activeCards.
 	aShip
 		useCard: aCard
 		in: board

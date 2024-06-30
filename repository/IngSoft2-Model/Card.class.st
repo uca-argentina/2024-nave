@@ -13,6 +13,12 @@ Card >> beRemovedWith: someShips [
 ]
 
 { #category : #'as yet unclassified' }
+Card >> hasSameMercenary: someActiveCards [
+
+	^ false
+]
+
+{ #category : #'as yet unclassified' }
 Card >> ifWasUsed: aBlockIfWasUsed [
 
 	aBlockIfWasUsed value
@@ -43,7 +49,7 @@ Card >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 ]
 
 { #category : #'as yet unclassified' }
-Card >> verifyCanBeUsed: isMyTurn [
+Card >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards [
 
 	self subclassResponsibility
 ]

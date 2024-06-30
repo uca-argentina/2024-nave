@@ -8,7 +8,12 @@ Class {
 CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
 	targetCard beRemovedWith: someShips.
-	someActiveCards
-		remove: targetCard
-		ifAbsent: [ Error signal: 'no such card in active cards!' ]
+	someActiveCards remove: targetCard
+]
+
+{ #category : #'as yet unclassified' }
+CancellationCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards [
+
+	(someActiveCards anySatisfy: [ :eachCard | eachCard = targetCard ])
+		ifFalse: [ Error signal: 'no such card in active cards!' ]
 ]

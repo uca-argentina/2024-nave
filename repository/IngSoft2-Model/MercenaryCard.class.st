@@ -21,6 +21,12 @@ MercenaryCard >> diceModifierTo: aShip [
 ]
 
 { #category : #'as yet unclassified' }
+MercenaryCard >> hasSameMercenary: aShipName [
+
+	^ aShipName = targetShipName
+]
+
+{ #category : #'as yet unclassified' }
 MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
 
 	| cardUser targetShip |
@@ -30,4 +36,12 @@ MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someS
 	targetShip := someShips detect: [ :eachShip |
 		              eachShip name = targetShipName ].
 	cardUser addAlly: targetShip
+]
+
+{ #category : #'as yet unclassified' }
+MercenaryCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards [
+
+	super verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards.
+	(someActiveCards anySatisfy: [ :eachCard |
+		eachCard hasSameMercenary: targetShipName ]) ifTrue: [ Error signal: 'that ship is already a mercenary!' ]
 ]

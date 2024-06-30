@@ -1913,6 +1913,50 @@ GameTest >> testWhenTwoShipsEnterToAHyperJumpCellThenShouldMoveTheDesiredAmountO
 ]
 
 { #category : #tests }
+GameTest >> testWhenTwoShipsTargetTheSameShipAsMercenaryShouldThrowError [
+
+    | aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip yetAnotherShip anotherCards anotherMercenaryCard |
+    aShip := 'test-ship-1'.
+    anotherShip := 'test-ship-2'.
+    yetAnotherShip := 'test-ship-3'.
+    someShips := OrderedCollection
+                     with: aShip
+                     with: anotherShip
+                     with: yetAnotherShip.
+    someDice := Dice withAll:
+                    (Set with:
+                         (LoadedDie sequence:
+                              #( 1 1 10 5 19 ) asOrderedCollection)).
+    cardsToDraw := OrderedCollection
+                       with: MercenaryCard new
+                       with: MercenaryCard new.
+    aGame := SpaceshipGame
+                 with: someShips
+                 lapsToWin: 2
+                 using: someDice
+                 withCells: 100
+                 wormholeStart: 98
+                 wormholeEnd: 99
+                 lengthInParsecs: 100
+                 cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+                 deck: (LoadedDeck cards: cardsToDraw).
+    cards := aGame cardsOf: aShip.
+    anotherCards := aGame cardsOf: anotherShip.
+    aMercenaryCard := cards first.
+    aMercenaryCard targetShip: yetAnotherShip.
+    aGame playCard: aMercenaryCard by: aShip.
+    aGame throwDice. "turno test-ship-1"
+
+    anotherMercenaryCard := anotherCards first.
+    anotherMercenaryCard targetShip: yetAnotherShip.
+    self
+        should: [ aGame playCard: anotherMercenaryCard by: anotherShip ]
+        raise: Error
+        withMessage: 'that ship is already a mercenary!'.
+
+]
+
+{ #category : #tests }
 GameTest >> testWhenUsesARedoCardAfterAPermanentCardAndItsNotTheShipTurnShouldThrowError [
 
 	| aShip aGame someShips someDice aSpeedCard someCardsToDraw anotherCardsToDraw cards aRedoCard anotherShip |
