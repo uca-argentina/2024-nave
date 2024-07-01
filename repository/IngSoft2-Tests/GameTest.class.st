@@ -1416,6 +1416,44 @@ GameTest >> testWhenLastEffectWasNormalCellThenShouldHaveNoEffect [
 ]
 
 { #category : #tests }
+GameTest >> testWhenLastEffectWasWormholeCellAndUseTheRepeatCardThenShouldApplyTheEffect [
+
+	| aShip someShips aGame someDice cardsToDraw anotherShip someCards aRepeatCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
+
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 2
+		         wormholeEnd: 3
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	someCards := aGame cardsOf: aShip.
+	aRepeatCard := someCards first.
+
+	aGame throwDice.
+	aRepeatCard targetShip: anotherShip.
+	aGame playCard: aRepeatCard by: aShip.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 3
+]
+
+{ #category : #tests }
 GameTest >> testWhenMercenaryShipBattlesWithTheMercenaryCardUserTheyShouldNotBattle [
 
 	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip |
