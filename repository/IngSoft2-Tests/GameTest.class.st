@@ -1362,6 +1362,58 @@ GameTest >> testWhenSecondShipsLosesTwoShieldsAndThenAnotherShieldDueToAtomicBom
 ]
 
 { #category : #tests }
+GameTest >> testWhenShipAndItsMercenaryLoseThreeTimesThenTheyShouldLoseTwoTurns [
+
+	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip yetAnotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 1 1 5 5 11 20 1 11 5 5 0 20 1 11 5 5 0 0 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	cards := aGame cardsOf: aShip.
+	aMercenaryCard := cards first.
+	aMercenaryCard targetShip: yetAnotherShip.
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+	aGame throwDice. "turno test-ship-2 p"
+	aGame throwDice. "turno de mercenaria"
+
+	aGame throwDice. "turno test-ship-1 p"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria"
+
+	aGame throwDice. "turno test-ship-1 p"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria penalizada"
+
+	aGame throwDice. "turno test-ship-1 penalizada"
+	aGame throwDice. "turno test-ship-2"
+	aGame throwDice. "turno de mercenaria penalizada"
+	aGame throwDice. "turno test-ship-1 penalizada"
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 1.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 2.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenShipEntersManyTimesToAHyperjumpCellThenShouldMoveAccordingToTheParsecSequence [
 
 	| aShip someShips aGame someDice someCells |
