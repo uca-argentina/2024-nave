@@ -5,11 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-RepeatCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
+RepeatCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips target: targetShipName [
 
 	aBoard applyLastEffectTo: targetShipName
 ]
 
 { #category : #'as yet unclassified' }
-RepeatCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards [
+RepeatCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: aTarget [
 ]

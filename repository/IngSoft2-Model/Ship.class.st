@@ -110,10 +110,14 @@ Ship >> updateLapsIfRequired: aBlockToUpdateLaps [
 ]
 
 { #category : #'as yet unclassified' }
-Ship >> useCard: aCard in: aBoard withActiveCards: someActiveCards withShips: someShips [
+Ship >> useCard: aCard in: aBoard withActiveCards: someActiveCards withShips: someShips withTarget: aTarget [
 
 	self verifyHas: aCard.
-	aCard useIn: aBoard withActiveCards: someActiveCards withShips: someShips.
+	aCard
+		useIn: aBoard
+		withActiveCards: someActiveCards
+		withShips: someShips
+		target: aTarget.
 	cards remove: aCard
 ]
 

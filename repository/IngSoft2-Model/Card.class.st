@@ -1,10 +1,6 @@
 Class {
 	#name : #Card,
 	#superclass : #Object,
-	#instVars : [
-		'targetCard',
-		'targetShipName'
-	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -31,26 +27,14 @@ Card >> lastCardWas: aCard [
 	
 ]
 
-{ #category : #accessing }
-Card >> targetCard: aCard [
-
-	targetCard := aCard
-]
-
-{ #category : #accessing }
-Card >> targetShip: aShipName [
-
-	targetShipName := aShipName
-]
-
 { #category : #'as yet unclassified' }
-Card >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
+Card >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips target: aTarget [
 
 	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
-Card >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards [
+Card >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: aTarget [
 
 	self subclassResponsibility
 ]

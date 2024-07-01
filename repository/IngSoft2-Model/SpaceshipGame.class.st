@@ -140,18 +140,28 @@ SpaceshipGame >> lapsOf: aShipName [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> playCard: aCard by: aShipName [
 
+	self playCard: aCard by: aShipName target: nil
+]
+
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> playCard: aCard by: aShipName target: aTarget [
+
 	| aShip isShipTurn shipToPlay |
 	self verifyIsNotOver.
 	aShip := self shipNamed: aShipName.
 	shipToPlay := ships first.
 	isShipTurn := aShip = shipToPlay.
 	aCard lastCardWas: lastUsedCard.
-	aCard verifyCanBeUsed: isShipTurn withActiveCards: activeCards.
+	aCard
+		verifyCanBeUsed: isShipTurn
+		withActiveCards: activeCards
+		target: aTarget.
 	aShip
 		useCard: aCard
 		in: board
 		withActiveCards: activeCards
-		withShips: ships.
+		withShips: ships
+		withTarget: aTarget.
 	aCard ifWasUsed: [ lastUsedCard := aCard ]
 ]
 

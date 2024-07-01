@@ -12,7 +12,7 @@ SpeedCard >> diceModifierTo: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-SpeedCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
+SpeedCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips target: targetShipName [
 
 	someActiveCards add: self
 ]

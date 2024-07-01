@@ -18,26 +18,24 @@ RedoCard >> lastCardWas: aCard [
 ]
 
 { #category : #'as yet unclassified' }
-RedoCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
+RedoCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips target: aTarget [
 
 	| cardToUse |
 	cardToUse := lastUsedCard class new.
-	cardToUse targetShip: targetShipName.
-	cardToUse targetCard: targetCard.
 	cardToUse
 		useIn: aBoard
 		withActiveCards: someActiveCards
 		withShips: someShips
+		target: aTarget
 ]
 
 { #category : #'as yet unclassified' }
-RedoCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards [
+RedoCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: aTarget [
 
 	| newCardToUse |
 	newCardToUse := lastUsedCard copy.
-	newCardToUse targetShip: targetShipName.
-	newCardToUse targetCard: targetCard.
 	newCardToUse
 		verifyCanBeUsed: isMyTurn
 		withActiveCards: someActiveCards
+		target: aTarget
 ]

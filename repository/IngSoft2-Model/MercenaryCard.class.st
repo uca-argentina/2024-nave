@@ -29,7 +29,7 @@ MercenaryCard >> hasSameMercenary: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
-MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips [
+MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips target: targetShipName [
 
 	| cardUser targetShip |
 	cardUser := someShips first.
@@ -41,9 +41,13 @@ MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someS
 ]
 
 { #category : #'as yet unclassified' }
-MercenaryCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards [
+MercenaryCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: targetShipName [
 
-	super verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards.
+	super
+		verifyCanBeUsed: isMyTurn
+		withActiveCards: someActiveCards
+		target: targetShipName.
 	(someActiveCards anySatisfy: [ :eachCard |
-		eachCard hasSameMercenary: targetShipName ]) ifTrue: [ Error signal: 'that ship is already a mercenary!' ]
+		 eachCard hasSameMercenary: targetShipName ]) ifTrue: [
+		Error signal: 'that ship is already a mercenary!' ]
 ]
