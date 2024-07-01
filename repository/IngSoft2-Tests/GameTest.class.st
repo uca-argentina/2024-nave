@@ -1079,6 +1079,66 @@ GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 ]
 
 { #category : #tests }
+GameTest >> testWhenLastEffectWasAtomicBombCellAndUseTheRepeatCardThenShouldApplyTheEffect [
+
+	| aShip someShips aGame someDice someCells cardsToDraw aRepeatCard anotherShip yetAnotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 4 5 8 4 5 5 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: AtomicBombCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 1
+		         wormholeEnd: 4
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aRepeatCard := (aGame cardsOf: aShip) first.
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+	aRepeatCard targetShip: aShip.
+	aGame playCard: aRepeatCard by: aShip.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 1.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 1.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenLastEffectWasBlackHoleAndUseTheRepeatCardThenShouldApplyTheEffect [
 
 	| aShip someShips aGame someDice someCells cardsToDraw aRepeatCard |
