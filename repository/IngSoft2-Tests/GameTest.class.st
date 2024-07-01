@@ -899,6 +899,58 @@ GameTest >> testWhenAShipUsesAMercenaryCardAndThenAnotherShipCancellsThatMercena
 ]
 
 { #category : #tests }
+GameTest >> testWhenBothShipsHaveMercenariesThenBothShouldHelp [
+
+	| aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip yetAnotherShip yetAnotherAnotherShip someCards someOtherCards anotherMercenaryCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	yetAnotherAnotherShip := 'test-ship-4'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip
+		             with: yetAnotherAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 1 1 5 5 6 3 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 98
+		         wormholeEnd: 99
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	someCards := aGame cardsOf: aShip.
+	someOtherCards := aGame cardsOf: anotherShip.
+
+	aMercenaryCard := someCards first.
+	anotherMercenaryCard := someOtherCards first.
+
+
+	aMercenaryCard targetShip: yetAnotherShip.
+	anotherMercenaryCard targetShip: yetAnotherAnotherShip.
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame throwDice. "turno test-ship-1"
+
+	aGame playCard: anotherMercenaryCard by: anotherShip.
+	aGame throwDice. "turno test-ship-2"
+
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 2.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsEndedAndTryToUseACardThenShouldThrowError [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
@@ -2045,6 +2097,54 @@ GameTest >> testWhenTwoShipsEnterToAHyperJumpCellThenShouldMoveTheDesiredAmountO
 	aGame throwDice.
 	self assert: (aGame indexOfCellWith: aShip) equals: 4.
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 6
+]
+
+{ #category : #tests }
+GameTest >> testWhenTwoShipsHaveMercenariesAndCancelOneThenTheOtherShouldKeepHavingOne [ 
+
+	| aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip aShipCards anotherShipCards aCancellationCard yetAnotherShip anotherMercenaryCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 1 1 10 20 20 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new
+		               with: CancellationCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aShipCards := aGame cardsOf: aShip.
+	anotherShipCards := aGame cardsOf: anotherShip.
+
+	aMercenaryCard := aShipCards first.
+	anotherMercenaryCard := anotherShipCards first.
+	aCancellationCard := anotherShipCards first.
+	aCancellationCard targetCard: aMercenaryCard.
+	aMercenaryCard targetShip: yetAnotherShip.
+	anotherMercenaryCard targetShip: aShip.
+
+	aGame playCard: aMercenaryCard by: aShip.
+	aGame playCard: aCancellationCard by: anotherShip.
+
+	aGame throwDice.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 1
 ]
 
 { #category : #tests }
