@@ -18,12 +18,6 @@ Ship class >> named: aShipName cards: someCards [
 ]
 
 { #category : #'as yet unclassified' }
-Ship class >> named: aShipName deck: aDeck [
-
-	^ self new initializeWith: aShipName deck: aDeck
-]
-
-{ #category : #'as yet unclassified' }
 Ship >> addAlly: anAlly [
 
 	allies add: anAlly
