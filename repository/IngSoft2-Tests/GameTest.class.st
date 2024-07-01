@@ -1067,6 +1067,39 @@ GameTest >> testWhenGameIsOverAndTryToUseAPermanentCardThenShouldThrowError [
 ]
 
 { #category : #tests }
+GameTest >> testWhenGameIsOverAndTryToUseAnInstantCardThenShouldThrowError [
+
+	| aShip aGame someShips someDice deck cardsToDraw aRepeatCard |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 20 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: RepeatCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aGame throwDice.
+
+	deck := aGame cardsOf: aShip.
+	aRepeatCard := deck first.
+	aRepeatCard targetShip: aShip.
+	self
+		should: [ aGame playCard: aRepeatCard by: aShip ]
+		raise: Error
+		withMessage: 'game is over!'
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsOverThenTheRankingShouldShowTheCorrectOrderOfShips [
 
 	| aShip aGame someShips someDice anotherShip yetAnotherShip |
