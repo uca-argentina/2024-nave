@@ -1079,7 +1079,7 @@ GameTest >> testWhenHasTwoLapsAndAShipCompletedTwoLapsShouldBeOver [
 ]
 
 { #category : #tests }
-GameTest >> testWhenLastEffectWasBlackHoleAndUseTheRepeatCardThenShouldGoBackFourCells [
+GameTest >> testWhenLastEffectWasBlackHoleAndUseTheRepeatCardThenShouldApplyTheEffect [
 
 	| aShip someShips aGame someDice someCells cardsToDraw aRepeatCard |
 	aShip := 'test-ship-1'.
