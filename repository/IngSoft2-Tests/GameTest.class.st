@@ -988,6 +988,51 @@ GameTest >> testWhenCancelASpeedCardThenShouldNotApplyTheCardEffect [
 ]
 
 { #category : #tests }
+GameTest >> testWhenCancelAnAccelerationCardThenShouldNotApplyTheCardEffect [
+
+	| aShip aGame someShips someDice cardsToDraw anotherShip aShipCards anotherShipCards aCancellationCard yetAnotherShip anAccelerationCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 2 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: AccelerationCard new
+		               with: AccelerationCard new
+		               with: CancellationCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aShipCards := aGame cardsOf: aShip.
+	anotherShipCards := aGame cardsOf: anotherShip.
+
+	anAccelerationCard := aShipCards first.
+	aCancellationCard := anotherShipCards first.
+	aCancellationCard targetCard: anAccelerationCard.
+
+	aGame playCard: anAccelerationCard by: aShip.
+	aGame playCard: aCancellationCard by: anotherShip.
+
+	aGame throwDice.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 2.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 3
+]
+
+{ #category : #tests }
 GameTest >> testWhenGameIsEndedAndTryToUseACardThenShouldThrowError [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
