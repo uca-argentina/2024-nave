@@ -1033,7 +1033,7 @@ GameTest >> testWhenCancelAnAccelerationCardThenShouldNotApplyTheCardEffect [
 ]
 
 { #category : #tests }
-GameTest >> testWhenGameIsOverAndTryToUseACardThenShouldThrowError [
+GameTest >> testWhenGameIsOverAndTryToUseAInstantCardThenShouldThrowError [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
 	aShip := 'test-ship-1'.
