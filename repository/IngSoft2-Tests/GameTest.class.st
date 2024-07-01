@@ -1225,7 +1225,7 @@ GameTest >> testWhenLastEffectWasCardGivingCellAndUseTheRepeatCardThenShouldAppl
 ]
 
 { #category : #tests }
-GameTest >> testWhenLastEffectWasMoonwalkCellAndUseTheRepeatCardThenAllShipsExceptFirstShipShouldGoBackOneCell [
+GameTest >> testWhenLastEffectWasMoonwalkCellAndUseTheRepeatCardThenShouldApplyTheEffect [
 
 	| aShip someShips aGame someDice someCells cardsToDraw aRepeatCard anotherShip yetAnotherShip |
 	aShip := 'test-ship-1'.
