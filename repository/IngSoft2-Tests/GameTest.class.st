@@ -749,41 +749,6 @@ GameTest >> testWhenAShipPlaysCancellationCardAndCardToRemoveIsSpeedCardAndThere
 ]
 
 { #category : #tests }
-GameTest >> testWhenAShipPlaysCancellationCardAndGameHasOneActiveCardThenEffectShouldNotBeAppliedNextTurn [
-
-	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw aCancellationCard |
-	aShip := 'test-ship-1'.
-	anotherShip := 'test-ship-2'.
-	someShips := OrderedCollection with: aShip with: anotherShip.
-	someDice := Dice withAll:
-		            (Set with:
-			             (LoadedDie sequence: #( 7 4 ) asOrderedCollection)).
-	cardsToDraw := OrderedCollection
-		               with: SpeedCard new
-		               with: CancellationCard new.
-	aGame := SpaceshipGame
-		         with: someShips
-		         lapsToWin: 2
-		         using: someDice
-		         withCells: 10
-		         wormholeStart: 8
-		         wormholeEnd: 9
-		         lengthInParsecs: 100
-		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
-		         deck: (LoadedDeck cards: cardsToDraw).
-	deck := aGame cardsOf: aShip.
-	aSpeedCard := deck first.
-	aCancellationCard := deck second.
-	aSpeedCard targetShip: 'test-ship-2'.
-	aCancellationCard targetCard: aSpeedCard.
-	aGame playCard: aSpeedCard by: aShip.
-	aGame throwDice.
-	aGame playCard: aCancellationCard by: anotherShip.
-	aGame throwDice.
-	self assert: (aGame indexOfCellWith: anotherShip) equals: 5
-]
-
-{ #category : #tests }
 GameTest >> testWhenAShipPlaysCancellationCardAndThereAreZeroActiveCardsShouldThrowAnError [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw aCancellationCard |
@@ -985,6 +950,41 @@ GameTest >> testWhenBothShipsHaveMercenariesThenBothShouldHelp [
 
 	self assert: (aGame indexOfCellWith: aShip) equals: 2.
 	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testWhenCancelASpeedCardThenShouldNotApplyTheCardEffect [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw aCancellationCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 7 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame cardsOf: aShip.
+	aSpeedCard := deck first.
+	aCancellationCard := deck second.
+	aSpeedCard targetShip: 'test-ship-2'.
+	aCancellationCard targetCard: aSpeedCard.
+	aGame playCard: aSpeedCard by: aShip.
+	aGame throwDice.
+	aGame playCard: aCancellationCard by: anotherShip.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 5
 ]
 
 { #category : #tests }
