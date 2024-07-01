@@ -1182,6 +1182,49 @@ GameTest >> testWhenLastEffectWasBlackHoleAndUseTheRepeatCardThenShouldApplyTheE
 ]
 
 { #category : #tests }
+GameTest >> testWhenLastEffectWasCardGivingCellAndUseTheRepeatCardThenShouldApplyTheEffect [
+
+	| aShip someShips aGame someDice someCells cardsToDraw aRepeatCard |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: CardGivingCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new
+		               with: RepeatCard new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 4
+		         wormholeEnd: 5
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aRepeatCard := (aGame cardsOf: aShip) first.
+	aGame throwDice.
+
+	aRepeatCard targetShip: aShip.
+	aGame playCard: aRepeatCard by: aShip.
+
+	self assert: (aGame cardsOf: aShip) size equals: 3
+]
+
+{ #category : #tests }
 GameTest >> testWhenLastEffectWasMoonwalkCellAndUseTheRepeatCardThenAllShipsExceptFirstShipShouldGoBackOneCell [
 
 	| aShip someShips aGame someDice someCells cardsToDraw aRepeatCard anotherShip yetAnotherShip |
