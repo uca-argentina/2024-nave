@@ -1271,6 +1271,55 @@ GameTest >> testWhenPlayAAccelerationCardAndThenARedoCardThenShouldApplyTheAcele
 ]
 
 { #category : #tests }
+GameTest >> testWhenPlayACancellationCardAndThenARedoCardThenShouldApplyTheCancellationEffectAgain [
+
+	| aShip aGame someShips someDice anotherShip cardsToDraw anAccelerationCard aRedoCard aDeck otherDeck aCancellationCard anotherAccelerationCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: AccelerationCard new
+		               with: AccelerationCard new
+		               with: CancellationCard new
+		               with: RedoCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aDeck := aGame cardsOf: aShip.
+	otherDeck := aGame cardsOf: anotherShip.
+
+	anAccelerationCard := aDeck first.
+	anotherAccelerationCard := aDeck second.
+	aCancellationCard := otherDeck first.
+	aRedoCard := otherDeck second.
+
+
+	aGame playCard: anAccelerationCard by: aShip.
+	aGame playCard: anotherAccelerationCard by: aShip.
+	aGame throwDice.
+
+	aCancellationCard targetCard: anAccelerationCard.
+	aGame playCard: aCancellationCard by: anotherShip.
+
+	aRedoCard targetCard: anotherAccelerationCard.
+	aGame playCard: aRedoCard by: anotherShip.
+
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 4.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 2
+]
+
+{ #category : #tests }
 GameTest >> testWhenPlayAMercenaryCardAndItsNotTheShipTurnThenShouldThrow [
 
     | aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip someCards |
