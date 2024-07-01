@@ -1357,6 +1357,54 @@ GameTest >> testWhenPlayAMercenaryCardAndItsNotTheShipTurnThenShouldThrow [
 ]
 
 { #category : #tests }
+GameTest >> testWhenPlaysAMercenaryCardThenPlaysARedoCardThenShouldAddAMercenaryToTheUser [
+
+	| aShip aGame someShips someDice someCardsToDraw cards aRedoCard anotherShip aMercenaryCard yetAnotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 1 ) asOrderedCollection)).
+	someCardsToDraw := OrderedCollection
+		                   with: MercenaryCard new
+		                   with: RedoCard new
+		                   with: SpeedCard new
+		                   with: SpeedCard new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 100
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 100)
+		         deck: (LoadedDeck cards: someCardsToDraw).
+	cards := aGame cardsOf: aShip.
+	aMercenaryCard := cards first.
+	aRedoCard := cards second.
+
+	aMercenaryCard targetShip: anotherShip.
+	aGame playCard: aMercenaryCard by: aShip.
+
+	aRedoCard targetShip: yetAnotherShip.
+	aGame playCard: aRedoCard by: aShip.
+
+	aGame throwDice. "turno de test-ship-1"
+	aGame throwDice. "turno de test-ship-2"
+	aGame throwDice. "turno de test-ship-3"
+	self assert: (aGame indexOfCellWith: aShip) equals: 2.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 2.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 2
+]
+
+{ #category : #tests }
 GameTest >> testWhenPlaysASpeedCardThenPlaysARedoCardThenPlaysAnotherRedoCardShouldMoveThreeMoreCells [
 
     | aShip aGame someShips someDice aSpeedCard someCardsToDraw someCells anotherCardsToDraw cards aRedoCard anotherRedoCard |
