@@ -938,6 +938,45 @@ GameTest >> testWhenCancelAMercenaryCardThenShouldNotApplyTheCardEffect [
 ]
 
 { #category : #tests }
+GameTest >> testWhenCancelAMercenaryShipWhenThereIsAnotherPermanentCardItShouldNotApplyMercenaryEffect [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard cardsToDraw aMercenaryCard aDeck otherDeck aCancellationCard |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 1 10 1 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: MercenaryCard new
+		               with: CancellationCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aDeck := aGame cardsOf: aShip.
+	otherDeck := aGame cardsOf: anotherShip.
+	aSpeedCard := aDeck first.
+	aMercenaryCard := aDeck second.
+	aCancellationCard := otherDeck first.
+
+	aGame playCard: aSpeedCard by: aShip target: aShip.
+	aGame playCard: aMercenaryCard by: aShip target: anotherShip.
+	aGame playCard: aCancellationCard by: anotherShip target: aMercenaryCard.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenCancelASpeedCardThenShouldNotApplyTheCardEffect [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw aCancellationCard |
