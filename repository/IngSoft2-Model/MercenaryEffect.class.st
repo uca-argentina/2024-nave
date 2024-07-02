@@ -15,19 +15,18 @@ MercenaryEffect class >> createdBy: aCard from: fromShip to: toShip [
 ]
 
 { #category : #initialization }
-MercenaryEffect >> beRemovedFrom: aCardManager [
-
-	aCardManager remove: self.
-	fromShip removeAlly: toShip
-]
-
-{ #category : #initialization }
 MercenaryEffect >> initializeWith: aCreatedBy from: aFromShip to: aToShip [
 
 	createdBy := aCreatedBy.
 	fromShip := aFromShip.
 	toShip := aToShip.
 	^ self
+]
+
+{ #category : #initialization }
+MercenaryEffect >> is: aShip mercenaryOf: anotherShip [
+
+	^ (toShip = anotherShip and: fromShip = aShip)
 ]
 
 { #category : #initialization }

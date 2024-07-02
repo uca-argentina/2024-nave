@@ -25,16 +25,29 @@ CardManager >> addCardEffect: aCardEffect [
 ]
 
 { #category : #'as yet unclassified' }
+CardManager >> applyBattleModifierTo: aShip using: aDice [
+
+	| shipAllies |
+	shipAllies := self mercenariesOf: aShip.
+	^ (shipAllies collect: [ :ally | aDice throw ]) sumNumbers
+]
+
+{ #category : #'as yet unclassified' }
 CardManager >> assignMercenaryShipToCardPlayer: aNewMercenaryName by: aCard [
 
-	| cardUser newMercenary |
-	cardUser := ships first.
+	| newMercenary cardUser |
+	cardUser := actualShipPlayingCard.
 	newMercenary := ships detect: [ :eachShip |
 		                eachShip name = aNewMercenaryName ].
 	activeCardEffects add:
-		(MercenaryEffect createdBy: aCard from: cardUser to: newMercenary).
+		(MercenaryEffect createdBy: aCard from: cardUser to: newMercenary)
+]
 
-	cardUser addAlly: newMercenary
+{ #category : #'as yet unclassified' }
+CardManager >> checkIf: actualShip shouldBattleWith: collidingShip in: aGame [
+
+	(self is: actualShip alliedWith: collidingShip) ifFalse: [
+		aGame handleBattleBetween: actualShip and: collidingShip ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -46,6 +59,7 @@ CardManager >> diceModifierTo: aShip [
 
 { #category : #initialization }
 CardManager >> initializeWith: someShips withBoard: aBoard withDeck: aDeck [
+
 	| activeShipPlayingCard |
 	activeShipPlayingCard := nil.
 	activeCardEffects := OrderedCollection new.
@@ -53,6 +67,26 @@ CardManager >> initializeWith: someShips withBoard: aBoard withDeck: aDeck [
 	ships := someShips.
 	board := aBoard.
 	^ self
+]
+
+{ #category : #testing }
+CardManager >> is: aShip alliedWith: anotherShip [
+
+	^ activeCardEffects anySatisfy: [ :eachEffect |
+		  eachEffect is: aShip alliedWith: anotherShip ]
+]
+
+{ #category : #testing }
+CardManager >> is: aShip mercenaryOf: anotherShip [
+
+	^ activeCardEffects anySatisfy: [ :eachEffect |
+		  eachEffect is: aShip mercenaryOf: anotherShip ]
+]
+
+{ #category : #'as yet unclassified' }
+CardManager >> mercenariesOf: aShip [
+
+	^ ships select: [ :eachShip | self is: aShip mercenaryOf: eachShip ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -80,7 +114,7 @@ CardManager >> removeEffectOf: aCard [
 		                  eachEffect wasCreatedBy: aCard ]
 		                  ifNone: [
 		                  Error signal: 'no such card in active cards!' ].
-	effectToRemove beRemovedFrom: self.
+	activeCardEffects remove: effectToRemove
 ]
 
 { #category : #'as yet unclassified' }

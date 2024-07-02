@@ -8,15 +8,21 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-CardEffect >> beRemovedFrom: aCardManager [
-
-	aCardManager remove: self
-]
-
-{ #category : #'as yet unclassified' }
 CardEffect >> diceModifierTo: aShipName [
 
 	^ 0
+]
+
+{ #category : #testing }
+CardEffect >> is: actualShip alliedWith: collidingShip [
+
+	^ false
+]
+
+{ #category : #'as yet unclassified' }
+CardEffect >> is: aShip mercenaryOf: anotherShip [
+
+	^ false
 ]
 
 { #category : #'as yet unclassified' }

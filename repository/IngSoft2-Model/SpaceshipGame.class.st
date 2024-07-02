@@ -99,22 +99,36 @@ SpaceshipGame >> cardsOf: aShipName [
 { #category : #initialization }
 SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
 
-	| actualShipDiceResult collidingShipDiceResult loserShip |
-	actualShipDiceResult := actualShip throw: dice.
-	collidingShipDiceResult := collidingShip throw: dice.
+	| actualShipDiceResult collidingShipDiceResult loserShip loserShipAllies allLosers |
+	actualShipDiceResult := dice throw
+	                        +
+	                        (cardManager
+		                         applyBattleModifierTo: actualShip
+		                         using: dice).
+	collidingShipDiceResult := dice throw
+	                           +
+	                           (cardManager
+		                            applyBattleModifierTo: collidingShip
+		                            using: dice).
 
 	loserShip := actualShipDiceResult >= collidingShipDiceResult
 		             ifTrue: [ collidingShip ]
 		             ifFalse: [ actualShip ].
-	loserShip removeShield.
-	board moveToTheStart: loserShip.
-	loserShip allies do: [ :eachAlly | board moveToTheStart: eachAlly ]
+
+	loserShipAllies := cardManager mercenariesOf: loserShip.
+	allLosers := loserShipAllies copyWith: loserShip.
+	allLosers do: [ :eachLoser |
+		eachLoser removeShield.
+		board moveToTheStart: eachLoser ]
 ]
 
 { #category : #'as yet unclassified' }
 SpaceshipGame >> handleCollisionBetween: actualShip and: collidingShip [
 
-	actualShip checkIfShouldBattleWith: collidingShip in: self
+	cardManager
+		checkIf: actualShip
+		shouldBattleWith: collidingShip
+		in: self
 ]
 
 { #category : #accessing }
