@@ -102,12 +102,6 @@ CardManager >> playCard: aCard by: aShip target: aTarget [
 	aShip removeFromDeck: aCard
 ]
 
-{ #category : #'as yet unclassified' }
-CardManager >> remove: aCardEffect [
-
-	activeCardEffects remove: aCardEffect
-]
-
 { #category : #removing }
 CardManager >> removeEffectOf: aCard [
 
