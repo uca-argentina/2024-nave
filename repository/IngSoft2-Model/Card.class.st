@@ -4,49 +4,20 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-Card >> beRemovedWithShips: someShips [
+{ #category : #testing }
+Card class >> isAbstract [
 
-]
-
-{ #category : #'as yet unclassified' }
-Card >> hasSameMercenary: someActiveCards [
-
-	^ false
-]
-
-{ #category : #'as yet unclassified' }
-Card >> ifWasUsed: aBlockIfWasUsed [
-
-	aBlockIfWasUsed value
-]
-
-{ #category : #accessing }
-Card >> lastCardWas: aCard [
-
-	
-]
-
-{ #category : #'as yet unclassified' }
-Card >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips target: aTarget [
-
-	self subclassResponsibility
+	^ self == Card
 ]
 
 { #category : #'as yet unclassified' }
 Card >> useWith: aCardManager target: aTargetShipName [
 
-	aCardManager assignMercenaryShipToCardPlayer: aTargetShipName
+	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
 Card >> usedCardWith: lastUsedCard [
 
 	^ self
-]
-
-{ #category : #'as yet unclassified' }
-Card >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: aTarget [
-
-	self subclassResponsibility
 ]
