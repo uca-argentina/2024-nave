@@ -29,16 +29,6 @@ Ship >> allies [
 	^ allies
 ]
 
-{ #category : #'as yet unclassified' }
-Ship >> applyTurnPenaltyElse: aBlockIfNotPenalized [
-
-	penalty > 0
-		ifTrue: [
-			penalty = 2 ifTrue: [ shields := 3 ].
-			penalty := penalty - 1 ]
-		ifFalse: [ aBlockIfNotPenalized value ]
-]
-
 { #category : #accessing }
 Ship >> cards [
 
@@ -70,6 +60,16 @@ Ship >> initializeWith: aName cards: someCards [
 Ship >> name [
 
 	^ name
+]
+
+{ #category : #'as yet unclassified' }
+Ship >> playIn: aGame [
+
+	penalty > 0
+		ifTrue: [
+			penalty = 2 ifTrue: [ shields := 3 ].
+			penalty := penalty - 1 ]
+		ifFalse: [ aGame handleMovementOf: self ]
 ]
 
 { #category : #'as yet unclassified' }

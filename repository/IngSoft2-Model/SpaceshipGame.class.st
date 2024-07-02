@@ -118,6 +118,17 @@ SpaceshipGame >> handleCollisionBetween: actualShip and: collidingShip [
 ]
 
 { #category : #accessing }
+SpaceshipGame >> handleMovementOf: aShip [
+
+	| diceResult diceModifier |
+	diceResult := dice throw.
+	diceModifier := cardManager diceModifierTo: aShip.
+	board move: aShip by: diceResult + diceModifier.
+	board applyEffectTo: aShip.
+	board checkIf: aShip IsCollidingIn: self
+]
+
+{ #category : #accessing }
 SpaceshipGame >> indexOfCellWith: aShipName [
 
 	^ board indexOfCellWith: (self shipNamed: aShipName)
@@ -202,17 +213,10 @@ SpaceshipGame >> skipsNextTurn [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> throwDice [
 
-	| shipToPlay diceResult diceModifier |
+	| shipToPlay  |
 	self verifyIsNotOver.
 	shipToPlay := ships first.
-	shipToPlay applyTurnPenaltyElse: [
-		diceResult := dice throw.
-		diceModifier := cardManager diceModifierTo: shipToPlay.
-		board move: shipToPlay by: diceResult + diceModifier.
-		board applyEffectTo: shipToPlay.
-		board checkIf: shipToPlay IsCollidingIn: self.
-	].
-
+	shipToPlay playIn: self.
 	ships removeFirst.
 	ships addLast: shipToPlay
 ]
