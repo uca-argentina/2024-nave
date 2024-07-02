@@ -37,8 +37,7 @@ CardManager >> assignMercenaryShipToCardPlayer: aNewMercenaryName by: aCard [
 
 	| cardUser newMercenary |
 	cardUser := ships first.
-	cardUser name = aNewMercenaryName ifTrue: [
-		Error signal: 'you cannot target yourself as a Mercenary!' ].
+	cardUser name = aNewMercenaryName ifTrue: [ Error signal: 'you cannot target yourself as a Mercenary!' ].
 	newMercenary := ships detect: [ :eachShip |
 		                eachShip name = aNewMercenaryName ].
 	activeCardEffects add:
