@@ -23,6 +23,13 @@ MercenaryEffect >> initializeWith: aCreatedBy from: aFromShip to: aToShip [
 	^ self
 ]
 
+{ #category : #testing }
+MercenaryEffect >> is: aShip alliedWith: anotherShip [
+
+	^ (self is: aShip mercenaryOf: anotherShip) or:
+		  (self is: anotherShip  mercenaryOf: aShip )
+]
+
 { #category : #initialization }
 MercenaryEffect >> is: aShip mercenaryOf: anotherShip [
 
