@@ -74,15 +74,6 @@ Ship >> restoreShields [
 ]
 
 { #category : #'as yet unclassified' }
-Ship >> throw: aDice [
-
-	| myResult myAlliesResult |
-	myResult := aDice throw.
-	myAlliesResult := (allies collect: [ :eachAlly | aDice throw ]) sumNumbers.
-	^ myResult + myAlliesResult
-]
-
-{ #category : #'as yet unclassified' }
 Ship >> verifyHas: aCard [
 
 	(cards includes: aCard) ifFalse: [
