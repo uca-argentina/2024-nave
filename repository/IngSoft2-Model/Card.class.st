@@ -4,12 +4,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #testing }
-Card class >> isAbstract [
-
-	^ self == Card
-]
-
 { #category : #'as yet unclassified' }
 Card >> useWith: aCardManager target: aTargetShipName [
 

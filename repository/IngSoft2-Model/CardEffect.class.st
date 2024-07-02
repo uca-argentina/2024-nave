@@ -7,12 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #testing }
-CardEffect class >> isAbstract [
-
-	^ self == CardEffect
-]
-
 { #category : #'as yet unclassified' }
 CardEffect >> beRemovedFrom: aCardManager [
 
