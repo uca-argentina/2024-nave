@@ -837,6 +837,85 @@ GameTest >> testWhenAShipTargetsItselfWithAMercenaryCardShouldThrowAnError [
 ]
 
 { #category : #tests }
+GameTest >> testWhenASpeedEffectAndMercenaryEffectAreActiveThenMercenaryShouldHelp [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard cardsToDraw aMercenaryCard aDeck yetAnotherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 1 10 2 5 5 6 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: MercenaryCard new
+		               with: CancellationCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aDeck := aGame cardsOf: aShip.
+	aSpeedCard := aDeck first.
+	aMercenaryCard := aDeck second.
+
+	aGame playCard: aSpeedCard by: aShip target: aShip.
+	aGame playCard: aMercenaryCard by: aShip target: anotherShip.
+	aGame throwDice.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testWhenASpeedEffectAndMercenaryEffectAreActiveThenMercenaryShouldNotBattleWithCardUser [
+
+	| aShip aGame someShips someDice anotherShip aSpeedCard cardsToDraw aMercenaryCard aDeck |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 2 10 1 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: SpeedCard new
+		               with: MercenaryCard new
+		               with: CancellationCard new
+		               with: CancellationCard new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aDeck := aGame cardsOf: aShip.
+	aSpeedCard := aDeck first.
+	aMercenaryCard := aDeck second.
+
+	aGame playCard: aSpeedCard by: aShip target: aShip.
+	aGame playCard: aMercenaryCard by: aShip target: anotherShip.
+	aGame throwDice.
+	aGame throwDice.
+	self assert: (aGame indexOfCellWith: aShip) equals: 3.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 3
+]
+
+{ #category : #tests }
 GameTest >> testWhenBothShipsHaveMercenariesThenBothShouldHelp [
 
 	| aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip yetAnotherShip yetAnotherAnotherShip someCards someOtherCards anotherMercenaryCard |
