@@ -845,6 +845,38 @@ GameTest >> testWhenAShipPlaysMercenaryCardAndBattlesWithItsMercenaryThenTheySho
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipTargetsItselfWithAMercenaryCardShouldThrowAnError [
+
+	| aShip aGame someShips someDice cardsToDraw aMercenaryCard aShipCards |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll: (Set with:
+			             (LoadedDie sequence:
+				              #( 10 1 1 10 20 20 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator allNormalCellsWith: 10)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	aShipCards := aGame cardsOf: aShip.
+	aMercenaryCard := aShipCards first.
+
+	self
+		should: [ aGame playCard: aMercenaryCard by: aShip target: aShip ]
+		raise: Error
+		withMessage: 'you cannot target yourself as a Mercenary!'
+]
+
+{ #category : #tests }
 GameTest >> testWhenBothShipsHaveMercenariesThenBothShouldHelp [
 
 	| aShip aGame someShips someDice cardsToDraw aMercenaryCard anotherShip yetAnotherShip yetAnotherAnotherShip someCards someOtherCards anotherMercenaryCard |
