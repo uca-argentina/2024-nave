@@ -110,24 +110,6 @@ Ship >> throw: aDice [
 ]
 
 { #category : #'as yet unclassified' }
-Ship >> updateLapsIfRequired: aBlockToUpdateLaps [
-
-	aBlockToUpdateLaps value
-]
-
-{ #category : #'as yet unclassified' }
-Ship >> useCard: aCard in: aBoard withActiveCards: someActiveCards withShips: someShips withTarget: aTarget [
-
-	self verifyHas: aCard.
-	aCard
-		useIn: aBoard
-		withActiveCards: someActiveCards
-		withShips: someShips
-		target: aTarget.
-	cards remove: aCard
-]
-
-{ #category : #'as yet unclassified' }
 Ship >> verifyHas: aCard [
 
 	(cards includes: aCard) ifFalse: [

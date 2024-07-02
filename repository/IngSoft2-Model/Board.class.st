@@ -103,11 +103,9 @@ Board >> move: aShip by: anAmount [
 	actualCell := self whereIs: aShip.
 	actualCellIndex := cells indexOf: actualCell.
 	nextCellIndex := actualCellIndex - 1 + cellsToMove % cells size + 1.
-
-	aShip updateLapsIfRequired: [
-		actualShipLaps := lapsPerShip at: aShip.
-		lapsChangeAmount := actualCellIndex - 1 + cellsToMove // cells size.
-		lapsPerShip at: aShip put: actualShipLaps + lapsChangeAmount ].
+	actualShipLaps := lapsPerShip at: aShip.
+	lapsChangeAmount := actualCellIndex - 1 + cellsToMove // cells size.
+	lapsPerShip at: aShip put: actualShipLaps + lapsChangeAmount.
 
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
