@@ -35,12 +35,16 @@ CardManager >> applyBattleModifierTo: aShip using: aDice [
 { #category : #'as yet unclassified' }
 CardManager >> assignMercenaryShipToCardPlayer: aNewMercenaryName by: aCard [
 
-	| newMercenary cardUser |
-	cardUser := actualShipPlayingCard.
+	| cardUser newMercenary |
+	cardUser := ships first.
+	cardUser name = aNewMercenaryName ifTrue: [
+		Error signal: 'you cannot target yourself as a Mercenary!' ].
 	newMercenary := ships detect: [ :eachShip |
 		                eachShip name = aNewMercenaryName ].
 	activeCardEffects add:
-		(MercenaryEffect createdBy: aCard from: cardUser to: newMercenary)
+		(MercenaryEffect createdBy: aCard from: cardUser to: newMercenary).
+
+	cardUser addAlly: newMercenary
 ]
 
 { #category : #'as yet unclassified' }
