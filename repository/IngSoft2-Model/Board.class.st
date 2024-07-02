@@ -64,14 +64,6 @@ Board >> checkIf: shipToPlay IsCollidingIn: aGame [
 	aCell checkCollisionIn: aGame
 ]
 
-{ #category : #'as yet unclassified' }
-Board >> if: aShip isCollidding: aBlockIfColliding [
-
-	| aCell |
-	aCell := self whereIs: aShip.
-	aCell ifHasTwoShips: aBlockIfColliding
-]
-
 { #category : #accessing }
 Board >> indexOfCellWith: aShip [
 
