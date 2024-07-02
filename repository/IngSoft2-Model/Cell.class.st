@@ -14,6 +14,13 @@ Cell >> applyEffectTo: aShip in: aBoard [
 ]
 
 { #category : #'as yet unclassified' }
+Cell >> checkCollisionIn: aGame [
+
+	ships size = 2 ifTrue: [
+		aGame handleCollisionBetween: (ships at: 1) and: (ships at: 2) ]
+]
+
+{ #category : #'as yet unclassified' }
 Cell >> enters: aShip [
 
 	ships add: aShip

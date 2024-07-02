@@ -57,6 +57,14 @@ Board >> applyLastEffectTo: aShipName [
 ]
 
 { #category : #'as yet unclassified' }
+Board >> checkIf: shipToPlay IsCollidingIn: aGame [
+
+	| aCell |
+	aCell := self whereIs: shipToPlay.
+	aCell checkCollisionIn: aGame
+]
+
+{ #category : #'as yet unclassified' }
 Board >> if: aShip isCollidding: aBlockIfColliding [
 
 	| aCell |

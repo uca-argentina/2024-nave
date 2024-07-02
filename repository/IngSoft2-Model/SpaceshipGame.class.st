@@ -96,6 +96,22 @@ SpaceshipGame >> cardsOf: aShipName [
 	^ aShip cards copy
 ]
 
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> handleCollisionBetween: actualShip and: collidingShip [
+
+	| actualShipDiceResult collidingShipDiceResult loserShip |
+	actualShip ifIsNotAlly: collidingShip do: [
+		actualShipDiceResult := actualShip throw: dice.
+		collidingShipDiceResult := collidingShip throw: dice.
+
+		loserShip := actualShipDiceResult >= collidingShipDiceResult
+			             ifTrue: [ collidingShip ]
+			             ifFalse: [ actualShip ].
+		loserShip removeShield.
+		board moveToTheStart: loserShip.
+		loserShip allies do: [ :eachAlly | board moveToTheStart: eachAlly ] ]
+]
+
 { #category : #accessing }
 SpaceshipGame >> indexOfCellWith: aShipName [
 
@@ -181,7 +197,7 @@ SpaceshipGame >> skipsNextTurn [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> throwDice [
 
-	| shipToPlay diceResult actualShipDiceResult collidingShipDiceResult loserShip diceModifier |
+	| shipToPlay diceResult diceModifier |
 	self verifyIsNotOver.
 	shipToPlay := ships first.
 	shipToPlay applyTurnPenaltyElse: [
@@ -189,17 +205,8 @@ SpaceshipGame >> throwDice [
 		diceModifier := cardManager diceModifierTo: shipToPlay.
 		board move: shipToPlay by: diceResult + diceModifier.
 		board applyEffectTo: shipToPlay.
-		board if: shipToPlay isCollidding: [ :actualShip :collidingShip |
-			actualShip ifIsNotAlly: collidingShip do: [
-				actualShipDiceResult := actualShip throw: dice.
-				collidingShipDiceResult := collidingShip throw: dice.
-
-				loserShip := actualShipDiceResult >= collidingShipDiceResult
-					             ifTrue: [ collidingShip ]
-					             ifFalse: [ actualShip ].
-				loserShip removeShield.
-				board moveToTheStart: loserShip.
-				loserShip allies do: [ :eachAlly | board moveToTheStart: eachAlly ] ] ] ].
+		board checkIf: shipToPlay IsCollidingIn: self.
+	].
 
 	ships removeFirst.
 	ships addLast: shipToPlay
