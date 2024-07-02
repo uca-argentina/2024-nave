@@ -2727,11 +2727,11 @@ GameTest >> testWhenTwoShipsHaveMercenariesAndCancelOneThenTheOtherShouldKeepHav
 	someDice := Dice withAll:
 		            (Set with:
 			             (LoadedDie sequence:
-				              #( 1 1 10 20 20 ) asOrderedCollection)).
+				              #( 10 1 1 10 20 20 ) asOrderedCollection)).
 	cardsToDraw := OrderedCollection
 		               with: MercenaryCard new
 		               with: MercenaryCard new
-		               with: CancellationCard new
+		               with: MercenaryCard new
 		               with: CancellationCard new.
 	aGame := SpaceshipGame
 		         with: someShips
@@ -2748,19 +2748,20 @@ GameTest >> testWhenTwoShipsHaveMercenariesAndCancelOneThenTheOtherShouldKeepHav
 
 	aMercenaryCard := aShipCards first.
 	anotherMercenaryCard := anotherShipCards first.
-	aCancellationCard := anotherShipCards first.
+	aCancellationCard := anotherShipCards second.
 
 	aGame playCard: aMercenaryCard by: aShip target: yetAnotherShip.
 	aGame throwDice.
 
 	aGame playCard: anotherMercenaryCard by: anotherShip target: aShip.
-	aGame throwDice.
 
+	aGame throwDice.
 	aGame
 		playCard: aCancellationCard
 		by: anotherShip
 		target: aMercenaryCard.
-	self assert: (aGame indexOfCellWith: aShip) equals: 1
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 2.
+		self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 1
 ]
 
 { #category : #tests }

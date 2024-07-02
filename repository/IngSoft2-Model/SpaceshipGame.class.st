@@ -5,9 +5,7 @@ Class {
 		'board',
 		'dice',
 		'ships',
-		'activeCards',
-		'deck',
-		'lastUsedCard'
+		'cardManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -107,14 +105,14 @@ SpaceshipGame >> indexOfCellWith: aShipName [
 { #category : #initialization }
 SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator deck: aDeck [
 
-	deck := aDeck.
-	activeCards := OrderedCollection new.
 	dice := someDice.
 	ships := someShipNames collect: [ :eachShipName |
 		         Ship
 			         named: eachShipName
 			         cards:
-			         (OrderedCollection with: deck drawCard with: deck drawCard) ].
+			         (OrderedCollection
+				          with: aDeck drawCard
+				          with: aDeck drawCard) ].
 	board := Board
 		         withShips: ships
 		         lengthInParsecs: aLengthInParsecs
@@ -122,6 +120,10 @@ SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin usi
 		         wormholeStart: aWormholeStartLocation
 		         wormholeEnd: aWormholeEndLocation
 		         cellGenerator: aCellGenerator.
+	cardManager := CardManager
+		               withShips: ships
+		               withBoard: board
+		               withDeck: aDeck.
 	^ self
 ]
 
@@ -146,23 +148,10 @@ SpaceshipGame >> playCard: aCard by: aShipName [
 { #category : #'as yet unclassified' }
 SpaceshipGame >> playCard: aCard by: aShipName target: aTarget [
 
-	| aShip isShipTurn shipToPlay |
+	| aShip |
 	self verifyIsNotOver.
 	aShip := self shipNamed: aShipName.
-	shipToPlay := ships first.
-	isShipTurn := aShip = shipToPlay.
-	aCard lastCardWas: lastUsedCard.
-	aCard
-		verifyCanBeUsed: isShipTurn
-		withActiveCards: activeCards
-		target: aTarget.
-	aShip
-		useCard: aCard
-		in: board
-		withActiveCards: activeCards
-		withShips: ships
-		withTarget: aTarget.
-	aCard ifWasUsed: [ lastUsedCard := aCard ]
+	cardManager playCard: aCard by: aShip target: aTarget
 ]
 
 { #category : #'as yet unclassified' }
@@ -197,8 +186,7 @@ SpaceshipGame >> throwDice [
 	shipToPlay := ships first.
 	shipToPlay applyTurnPenaltyElse: [
 		diceResult := dice throw.
-		diceModifier := (activeCards collect: [ :card |
-			                 card diceModifierTo: shipToPlay name ]) sumNumbers.
+		diceModifier := cardManager diceModifierTo: shipToPlay.
 		board move: shipToPlay by: diceResult + diceModifier.
 		board applyEffectTo: shipToPlay.
 		board if: shipToPlay isCollidding: [ :actualShip :collidingShip |

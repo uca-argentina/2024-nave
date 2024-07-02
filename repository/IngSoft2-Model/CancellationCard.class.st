@@ -12,6 +12,12 @@ CancellationCard >> useIn: aBoard withActiveCards: someActiveCards withShips: so
 ]
 
 { #category : #'as yet unclassified' }
+CancellationCard >> useWith: aCardManager target: aTargetCard [
+
+	aCardManager removeEffectOf: aTargetCard
+]
+
+{ #category : #'as yet unclassified' }
 CancellationCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: targetCard [
 
 	(someActiveCards anySatisfy: [ :eachCard | eachCard = targetCard ])

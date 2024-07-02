@@ -1,9 +1,6 @@
 Class {
 	#name : #RedoCard,
 	#superclass : #Card,
-	#instVars : [
-		'lastUsedCard'
-	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -27,6 +24,18 @@ RedoCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips 
 		withActiveCards: someActiveCards
 		withShips: someShips
 		target: aTarget
+]
+
+{ #category : #'as yet unclassified' }
+RedoCard >> useWith: aCardManager target: aTarget [
+
+	aCardManager repeatLastCardWithTarget: aTarget
+]
+
+{ #category : #'as yet unclassified' }
+RedoCard >> usedCardWith: lastUsedCard [
+
+	^ lastUsedCard
 ]
 
 { #category : #'as yet unclassified' }

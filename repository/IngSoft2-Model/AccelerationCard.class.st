@@ -15,3 +15,10 @@ AccelerationCard >> useIn: aBoard withActiveCards: someActiveCards withShips: so
 
 	someActiveCards add: self
 ]
+
+{ #category : #'as yet unclassified' }
+AccelerationCard >> useWith: aCardManager target: aTargetShip [
+
+	aCardManager verifyIsCardPlayerTurn.
+	aCardManager addCardEffect: (AllShipsDiceModifier createdBy: self)
+]

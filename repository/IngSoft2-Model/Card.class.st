@@ -34,6 +34,18 @@ Card >> useIn: aBoard withActiveCards: someActiveCards withShips: someShips targ
 ]
 
 { #category : #'as yet unclassified' }
+Card >> useWith: aCardManager target: aTargetShipName [
+
+	aCardManager assignMercenaryShipToCardPlayer: aTargetShipName
+]
+
+{ #category : #'as yet unclassified' }
+Card >> usedCardWith: lastUsedCard [
+
+	^ self
+]
+
+{ #category : #'as yet unclassified' }
 Card >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: aTarget [
 
 	self subclassResponsibility

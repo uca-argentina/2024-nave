@@ -41,6 +41,16 @@ MercenaryCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someS
 ]
 
 { #category : #'as yet unclassified' }
+MercenaryCard >> useWith: aCardManager target: aTargetShipName [
+
+	aCardManager verifyIsCardPlayerTurn.
+	aCardManager verifyMercenaryCollision: aTargetShipName.
+	aCardManager
+		assignMercenaryShipToCardPlayer: aTargetShipName
+		by: self
+]
+
+{ #category : #'as yet unclassified' }
 MercenaryCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: targetShipName [
 
 	super

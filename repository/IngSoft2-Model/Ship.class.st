@@ -80,6 +80,12 @@ Ship >> removeAlly: aMercenaryShip [
 	allies remove: aMercenaryShip ifAbsent: [  ]
 ]
 
+{ #category : #'as yet unclassified' }
+Ship >> removeFromDeck: aCard [
+
+	cards remove: aCard
+]
+
 { #category : #removing }
 Ship >> removeShield [
 

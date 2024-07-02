@@ -11,5 +11,11 @@ RepeatCard >> useIn: aBoard withActiveCards: someActiveCards withShips: someShip
 ]
 
 { #category : #'as yet unclassified' }
+RepeatCard >> useWith: aCardManager target: aTargetShip [
+
+	aCardManager repeatLastCellEffectTo: aTargetShip
+]
+
+{ #category : #'as yet unclassified' }
 RepeatCard >> verifyCanBeUsed: isMyTurn withActiveCards: someActiveCards target: aTarget [
 ]
