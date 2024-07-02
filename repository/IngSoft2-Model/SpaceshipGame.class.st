@@ -96,20 +96,25 @@ SpaceshipGame >> cardsOf: aShipName [
 	^ aShip cards copy
 ]
 
+{ #category : #initialization }
+SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
+
+	| actualShipDiceResult collidingShipDiceResult loserShip |
+	actualShipDiceResult := actualShip throw: dice.
+	collidingShipDiceResult := collidingShip throw: dice.
+
+	loserShip := actualShipDiceResult >= collidingShipDiceResult
+		             ifTrue: [ collidingShip ]
+		             ifFalse: [ actualShip ].
+	loserShip removeShield.
+	board moveToTheStart: loserShip.
+	loserShip allies do: [ :eachAlly | board moveToTheStart: eachAlly ]
+]
+
 { #category : #'as yet unclassified' }
 SpaceshipGame >> handleCollisionBetween: actualShip and: collidingShip [
 
-	| actualShipDiceResult collidingShipDiceResult loserShip |
-	actualShip ifIsNotAlly: collidingShip do: [
-		actualShipDiceResult := actualShip throw: dice.
-		collidingShipDiceResult := collidingShip throw: dice.
-
-		loserShip := actualShipDiceResult >= collidingShipDiceResult
-			             ifTrue: [ collidingShip ]
-			             ifFalse: [ actualShip ].
-		loserShip removeShield.
-		board moveToTheStart: loserShip.
-		loserShip allies do: [ :eachAlly | board moveToTheStart: eachAlly ] ]
+	actualShip checkIfShouldBattleWith: collidingShip in: self
 ]
 
 { #category : #accessing }

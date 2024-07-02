@@ -46,9 +46,13 @@ Ship >> cards [
 ]
 
 { #category : #'as yet unclassified' }
-Ship >> ifIsNotAlly: aShip do: aBlockIfNotAlly [
+Ship >> checkIfShouldBattleWith: aCollidingShip in: aGame [
 
-	((allies includes: aShip) or: (aShip allies includes: self)) ifFalse: [ aBlockIfNotAlly value ]
+	| isAlly |
+	isAlly := (allies includes: aCollidingShip) or:
+		          (aCollidingShip allies includes: self).
+	isAlly ifFalse: [
+		aGame handleBattleBetween: self and: aCollidingShip ]
 ]
 
 { #category : #initialization }
