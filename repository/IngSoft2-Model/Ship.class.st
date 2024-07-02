@@ -81,7 +81,7 @@ Ship >> receive: aCard [
 { #category : #removing }
 Ship >> removeAlly: aMercenaryShip [
 
-	allies remove: aMercenaryShip ifAbsent: [  ]
+	allies remove: aMercenaryShip
 ]
 
 { #category : #'as yet unclassified' }
