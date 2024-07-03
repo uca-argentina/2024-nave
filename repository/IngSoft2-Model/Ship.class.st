@@ -38,7 +38,7 @@ Ship >> name [
 	^ name
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 Ship >> playIn: aGame [
 
 	penalty > 0
@@ -48,32 +48,32 @@ Ship >> playIn: aGame [
 		ifFalse: [ aGame handleMovementOf: self ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'deck logic' }
 Ship >> receive: aCard [
 
 	cards add: aCard
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'deck logic' }
 Ship >> removeFromDeck: aCard [
 
 	cards remove: aCard
 ]
 
-{ #category : #removing }
+{ #category : #'shields logic' }
 Ship >> removeShield [
 
 	shields := shields - 1.
 	shields = 0 ifTrue: [ penalty := 2 ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'shields logic' }
 Ship >> restoreShields [
 
 	shields := 3
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'deck logic' }
 Ship >> verifyHas: aCard [
 
 	(cards includes: aCard) ifFalse: [

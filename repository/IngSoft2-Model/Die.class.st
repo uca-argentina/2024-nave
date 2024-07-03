@@ -21,13 +21,13 @@ Die class >> verifyAreValid: anAmountOfFaces [
 		Error signal: 'number of faces must be greater than two' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 Die >> initializeWith: anAmountOfFaces [
 
 	faces := anAmountOfFaces
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'dice logic' }
 Die >> throw [
 
 	^ faces atRandom

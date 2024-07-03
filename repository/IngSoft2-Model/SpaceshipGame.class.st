@@ -88,7 +88,7 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  deck: aDeck
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceshipGame >> cardsOf: aShipName [
 
 	| aShip |
@@ -96,7 +96,7 @@ SpaceshipGame >> cardsOf: aShipName [
 	^ aShip cards copy
 ]
 
-{ #category : #initialization }
+{ #category : #'turn logic' }
 SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
 
 	| actualShipDiceResult collidingShipDiceResult loserShip loserShipAllies allLosers |
@@ -122,7 +122,7 @@ SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
 		board moveToTheStart: eachLoser ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'turn logic' }
 SpaceshipGame >> handleCollisionBetween: actualShip and: collidingShip [
 
 	cardManager
@@ -131,7 +131,7 @@ SpaceshipGame >> handleCollisionBetween: actualShip and: collidingShip [
 		in: self
 ]
 
-{ #category : #accessing }
+{ #category : #'turn logic' }
 SpaceshipGame >> handleMovementOf: aShip [
 
 	| diceResult diceModifier |
@@ -173,25 +173,25 @@ SpaceshipGame >> initializeWith: someShipNames lapsToWin: aNumberOfLapsToWin usi
 	^ self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceshipGame >> isOver [
 
 	^ board anyShipCompletedAllLaps
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceshipGame >> lapsOf: aShipName [
 
 	^ board lapsOf: (self shipNamed: aShipName)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'game controls' }
 SpaceshipGame >> playCard: aCard by: aShipName [
 
 	self playCard: aCard by: aShipName target: nil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'game controls' }
 SpaceshipGame >> playCard: aCard by: aShipName target: aTarget [
 
 	| aShip |
@@ -200,13 +200,13 @@ SpaceshipGame >> playCard: aCard by: aShipName target: aTarget [
 	cardManager playCard: aCard by: aShip target: aTarget
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceshipGame >> ranking [
 
 	^ board orderedShips collect: [ :ship | ship name ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 SpaceshipGame >> shipNamed: aShipName [
 
 	| aShip |
@@ -214,7 +214,7 @@ SpaceshipGame >> shipNamed: aShipName [
 	^ aShip
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'game controls' }
 SpaceshipGame >> skipsNextTurn [
 
 	| shipToPlay |
@@ -224,7 +224,7 @@ SpaceshipGame >> skipsNextTurn [
 	ships addLast: shipToPlay
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'game controls' }
 SpaceshipGame >> throwDice [
 
 	| shipToPlay  |
@@ -235,19 +235,19 @@ SpaceshipGame >> throwDice [
 	ships addLast: shipToPlay
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 SpaceshipGame >> verifyIsNotOver [
 
 	self isOver ifTrue: [ Error signal: 'game is over!' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 SpaceshipGame >> verifyIsOver [
 
 	self isOver ifFalse: [ Error signal: 'game is not over yet' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceshipGame >> winner [
 
 	self verifyIsOver.

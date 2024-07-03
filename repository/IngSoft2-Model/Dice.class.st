@@ -19,7 +19,7 @@ Dice >> initializeWith: someDice [
 	dice := someDice
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'dice logic' }
 Dice >> throw [
 
 	^ (dice collect: [ :eachDie | eachDie throw ]) sum

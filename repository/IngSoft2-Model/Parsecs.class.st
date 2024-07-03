@@ -19,7 +19,7 @@ Parsecs >> initializeWith: anAmount [
 	amount := anAmount
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #converting }
 Parsecs >> toCellsOf: aBoard [
 
 	^ amount // aBoard parsecsPerCell

@@ -19,7 +19,7 @@ Lightyears >> initializeWith: anAmount [
 	amount := anAmount
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #converting }
 Lightyears >> toCellsOf: aBoard [
 
 	| amountInParsecs |

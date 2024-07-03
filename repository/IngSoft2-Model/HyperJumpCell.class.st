@@ -13,7 +13,7 @@ HyperJumpCell class >> withLengths: aCollectionOfLenghts [
 	^ self new initializeWith: aCollectionOfLenghts
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'cell effect' }
 HyperJumpCell >> applyEffectTo: aShip in: aBoard [
 
 	| anAmountToMove |
