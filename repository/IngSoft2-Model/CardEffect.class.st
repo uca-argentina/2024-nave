@@ -7,31 +7,31 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 CardEffect >> diceModifierTo: aShipName [
 
 	^ 0
 ]
 
-{ #category : #testing }
+{ #category : #'helper methods' }
 CardEffect >> is: actualShip alliedWith: collidingShip [
 
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 CardEffect >> is: aShip mercenaryOf: anotherShip [
 
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 CardEffect >> mercenaryCollideWith: possibleMercenaryName [
 
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 CardEffect >> wasCreatedBy: aCard [
 
 	^ aCard = createdBy

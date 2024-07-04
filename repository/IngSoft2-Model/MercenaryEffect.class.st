@@ -23,20 +23,20 @@ MercenaryEffect >> initializeWith: aCreatedBy from: aFromShip to: aToShip [
 	^ self
 ]
 
-{ #category : #testing }
+{ #category : #'helper methods' }
 MercenaryEffect >> is: aShip alliedWith: anotherShip [
 
 	^ (self is: aShip mercenaryOf: anotherShip) or:
 		  (self is: anotherShip  mercenaryOf: aShip )
 ]
 
-{ #category : #initialization }
+{ #category : #'helper methods' }
 MercenaryEffect >> is: aShip mercenaryOf: anotherShip [
 
 	^ (toShip = anotherShip and: fromShip = aShip)
 ]
 
-{ #category : #initialization }
+{ #category : #'helper methods' }
 MercenaryEffect >> mercenaryCollideWith: possibleMercenaryName [
 
 	^ possibleMercenaryName = toShip name

@@ -13,7 +13,7 @@ OneShipDiceModifier class >> to: aTargetShipName  createdBy: aCard [
 	^ self new initializeWith: aTargetShipName createdBy: aCard
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 OneShipDiceModifier >> diceModifierTo: aShipName [
 
 	^ targetShipName = aShipName

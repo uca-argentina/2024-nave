@@ -4,13 +4,13 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 Card >> useWith: aCardManager target: aTargetShipName [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Card >> usedCardWith: lastUsedCard [
 
 	^ self

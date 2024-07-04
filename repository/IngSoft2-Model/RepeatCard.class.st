@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 RepeatCard >> useWith: aCardManager target: aTargetShip [
 
 	aCardManager repeatLastCellEffectTo: aTargetShip

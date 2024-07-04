@@ -4,13 +4,13 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 RedoCard >> useWith: aCardManager target: aTarget [
 
 	aCardManager repeatLastCardWithTarget: aTarget
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 RedoCard >> usedCardWith: lastUsedCard [
 
 	^ lastUsedCard

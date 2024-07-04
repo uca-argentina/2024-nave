@@ -24,7 +24,7 @@ CardManager >> addCardEffect: aCardEffect [
 	activeCardEffects add: aCardEffect
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 CardManager >> applyBattleModifierTo: aShip using: aDice [
 
 	| shipAllies |
@@ -32,7 +32,7 @@ CardManager >> applyBattleModifierTo: aShip using: aDice [
 	^ (shipAllies collect: [ :ally | aDice throw ]) sumNumbers
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 CardManager >> assignMercenaryShipToCardPlayer: aNewMercenaryName by: aCard [
 
 	| newMercenary |
@@ -46,14 +46,14 @@ CardManager >> assignMercenaryShipToCardPlayer: aNewMercenaryName by: aCard [
 			 to: newMercenary)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 CardManager >> checkIf: actualShip shouldBattleWith: collidingShip in: aGame [
 
 	(self is: actualShip alliedWith: collidingShip) ifFalse: [
 		aGame handleBattleBetween: actualShip and: collidingShip ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 CardManager >> diceModifierTo: aShip [
 
 	^ (activeCardEffects collect: [ :eachCardEffect |
@@ -86,13 +86,13 @@ CardManager >> is: aShip mercenaryOf: anotherShip [
 		  eachEffect is: aShip mercenaryOf: anotherShip ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CardManager >> mercenariesOf: aShip [
 
 	^ ships select: [ :eachShip | self is: aShip mercenaryOf: eachShip ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card control' }
 CardManager >> playCard: aCard by: aShip target: aTarget [
 
 	actualShipPlayingCard := aShip.
@@ -114,7 +114,7 @@ CardManager >> removeEffectOf: aCard [
 	activeCardEffects remove: effectToRemove
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card control' }
 CardManager >> repeatLastCardWithTarget: aTarget [
 
 	| cardToUse |
@@ -123,13 +123,13 @@ CardManager >> repeatLastCardWithTarget: aTarget [
 	self playCard: cardToUse by: actualShipPlayingCard target: aTarget
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'cell effect' }
 CardManager >> repeatLastCellEffectTo: aShipName [
 
 	board applyLastEffectTo: aShipName
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 CardManager >> verifyIsCardPlayerTurn [
 	
 	| currentTurnShip |

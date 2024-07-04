@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 SpeedCard >> useWith: aCardManager target: aTargetShip [
 
 	aCardManager verifyIsCardPlayerTurn.

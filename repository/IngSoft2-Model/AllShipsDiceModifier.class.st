@@ -10,7 +10,7 @@ AllShipsDiceModifier class >> createdBy: aCard [
 	^ self new initializeWith: aCard
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 AllShipsDiceModifier >> diceModifierTo: aShipName [
 
 	^ 1

@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effect' }
 CancellationCard >> useWith: aCardManager target: aTargetCard [
 
 	aCardManager removeEffectOf: aTargetCard
