@@ -29,6 +29,48 @@ GameTest >> testARandomMatchEnds [
 ]
 
 { #category : #tests }
+GameTest >> testIfAShipCrossesTheLineToWinTheGameBecauseOfARepeatCardItShouldWin [
+	| aShip aGame someShips someDice anotherShip deck cardsToDraw aRepeatCard someCells |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: AccelerationCard new.
+
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: HyperSpaceJumpCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 1
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 1
+		         wormholeEnd: 4
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame cardsOf: aShip.
+	aRepeatCard := deck first.
+	aGame throwDice.
+	aGame playCard: aRepeatCard by: aShip target: aShip.
+	self assert: (aGame winner) equals: aShip
+]
+
+{ #category : #tests }
 GameTest >> testIfAShipPlaysAInstantCardAndItsNotItsTurnShouldApplyEffect [
 
 	| aShip aGame someShips someDice cardsToDraw anotherShip anAccelerationCard aCancellationCard shipCards anotherShipCards |
