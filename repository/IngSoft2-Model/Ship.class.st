@@ -10,7 +10,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Ship class >> named: aShipName cards: someCards [
 
 	^ self new initializeWith: aShipName cards: someCards

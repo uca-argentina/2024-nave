@@ -12,7 +12,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 CardManager class >> withShips: someShips withBoard: aBoard withDeck: aDeck [
 
 	^ self new initializeWith: someShips withBoard: aBoard withDeck: aDeck

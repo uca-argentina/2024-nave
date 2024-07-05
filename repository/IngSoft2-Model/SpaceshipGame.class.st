@@ -10,7 +10,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs [
 
 	| defaultCellGenerator defaultDeck defaultProbabilities |
@@ -57,7 +57,7 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  deck: defaultDeck
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator [
 	| defaultDeck |
 	defaultDeck := Deck new.
@@ -73,7 +73,7 @@ SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: some
 		  deck: defaultDeck 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 SpaceshipGame class >> with: someShips lapsToWin: aNumberOfLapsToWin using: someDice withCells: anAmountOfCells wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation lengthInParsecs: aLengthInParsecs cellGenerator: aCellGenerator deck: aDeck [
 
 	^ self new

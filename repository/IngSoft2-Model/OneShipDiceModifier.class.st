@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 OneShipDiceModifier class >> to: aTargetShipName  createdBy: aCard [
 
 	^ self new initializeWith: aTargetShipName createdBy: aCard

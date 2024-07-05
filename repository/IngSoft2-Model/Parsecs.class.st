@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 Parsecs class >> amount: anAmount [
 
 	^ self new initializeWith: anAmount

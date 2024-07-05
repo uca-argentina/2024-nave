@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 AllShipsDiceModifier class >> createdBy: aCard [
 
 	^ self new initializeWith: aCard

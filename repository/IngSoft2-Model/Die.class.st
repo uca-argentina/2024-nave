@@ -7,14 +7,14 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #'as yet unclassified' }
 Die class >> of: anAmountOfFaces [
 
 	self verifyAreValid: anAmountOfFaces.
 	^ self new initializeWith: anAmountOfFaces
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'helper methods' }
 Die class >> verifyAreValid: anAmountOfFaces [
 
 	anAmountOfFaces <= 2 ifTrue: [
