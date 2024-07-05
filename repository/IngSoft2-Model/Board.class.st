@@ -73,6 +73,8 @@ Board >> indexOfCellWith: aShip [
 { #category : #initialization }
 Board >> initializeWith: someShips lengthInParsecs: aLengthInParsecs lapsToWin: aNumberOfLapsToWin wormholeStart: aWormholeStartLocation wormholeEnd: aWormholeEndLocation cellGenerator: aCellGenerator [
 
+	aWormholeStartLocation = aWormholeEndLocation ifTrue: [
+		Error signal: 'wormhole cannot start and end in the same cell!' ].
 	lastCellEffectUsed := NormalCell new.
 	lengthInParsecs := aLengthInParsecs.
 	lapsToWin := aNumberOfLapsToWin.

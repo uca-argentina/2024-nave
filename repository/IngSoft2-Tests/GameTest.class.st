@@ -142,6 +142,35 @@ GameTest >> testIfAShipPlaysAPermanentCardAndItsNotItsTurnShouldThrowAnError [
 ]
 
 { #category : #tests }
+GameTest >> testIfAWormholeStartsAndEndsInTheSameCellItShouldThrowAnError [
+
+	| aShip aGame someShips someDice cardsToDraw |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 2 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: RepeatCard new
+		               with: AccelerationCard new.
+	self
+		should: [
+			aGame := SpaceshipGame
+				         with: someShips
+				         lapsToWin: 1
+				         using: someDice
+				         withCells: 10
+				         wormholeStart: 1
+				         wormholeEnd: 1
+				         lengthInParsecs: 100
+				         cellGenerator:
+				         (FixedCellGenerator allNormalCellsWith: 10)
+				         deck: (LoadedDeck cards: cardsToDraw) ]
+		raise: Error
+		withMessage: 'wormhole cannot start and end in the same cell!'
+]
+
+{ #category : #tests }
 GameTest >> testIfGameIsNotOverThenWinnerShouldThrowError [
 
 	| aShip someShips aGame someDice anotherShip |
